@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import type { MetaFunction } from "@remix-run/node";
-import Button from '@mui/material/Button'
+import Button from "@mui/material/Button";
 
 export const meta: MetaFunction = () => {
   return [
