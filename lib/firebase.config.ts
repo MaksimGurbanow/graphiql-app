@@ -13,9 +13,9 @@ export const firebaseConfig = {
   appId: "1:610480243273:web:3c7a078150f4bd0c7af598",
   measurementId: "G-7MJEXL5Q7J"
 };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
 
-
-export const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
-export const auth = getAuth(app);
+const analytics = app.name && typeof window !== 'undefined' ? getAnalytics(app) : null;
+export { app, auth, analytics };
 export const db = getFirestore(app);
