@@ -1,5 +1,5 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import './login.css';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import "./login.css";
 import {
   Alert,
   FormControl,
@@ -9,13 +9,13 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
-} from '@mui/material';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { validationSchema } from '~/utils/validationSchema';
-import { LoadingButton } from '@mui/lab';
-import signIn from '~/utils/signIn';
+} from "@mui/material";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationSchema } from "~/utils/validationSchema";
+import { LoadingButton } from "@mui/lab";
+import signIn from "~/utils/signIn";
 
 interface IRegisterForm {
   email: string;
@@ -28,14 +28,13 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IRegisterForm>({
-    mode: 'onChange',
+    mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [signInError, setSignInError] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -47,6 +46,7 @@ const Login = () => {
     console.log(data);
     signIn(data.email, data.password)
       .then((data) => {
+        localStorage.setItem("token", JSON.stringify(data.user.refreshToken));
         setLoading(false);
         const user = data;
         setSignInError(false);
@@ -64,24 +64,24 @@ const Login = () => {
         <TextField
           id="outlined-uncontrolled"
           label="E-mail"
-          {...register('email')}
+          {...register("email")}
         />
-        <div style={{ height: '20px', marginTop: '-15px', marginLeft: '10px' }}>
+        <div style={{ height: "20px", marginTop: "-15px", marginLeft: "10px" }}>
           <FormHelperText id="outlined-weight-helper-text">
             {errors.email ? errors.email.message : null}
           </FormHelperText>
         </div>
         <FormControl
-          sx={{ m: 1, width: '25ch' }}
+          sx={{ m: 1, width: "25ch" }}
           variant="outlined"
-          style={{ width: '100%', margin: '0' }}
+          style={{ width: "100%", margin: "0" }}
         >
           <InputLabel htmlFor="outlined-adornment-password">
             Password
           </InputLabel>
           <OutlinedInput
             id="outlined-adornment-password"
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -95,9 +95,9 @@ const Login = () => {
               </InputAdornment>
             }
             label="Password"
-            {...register('password')}
+            {...register("password")}
           />
-          <div style={{ height: '20px' }}>
+          <div style={{ height: "20px" }}>
             <FormHelperText id="outlined-weight-helper-text">
               {errors.password ? errors.password.message : null}
             </FormHelperText>
@@ -111,7 +111,7 @@ const Login = () => {
         >
           <span>Login</span>
         </LoadingButton>
-        <div style={{ height: '40px' }}>
+        <div style={{ height: "40px" }}>
           {signInError && (
             <Alert variant="filled" severity="error">
               {signInError}

@@ -27,9 +27,9 @@
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.52.2",
     "yup": "^1.4.0"
-    "react-firebase-hooks": "^5.1.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.11.2",
@@ -47,6 +47,7 @@
     "husky": "^9.1.4",
     "lint-staged": "^15.2.9",
     "postcss": "^8.4.38",
+    "sass-embedded": "^1.77.8",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
