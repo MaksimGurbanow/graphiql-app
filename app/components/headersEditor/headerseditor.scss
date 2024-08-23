@@ -1,0 +1,15 @@
+.headers-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  &-factory {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.customHeader {
+  display: none;
+}
