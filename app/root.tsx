@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Links,
   Meta,
@@ -8,6 +9,12 @@ import {
 import "./App.scss";
 import "./index.scss";
 import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import { useContext } from "react";
+import {
+  IsLogedInContext,
+  IsLogInContextProvider,
+} from "./context/loginContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -23,10 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div id="root">
-          <Header></Header>
-          {children}
-        </div>
+        <div id="root">{children}</div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -35,5 +39,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const isLogin = useContext(IsLogedInContext);
+  return (
+    <IsLogInContextProvider>
+      <div className="page">
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
+    </IsLogInContextProvider>
+  );
 }

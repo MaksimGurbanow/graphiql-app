@@ -17,6 +17,7 @@ import { validationSchema } from "~/utils/validationSchema";
 import { LoadingButton } from "@mui/lab";
 import signUp from "~/utils/signUp";
 import PasswordStrengthMeter from "~/components/passwordStrength/PasswordStrength";
+import { useNavigate } from "@remix-run/react";
 
 interface IRegisterForm {
   email: string;
@@ -24,6 +25,7 @@ interface IRegisterForm {
 }
 
 const Registration = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -51,11 +53,12 @@ const Registration = () => {
     console.log(data);
     signUp(data.email, data.password)
       .then((data) => {
-        localStorage.setItem("token", `${data.user.refreshToken}`);
-        setLoading(false);
-        const user = data;
-        setSignUpError(false);
-        console.log(user);
+        data.user.getIdToken().then((token) => {
+          setLoading(false);
+          setSignUpError(false);
+          localStorage.setItem("token", JSON.stringify(token));
+          navigate("/");
+        });
       })
       .catch((error) => {
         setLoading(false);
@@ -64,73 +67,82 @@ const Registration = () => {
       });
   };
   return (
-    <section className="register">
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <h1 className="form__heading">Register</h1>
-        <TextField
-          id="outlined-uncontrolled"
-          label="E-mail"
-          {...register("email")}
-        />
-        <div style={{ height: "20px", marginTop: "-15px", marginLeft: "10px" }}>
-          <FormHelperText id="outlined-weight-helper-text">
-            {errors.email ? errors.email.message : null}
-          </FormHelperText>
-        </div>
-        <FormControl
-          sx={{ m: 1, width: "25ch" }}
-          variant="outlined"
-          style={{ width: "100%", margin: "0" }}
-        >
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-            {...register("password", {
-              onChange: (e) => setPassword(e.target.value),
-            })}
-            onFocus={() => setShowPasswordStrength(true)}
+    <div>
+      {/* <Header /> */}
+      <section className="register">
+        <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <h1 className="form__heading">Sign Up</h1>
+          <TextField
+            id="outlined-uncontrolled"
+            label="E-mail"
+            {...register("email")}
           />
-          <div style={{ height: "20px" }}>
+          <div
+            style={{ height: "20px", marginTop: "-15px", marginLeft: "10px" }}
+          >
             <FormHelperText id="outlined-weight-helper-text">
-              {errors.password ? errors.password.message : null}
+              {errors.email ? errors.email.message : null}
             </FormHelperText>
           </div>
-        </FormControl>
-        <div style={{ height: "42px" }}>
-          {showPasswordStrength && (
-            <div
-              style={{
-                visibility: !showPasswordStrength ? "hidden" : "visible",
-              }}
-            >
-              <PasswordStrengthMeter password={password} />
+          <FormControl
+            sx={{ m: 1, width: "25ch" }}
+            variant="outlined"
+            style={{ width: "100%", margin: "0" }}
+          >
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-password"
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+              {...register("password", {
+                onChange: (e) => setPassword(e.target.value),
+              })}
+              onFocus={() => setShowPasswordStrength(true)}
+            />
+            <div style={{ height: "20px" }}>
+              <FormHelperText id="outlined-weight-helper-text">
+                {errors.password ? errors.password.message : null}
+              </FormHelperText>
             </div>
-          )}
-        </div>
-        <LoadingButton
-          size="small"
-          loading={loading}
-          variant="outlined"
-          type="submit"
-        >
-          <span>Register</span>
-        </LoadingButton>
+          </FormControl>
+          <div style={{ height: "42px" }}>
+            {showPasswordStrength && (
+              <div
+                style={{
+                  visibility: !showPasswordStrength ? "hidden" : "visible",
+                }}
+              >
+                <PasswordStrengthMeter password={password} />
+              </div>
+            )}
+          </div>
+          <LoadingButton
+            size="small"
+            loading={loading}
+            variant="outlined"
+            type="submit"
+          >
+            <span>Sign Up</span>
+          </LoadingButton>
+          <a href="/login" className="form__link">
+            Have an account?{" "}
+            <span style={{ textDecoration: "underline" }}>Sign In</span>
+          </a>
+        </form>
         <div style={{ height: "40px" }}>
           {signUpError && (
             <Alert variant="filled" severity="error">
@@ -138,8 +150,9 @@ const Registration = () => {
             </Alert>
           )}
         </div>
-      </form>
-    </section>
+      </section>
+      {/* <Footer /> */}
+    </div>
   );
 };
 

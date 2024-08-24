@@ -10,15 +10,23 @@
 .form__heading {
   font-size: 24px;
   text-align: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;  
 }
 
 .register {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100%; */
+  gap: 15px;
 }
 
-body {
-  min-height: 100vh;
+.form__link {
+  text-decoration: none;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.02857em;
+  color: #1976d2;
 }

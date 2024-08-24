@@ -16,7 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "~/utils/validationSchema";
 import { LoadingButton } from "@mui/lab";
 import signIn from "~/utils/signIn";
-
+import { useNavigate } from "@remix-run/react";
 interface IRegisterForm {
   email: string;
   password: string;
@@ -35,6 +35,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signInError, setSignInError] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const navigate = useNavigate();
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -46,11 +47,12 @@ const Login = () => {
     console.log(data);
     signIn(data.email, data.password)
       .then((data) => {
-        localStorage.setItem("token", JSON.stringify(data.user.refreshToken));
-        setLoading(false);
-        const user = data;
-        setSignInError(false);
-        console.log(user);
+        data.user.getIdToken().then((token) => {
+          setLoading(false);
+          setSignInError(false);
+          localStorage.setItem("token", JSON.stringify(token));
+          navigate("/");
+        });
       })
       .catch((error) => {
         setLoading(false);
@@ -58,9 +60,9 @@ const Login = () => {
       });
   };
   return (
-    <section className="register">
+    <section className="login">
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <h1 className="form__heading">Login</h1>
+        <h1 className="form__heading">Sign In</h1>
         <TextField
           id="outlined-uncontrolled"
           label="E-mail"
@@ -109,16 +111,20 @@ const Login = () => {
           variant="outlined"
           type="submit"
         >
-          <span>Login</span>
+          <span>Sign In</span>
         </LoadingButton>
-        <div style={{ height: "40px" }}>
-          {signInError && (
-            <Alert variant="filled" severity="error">
-              {signInError}
-            </Alert>
-          )}
-        </div>
+        <a href="/registration" className="form__link">
+          Don&apos;t have an account?{" "}
+          <span style={{ textDecoration: "underline" }}>Sign Up</span>
+        </a>
       </form>
+      <div style={{ height: "40px" }}>
+        {signInError && (
+          <Alert variant="filled" severity="error">
+            {signInError}
+          </Alert>
+        )}
+      </div>
     </section>
   );
 };
