@@ -1,5 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import "./headerseditor.scss";
+import classes from "./headersEditor.module.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Dispatch, SetStateAction } from "react";
 import { IHeader } from "~/types/types";
@@ -39,7 +39,7 @@ const HeadersEditor = ({ headers, setHeaders }: HeadersEditorProps) => {
     return newArray;
   };
   return (
-    <Box className="headers-editor">
+    <Box className={classes.headersEditor}>
       <Container
         sx={{
           flexDirection: "row",

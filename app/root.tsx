@@ -7,6 +7,7 @@ import {
 } from "@remix-run/react";
 import "./App.scss";
 import "./index.scss";
+import { Suspense } from "react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -22,7 +23,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div id="root">{children}</div>
+        <div id="root">
+          <Suspense>{children}</Suspense>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
