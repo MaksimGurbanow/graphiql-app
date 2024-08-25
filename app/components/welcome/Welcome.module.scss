@@ -28,7 +28,7 @@
     white-space: normal;
     font-size: 1.5em;
     font-weight: 700;
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'Roboto', sans-serif;
   }
 }
 
@@ -45,7 +45,8 @@
 }
 
 .schoolInfo {
-  font-size: 2em;
+  font-size: 1.5em;
+  font-weight: 700;
   margin-top: 40px;
   margin-bottom: 20px;
   text-align: center;
@@ -54,7 +55,7 @@
   white-space: normal;
   max-width: 100%;
   font-family: 'Roboto', sans-serif;
-}
+  }
 
 .teamSection {
   display: flex;
