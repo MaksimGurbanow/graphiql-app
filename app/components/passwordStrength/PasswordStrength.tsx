@@ -1,9 +1,9 @@
 const PasswordStrengthMeter = (props: { password: string }) => {
   const { password } = props;
-  const atLeastOneUppercase = /[A-Z]/g; 
-  const atLeastOneLowercase = /[a-z]/g; 
-  const atLeastOneNumeric = /[0-9]/g; 
-  const atLeastOneSpecialChar = /[#?!@$%^&*-]/g; 
+  const atLeastOneUppercase = /[A-Z]/g;
+  const atLeastOneLowercase = /[a-z]/g;
+  const atLeastOneNumeric = /[0-9]/g;
+  const atLeastOneSpecialChar = /[#?!@$%^&*-]/g;
   const eightCharsOrMore = /.{8,}/g; // eight characters or more
 
   const passwordTracker = {
@@ -15,7 +15,7 @@ const PasswordStrengthMeter = (props: { password: string }) => {
   };
 
   const passwordStrength = Object.values(passwordTracker).filter(
-    (value) => value,
+    (value) => value
   ).length;
   return (
     <div>
@@ -44,9 +44,9 @@ const PasswordStrengthMeter = (props: { password: string }) => {
           .password-strength::before {
             content: "";
             background-color: ${
-              ['red', 'orange', '#03a2cc', '#03a2cc', '#0ce052'][
+              ["red", "orange", "#03a2cc", "#03a2cc", "#0ce052"][
                 passwordStrength - 1
-              ] || ''
+              ] || ""
             };
             height: 100%;
             width: ${(passwordStrength / 5) * 100}%;

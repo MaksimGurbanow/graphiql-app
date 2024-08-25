@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Links,
   Meta,
@@ -7,6 +8,10 @@ import {
 } from "@remix-run/react";
 import "./App.scss";
 import "./index.scss";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import { useContext, useEffect } from "react";
+import { IsLogInContextProvider } from "./context/loginContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -31,5 +36,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  // const isLogin = useContext(IsLogedInContext);
+  return (
+    <IsLogInContextProvider>
+      <div className="page">
+        <Header />
+        <Outlet />
+        <Footer />
+      </div>
+    </IsLogInContextProvider>
+  );
 }
