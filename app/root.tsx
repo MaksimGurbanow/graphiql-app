@@ -10,11 +10,8 @@ import "./App.scss";
 import "./index.scss";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import { useContext } from "react";
-import {
-  IsLogedInContext,
-  IsLogInContextProvider,
-} from "./context/loginContext";
+import { useContext, useEffect } from "react";
+import { IsLogInContextProvider } from "./context/loginContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const isLogin = useContext(IsLogedInContext);
+  // const isLogin = useContext(IsLogedInContext);
   return (
     <IsLogInContextProvider>
       <div className="page">

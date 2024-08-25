@@ -36,6 +36,7 @@ const Header = () => {
           onChange={handleChange}
           aria-label="Language"
           style={{ border: "1px solid #1976d2" }}
+          size="small"
         >
           <ToggleButton value="EN" aria-label="EN">
             <span>EN</span>
