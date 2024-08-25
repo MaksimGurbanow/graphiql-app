@@ -1,11 +1,7 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
+#root {
   display: flex;
   width: 100vw;
   min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }

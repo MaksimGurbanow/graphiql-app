@@ -16,7 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { validationSchema } from '~/utils/validationSchema';
 import { LoadingButton } from '@mui/lab';
 import signUp from '~/utils/signUp';
-import PasswordStrengthMeter from '~/components/PasswordStrength';
+import PasswordStrengthMeter from '~/components/passwordStrength/PasswordStrength';
 
 interface IRegisterForm {
   email: string;
