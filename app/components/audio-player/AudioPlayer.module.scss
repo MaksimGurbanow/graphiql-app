@@ -1,4 +1,4 @@
-.audio-controls {
+.audioControls {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,7 +11,7 @@
     margin: 0 auto 20px auto;
 }
 
-.play-pause-button {
+.playPauseButton {
     background: none;
     border: none;
     color: #ecf0f1;
@@ -24,24 +24,24 @@
     }
 }
 
-.volume-control {
+.volumeControl {
     display: flex;
     align-items: center;
     margin-left: 15px;
+}
 
-    .volume-icon {
-        color: #ecf0f1;
-        font-size: 24px;
-        margin-right: 10px;
-        transition: color 0.3s ease;
+.volumeIcon {
+    color: #ecf0f1;
+    font-size: 24px;
+    margin-right: 10px;
+    transition: color 0.3s ease;
 
-        &:hover {
-            color: #1abc9c;
-        }
+    &:hover {
+        color: #1abc9c;
     }
 }
 
-.volume-control input[type="range"] {
+.volumeControl input[type="range"] {
     width: 100px;
     margin-left: 10px;
     cursor: pointer;

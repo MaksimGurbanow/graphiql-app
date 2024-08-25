@@ -1,4 +1,4 @@
-.about-us-container {
+.aboutUsContainer {
   text-align: center;
   max-width: 1200px;
   margin: 0 auto;
@@ -13,14 +13,14 @@
   font-size: 2.8em;
 }
 
-.audio-block {
+.audioBlock {
   display: flex;
   justify-content: start;
   margin-bottom: 20px;
   text-align: left;
   flex-wrap: wrap;
 
-  .audio-heading {
+  .audioHeading {
     margin-bottom: 10px;
     max-width: 100%;
     width: 100%;
@@ -32,19 +32,19 @@
   }
 }
 
-.audio-player-container {
+.audioPlayerContainer {
   display: inline-block;
   margin-top: 10px;
 }
 
-.bottom-text-and-logo {
+.bottomTextAndLogo {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.school-info {
+.schoolInfo {
   font-size: 2em;
   margin-top: 40px;
   margin-bottom: 20px;
@@ -56,7 +56,7 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.team-section {
+.teamSection {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -64,7 +64,7 @@
   width: auto;
 }
 
-.team-member {
+.teamMember {
   width: 30%;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -81,11 +81,11 @@
   justify-content: space-between;
 }
 
-.team-member p {
+.teamMember p {
   font-family: 'Roboto', sans-serif;
 }
 
-.team-member:hover {
+.teamMember:hover {
   transform: rotate(-3deg);
   animation: wobble 0.9s ease-in-out infinite;
 }
@@ -99,7 +99,7 @@
   }
 }
 
-.team-member-photo {
+.teamMemberPhoto {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -108,11 +108,11 @@
   margin: 0 auto 15px;
 }
 
-.team-member h2, .team-member h3 {
+.teamMember h2, .teamMember h3 {
   margin: 10px 0;
 }
 
-.team-member button {
+.teamMember button {
   padding: 10px 20px;
   font-size: 1em;
   color: #fff;
@@ -125,23 +125,23 @@
   text-transform: none;
 }
 
-.team-member button:hover {
+.teamMember button:hover {
   background-color: #333;
 }
-.team-member p {
+.teamMember p {
   font-size: 1em;
   flex-grow: 1;
 }
-.rs-school-logo {
+.rsSchoolLogo {
   margin-top: 50px;
 }
 
-.rs-school-logo img {
+.rsSchoolLogo img {
   width: 200px;
   transition: transform 0.3s;
 }
 
-.rs-school-logo img:hover {
+.rsSchoolLogo img:hover {
   transform: scale(1.1);
 }
 
@@ -149,30 +149,30 @@
   filter: invert(1);
 }
 
-.github-button-container {
+.githubButtonContainer {
   font-family: 'Roboto', sans-serif;
 }
 
 @media (max-width: 768px) {
-  .audio-block {
+  .audioBlock {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .audio-heading {
+  .audioHeading {
     max-width: 100%;
     word-wrap: break-word;
   }
 
-  .audio-player-container {
+  .audioPlayerContainer {
     display: flex;
     justify-content: center;
     margin-top: 10px;
   }
 
-  .team-section {
+  .teamSection {
     flex-direction: column;
     align-items: center;
     margin: 20px auto;
@@ -180,7 +180,7 @@
     padding: 0 20px;
   }
 
-  .team-member {
+  .teamMember {
     width: 50%;
     max-width: 420px;
     border: 1px solid #ccc;
@@ -191,11 +191,11 @@
     margin: 0 auto;
   }
 
-  .rs-school-logo img {
+  .rsSchoolLogo img {
     width: 150px;
   }
 
-  .school-info {
+  .schoolInfo {
     max-width: 400px !important;
     word-wrap: break-word;
     white-space: normal;
@@ -204,21 +204,21 @@
 }
 
 @media (max-width: 480px) {
-  .audio-heading {
+  .audioHeading {
     max-width: 300px !important;
   }
 
-  .school-info {
+  .schoolInfo {
     max-width: 280px !important;
     font-size: 1em;
   }
 }
 
-.team-member {
+.teamMember {
   transition: transform 0.3s ease-in-out;
 }
 
-.team-member.animate {
+.teamMember.animate {
   animation: bounce 1s ease-in-out infinite alternate;
 }
 
@@ -240,7 +240,7 @@
   }
 }
 
-.team-member.animate {
+.teamMember.animate {
   animation: slide-left 0.5s alternate infinite;
 }
 

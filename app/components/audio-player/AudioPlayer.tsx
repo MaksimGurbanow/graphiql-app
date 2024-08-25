@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { FaPlay, FaPause, FaVolumeUp } from 'react-icons/fa';
-import './AudioPlayer.scss';
+import styles from './AudioPlayer.module.scss';
 import PropTypes from 'prop-types';
 
 const AudioPlayer = ({ src, onPlay, onPause }) => {
@@ -29,15 +29,15 @@ const AudioPlayer = ({ src, onPlay, onPause }) => {
     };
 
     return (
-        <div className="audio-controls">
+        <div className={styles.audioControls}>
             <audio ref={audioRef} src={src} loop>
                 <track kind="captions" srcLang="en" label="English captions"/>
             </audio>
-            <button onClick={togglePlayPause} className="play-pause-button">
+            <button onClick={togglePlayPause} className={styles.playPauseButton}>
                 {isPlaying ? <FaPause/> : <FaPlay/>}
             </button>
-            <div className="volume-control">
-                <FaVolumeUp className="volume-icon"/>
+            <div className={styles.volumeControl}>
+                <FaVolumeUp className={styles.volumeIcon}/>
                 <input
                     type="range"
                     min="0"

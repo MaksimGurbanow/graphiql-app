@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import './Swiper.scss';
+import styles from './Swiper.module.scss';
 
 const Swiper = ({ children }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -14,17 +14,17 @@ const Swiper = ({ children }) => {
     };
 
     return (
-        <div className="swiper-container">
+        <div className={styles.swiperContainer}>
             <div
-                className="swiper-wrapper"
+                className={styles.swiperWrapper}
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
                 {React.Children.map(children, (child) => (
-                    <div className="swiper-slide">{child}</div>
+                    <div className={styles.swiperSlide}>{child}</div>
                 ))}
             </div>
             <button
-                className="swiper-button prev"
+                className={`${styles.swiperButton} ${styles.prev}`}
                 onClick={prevSlide}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -36,7 +36,7 @@ const Swiper = ({ children }) => {
                 &#10094;
             </button>
             <button
-                className="swiper-button next"
+                className={`${styles.swiperButton} ${styles.next}`}
                 onClick={nextSlide}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -47,11 +47,11 @@ const Swiper = ({ children }) => {
             >
                 &#10095;
             </button>
-            <div className="swiper-pagination">
+            <div className={styles.swiperPagination}>
                 {React.Children.map(children, (_, index) => (
                     <span
                         key={index}
-                        className={`swiper-pagination-dot ${index === currentSlide ? 'active' : ''}`}
+                        className={`${styles.swiperPaginationDot} ${index === currentSlide ? styles.active : ''}`}
                         onClick={() => setCurrentSlide(index)}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {

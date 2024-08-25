@@ -4,7 +4,7 @@ import RS_SCHOOL_LOGO from '../../../public/assets/icons_and_logos/rs_school.svg
 import EP_PHOTO from '../../../public/assets/photoes/EP.jpg';
 import MG_PHOTO from '../../../public/assets/photoes/MG.png';
 import DN_PHOTO from '../../../public/assets/photoes/DN.jpg';
-import './Welcome.scss';
+import styles from './Welcome.module.scss';
 import Swiper from '../swiper/Swiper';
 import Button from '@mui/material/Button';
 
@@ -60,13 +60,13 @@ const Welcome = () => {
     };
 
     return (
-        <div className="about-us-container">
-            <h1 className={`welcomeTitle ${isAnimating ? 'animate' : ''}`}>React Group</h1>
-            <div className="audio-block">
+        <div className={styles.aboutUsContainer}>
+            <h1 className={`${styles.welcomeTitle} ${isAnimating ? styles.animate : ''}`}>React Group</h1>
+            <div className={styles.audioBlock}>
                 <div>
-                    <h2 className="audio-heading">Готовься к собесам вместе с нами!</h2>
-                    <div className="audio-player-container">
-                        <AudioPlayer src="/assets/audio/Track.mp3" onPlay={handlePlay} onPause={handlePause} />
+                    <h2 className={styles.audioHeading}>Готовься к собесам вместе с нами!</h2>
+                    <div className={styles.audioPlayerContainer}>
+                        <AudioPlayer src="/assets/audio/Track.mp3" onPlay={handlePlay} onPause={handlePause}/>
                     </div>
                 </div>
             </div>
@@ -74,18 +74,18 @@ const Welcome = () => {
             {isMobileView ? (
                 <Swiper>
                     {teamMembers.map((member) => (
-                        <div key={member.name} className={`team-member ${isAnimating ? 'animate' : ''}`}>
+                        <div key={member.name} className={`${styles.teamMember} ${isAnimating ? styles.animate : ''}`}>
                             <img
                                 src={member.photo}
                                 alt={`Фото ${member.name}`}
-                                className="team-member-photo"
+                                className={styles.teamMemberPhoto}
                             />
                             <h2>{member.name}</h2>
                             <h3>{member.role}</h3>
                             <p>{member.bio}</p>
-                            <div className="github-button-container">
+                            <div className={styles.githubButtonContainer}>
                                 <a href={member.github} target="_blank" rel="noopener noreferrer">
-                                    <Button variant="contained" color="primary" sx={{ textTransform: 'none' }}>
+                                    <Button variant="contained" color="primary" sx={{textTransform: 'none'}}>
                                         GitHub профиль
                                     </Button>
                                 </a>
@@ -94,20 +94,20 @@ const Welcome = () => {
                     ))}
                 </Swiper>
             ) : (
-                <div className="team-section">
+                <div className={styles.teamSection}>
                     {teamMembers.map((member) => (
-                        <div key={member.name} className={`team-member ${isAnimating ? 'animate' : ''}`}>
+                        <div key={member.name} className={`${styles.teamMember} ${isAnimating ? styles.animate : ''}`}>
                             <img
                                 src={member.photo}
                                 alt={`Фото ${member.name}`}
-                                className="team-member-photo"
+                                className={styles.teamMemberPhoto}
                             />
                             <h2>{member.name}</h2>
                             <h3>{member.role}</h3>
                             <p>{member.bio}</p>
-                            <div className="github-button-container">
+                            <div className={styles.githubButtonContainer}>
                                 <a href={member.github} target="_blank" rel="noopener noreferrer">
-                                    <Button variant="contained" color="primary" sx={{ textTransform: 'none' }}>
+                                    <Button variant="contained" color="primary" sx={{textTransform: 'none'}}>
                                         GitHub профиль
                                     </Button>
                                 </a>
@@ -116,9 +116,9 @@ const Welcome = () => {
                     ))}
                 </div>
             )}
-            <div className="bottom-text-and-logo">
-                <p className="school-info">Мы являемся студентами курса по веб-разработке в RS School.</p>
-                <div className="rs-school-logo">
+            <div className={styles.bottomTextAndLogo}>
+                <p className={styles.schoolInfo}>Мы являемся студентами курса по веб-разработке в RS School.</p>
+                <div className={styles.rsSchoolLogo}>
                     <a href={RS_SCHOOL_URL} target="_blank" rel="noopener noreferrer">
                         <img src={RS_SCHOOL_LOGO_URL} alt="RS School Logo"/>
                     </a>

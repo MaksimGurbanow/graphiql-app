@@ -1,20 +1,20 @@
-.swiper-container {
+.swiperContainer {
     position: relative;
     width: 100%;
     overflow: hidden;
 }
 
-.swiper-wrapper {
+.swiperWrapper {
     display: flex;
     transition: transform 0.5s ease-in-out;
 }
 
-.swiper-slide {
+.swiperSlide {
     min-width: 100%;
     box-sizing: border-box;
 }
 
-.swiper-button {
+.swiperButton {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -25,27 +25,25 @@
     cursor: pointer;
     font-size: 32px;
     z-index: 100;
-
 }
 
-.swiper-button.prev {
+.swiperButton.prev {
     left: 100px;
 }
 
-.swiper-button.next {
+.swiperButton.next {
     right: 100px;
 }
 
-.swiper-pagination {
+.swiperPagination {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-  background-color: white;
-
+    background-color: white;
 }
 
-.swiper-pagination-dot {
+.swiperPaginationDot {
     width: 20px;
     height: 20px;
     background-color: lightgray;
@@ -55,25 +53,24 @@
     transition: background-color 0.3s;
 }
 
-.swiper-pagination-dot.active {
+.swiperPaginationDot.active {
     background-color: black;
 }
 
 @media (max-width: 480px) {
-    .swiper-button {
+    .swiperButton {
         display: none;
     }
-    .swiper-pagination {
+    .swiperPagination {
         position: absolute;
         left: 50%;
         display: flex;
         justify-content: center;
         background-color: white;
     }
-    .swiper-pagination-bullet {
+    .swiperPaginationBullet {
         width: 35px !important;
         height: 35px !important;
         background-color: red !important;
-
     }
 }
