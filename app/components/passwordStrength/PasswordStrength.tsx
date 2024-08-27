@@ -4,7 +4,7 @@ const PasswordStrengthMeter = (props: { password: string }) => {
   const atLeastOneLowercase = /[a-z]/g;
   const atLeastOneNumeric = /[0-9]/g;
   const atLeastOneSpecialChar = /[#?!@$%^&*-]/g;
-  const eightCharsOrMore = /.{8,}/g; // eight characters or more
+  const eightCharsOrMore = /.{8,}/g;
 
   const passwordTracker = {
     uppercase: password.match(atLeastOneUppercase),
@@ -21,15 +21,6 @@ const PasswordStrengthMeter = (props: { password: string }) => {
     <div>
       <p className="password-strength-heading">Password strength</p>
       <div className="password-strength"></div>
-      {/* <div className="password-strength-text">
-        {passwordStrength < 5 && 'Must contain '}
-        {!passwordTracker.uppercase && '1 uppercase, '}
-        {!passwordTracker.lowercase && '1 lowercase, '}
-        {!passwordTracker.specialChar && '1 special character, '}
-        {!passwordTracker.number && '1 number '}
-        {!passwordTracker.eightCharsOrGreater &&
-                'eight characters or more'}
-      </div> */}
       <style>
         {`
 
