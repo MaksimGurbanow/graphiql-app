@@ -10,13 +10,7 @@ import "./App.scss";
 import "./index.scss";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import { useContext, useEffect } from "react";
-import {
-  IsLogedInContext,
-  IsLogInContextProvider,
-} from "./context/loginContext";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "lib/firebase.config";
+import { IsLogInContextProvider } from "./context/loginContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -41,18 +35,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  // const isLogin = useContext(IsLogedInContext);
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // console.log(user);
-  // const [isLogedIn, setIsLogedIn] = useContext(IsLogedInContext);
-  // useEffect(() =>   onAuthStateChanged(auth, (user) => {
-  //   if(user) {
-  //     setIsLogedIn(true);
-  //   } else {
-  //     setIsLogedIn(false);
-  //   }
-  // }), [])
-
   return (
     <IsLogInContextProvider>
       <div className="page">

@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import "./registration.css";
+import "./registration.module.scss";
 import {
   Alert,
   FormControl,
