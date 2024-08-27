@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Links,
   Meta,
@@ -10,7 +9,6 @@ import "./App.scss";
 import "./index.scss";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import { useContext, useEffect } from "react";
 import { IsLogInContextProvider } from "./context/loginContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -36,7 +34,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  // const isLogin = useContext(IsLogedInContext);
   return (
     <IsLogInContextProvider>
       <div className="page">
