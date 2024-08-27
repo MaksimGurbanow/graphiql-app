@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { IsLogedInContext } from "~/context/loginContext";
 import { useNavigate } from "@remix-run/react";
+import { signOut } from "~/utils/signOut";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Header = () => {
     if (isLogin) {
       setIsLogedIn(false);
       localStorage.removeItem("token");
+      signOut();
       navigate("/");
     } else {
       navigate("/login");

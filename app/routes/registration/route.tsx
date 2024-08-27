@@ -10,14 +10,14 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "~/utils/validationSchema";
 import { LoadingButton } from "@mui/lab";
 import signUp from "~/utils/signUp";
 import PasswordStrengthMeter from "~/components/passwordStrength/PasswordStrength";
-import { useNavigate } from "@remix-run/react";
+import { Navigate } from "@remix-run/react";
 import { IsLogedInContext } from "~/context/loginContext";
 
 interface IRegisterForm {
@@ -26,7 +26,6 @@ interface IRegisterForm {
 }
 
 const Registration = () => {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -41,7 +40,7 @@ const Registration = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordStrength, setShowPasswordStrength] = useState(false);
-  const [isLogedIn, setIsLogedIn] = useContext(IsLogedInContext);
+  const [isLogedIn] = useContext(IsLogedInContext);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -53,32 +52,17 @@ const Registration = () => {
 
   const onSubmit = (data: IRegisterForm) => {
     setLoading(true);
-    signUp(data.email, data.password)
-      .then((data) => {
-        data.user.getIdToken().then((token) => {
-          setLoading(false);
-          setSignUpError(false);
-          localStorage.setItem("token", JSON.stringify(token));
-          setIsLogedIn(true);
-          navigate("/");
-        });
-      })
-      .catch((error) => {
-        setLoading(false);
-        const errorMessage = error.message;
-        setSignUpError(errorMessage);
-      });
+    signUp(data.email, data.password).catch((error) => {
+      setLoading(false);
+      const errorMessage = error.message;
+      setSignUpError(errorMessage);
+    });
   };
 
-  useEffect(() => {
-    if (isLogedIn) {
-      navigate("/");
-    }
-  }, [isLogedIn, navigate]);
-
   return (
-    !isLogedIn && (
-      <div>
+    <div>
+      {isLogedIn && <Navigate to="/" replace={true} />}
+      {!isLogedIn && (
         <section className="register">
           <form onSubmit={handleSubmit(onSubmit)} className="form">
             <h1 className="form__heading">Sign Up</h1>
@@ -161,8 +145,8 @@ const Registration = () => {
             )}
           </div>
         </section>
-      </div>
-    )
+      )}
+    </div>
   );
 };
 
