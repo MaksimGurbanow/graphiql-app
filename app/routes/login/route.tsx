@@ -1,5 +1,5 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import "./login.module.scss";
+import "./login.scss";
 import {
   Alert,
   FormControl,
