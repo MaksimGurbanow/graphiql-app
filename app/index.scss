@@ -28,16 +28,16 @@
   --highlight-background-color-selected: #112749;
 }
 
-// body {
-//   display: flex;
-//   width: 100vw;
-//   min-height: 100vh;
-// }
-
 .page {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
   min-height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
