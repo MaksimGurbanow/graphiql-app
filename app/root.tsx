@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Links,
   Meta,
@@ -8,6 +9,9 @@ import {
 import "./App.scss";
 import "./index.scss";
 import { Suspense } from "react";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import { IsLogInContextProvider } from "./context/loginContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,7 +28,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div id="root">
-          <Suspense>{children}</Suspense>
+          <Suspense>
+            <IsLogInContextProvider>
+              <div className="page">
+                <Header />
+                <Suspense>{children}</Suspense>
+                <Footer />
+              </div>
+            </IsLogInContextProvider>
+          </Suspense>
         </div>
         <ScrollRestoration />
         <Scripts />
