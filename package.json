@@ -1,0 +1,83 @@
+{
+  "name": "",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "build": "remix vite:build",
+    "dev": "remix vite:dev",
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "start": "remix-serve ./build/server/index.js",
+    "typecheck": "tsc",
+    "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,scss,css}\"",
+    "precommit": "lint-staged",
+    "prepare": "npx husky install"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@hookform/resolvers": "^3.9.0",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/lab": "^5.0.0-alpha.173",
+    "@mui/material": "^5.16.7",
+    "@mui/x-data-grid": "^7.14.0",
+    "@remix-run/express": "^2.11.2",
+    "@remix-run/node": "^2.11.2",
+    "@remix-run/react": "^2.11.2",
+    "@remix-run/serve": "^2.11.2",
+    "cross-env": "^7.0.3",
+    "express": "^4.19.2",
+    "firebase": "^10.13.0",
+    "isbot": "^4.1.0",
+    "lottie-react": "^2.4.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-firebase-hooks": "^5.1.1",
+    "react-hook-form": "^7.52.2",
+    "uuid": "^10.0.0",
+    "react-icons": "^5.3.0",
+    "react-lottie": "^1.2.4",
+    "swiper": "^11.1.10",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^2.11.2",
+    "@types/express": "^4.17.21",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^10.0.0",
+    "@types/react-lottie": "^1.2.10",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.38.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.9",
+    "postcss": "^8.4.38",
+    "sass-embedded": "^1.77.8",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.1.6",
+    "vite": "^5.1.0",
+    "vite-tsconfig-paths": "^4.2.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "npm run format:fix",
+      "npm run lint"
+    ]
+  }
+}
