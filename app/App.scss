@@ -1,8 +1,19 @@
-#root {
+/*#root {
   display: flex;
   width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Lobster', cursive;
 }

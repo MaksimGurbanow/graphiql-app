@@ -11,6 +11,8 @@ import { Suspense } from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import { IsLogInContextProvider } from "./context/loginContext";
+import './i18n';
+
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

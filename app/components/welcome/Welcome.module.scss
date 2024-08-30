@@ -250,3 +250,10 @@
 .welcomeTitle.animate {
   animation: bounce 0.5s alternate infinite;
 }
+
+@media (max-width: 768px) {
+  .welcomeTitle{
+    max-width: 300px;
+    margin: 0 auto;
+  };
+}
