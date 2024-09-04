@@ -50,6 +50,11 @@ const Header = () => {
         <Button onClick={signInHandler} variant="outlined">
           {isLogin ? "Sign Out" : "Sign In"}
         </Button>
+        {!isLogin && (
+          <Button onClick={() => navigate("/registration")} variant="outlined">
+            {"Sign Up"}
+          </Button>
+        )}
       </div>
     </header>
   );
