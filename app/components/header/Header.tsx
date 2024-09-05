@@ -30,32 +30,37 @@ const Header = () => {
   };
 
   return (
-      <header className="header">
-        <a href="/">
-          <img src={logo} alt="logo" className="logo" />
-        </a>
-        <div className="header__button-container">
-          <ToggleButtonGroup
-              color="primary"
-              value={lang}
-              exclusive
-              onChange={handleChange}
-              aria-label="Language"
-              style={{ border: "1px solid #1976d2" }}
-              size="small"
-          >
-            <ToggleButton value="EN" aria-label="EN">
-              <span>EN</span>
-            </ToggleButton>
-            <ToggleButton value="RU" aria-label="RU">
-              <span>RU</span>
-            </ToggleButton>
-          </ToggleButtonGroup>
-          <Button onClick={signInHandler} variant="outlined">
-            {isLogin ? t("signOut") : t("signIn")} {/* Поместить в файлы локализации */}
+    <header className="header">
+      <a href="/">
+        <img src={logo} alt="logo" className="logo" />
+      </a>
+      <div className="header__button-container">
+        <ToggleButtonGroup
+          color="primary"
+          value={lang}
+          exclusive
+          onChange={handleChange}
+          aria-label="Language"
+          style={{ border: "1px solid #1976d2" }}
+          size="small"
+        >
+          <ToggleButton value="EN" aria-label="EN">
+            <span>EN</span>
+          </ToggleButton>
+          <ToggleButton value="RU" aria-label="RU">
+            <span>RU</span>
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <Button onClick={signInHandler} variant="outlined">
+          {isLogin ? "Sign Out" : "Sign In"}
+        </Button>
+        {!isLogin && (
+          <Button onClick={() => navigate("/registration")} variant="outlined">
+            {"Sign Up"}
           </Button>
-        </div>
-      </header>
+        )}
+      </div>
+    </header>
   );
 };
 
