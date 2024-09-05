@@ -2,31 +2,54 @@ import { useState } from "react";
 import classes from "./rest.module.scss";
 import Response from "~/components/response/Response";
 import { defaultMethods } from "lib/constants";
-import HeadersEditor from "~/components/headersEditor/HeadersEditor";
-import { ActiveEditor, IHeader } from "~/types/types";
+import { ActiveEditor, IRow } from "~/types/types";
 import { Button } from "@mui/material";
 import BodyEditor from "~/components/bodyEditor/BodyEditor";
-import ParamsEditor from "~/components/paramsEditor/ParamsEditor";
+import TableEditor from "~/components/headersEditor/TableEditor";
+import { useRequestContext } from "~/context/RequestContext";
+import { LoaderFunctionArgs } from "@remix-run/node";
 
 export interface RestRequestForm {
   method: Request["method"];
 }
 
+export async function loader({ params }: LoaderFunctionArgs) {
+  const { method, url } = params;
+  if (method && url) {
+    console.log(method, url);
+  }
+  return null;
+}
+
 const Rest = () => {
+  const {
+    rest: { url, params, headers, body },
+    setRest,
+  } = useRequestContext();
   const [options, setOptions] = useState(defaultMethods);
   const [methodValue, setMethodValue] = useState("");
-  const [path, setPath] = useState("");
   const [isOpened, setIsOpened] = useState(false);
-  const [body, setBody] = useState("");
   const [activeEditor, setActiveEditor] = useState<ActiveEditor>("Headers");
   const editors: ActiveEditor[] = ["Params", "Headers", "Body"];
-  const [headers, setHeaders] = useState<IHeader[]>([
-    {
+
+  const updatedRows = (
+    isLast: boolean,
+    prev: IRow[],
+    row?: IRow,
+    id?: number
+  ) => {
+    const newArray = [...prev];
+    if (isLast) {
+      newArray.push({ key: "", value: "", description: "" });
+    }
+    newArray[id as number] = row || {
       key: "",
       value: "",
       description: "",
-    },
-  ]);
+    };
+
+    return newArray;
+  };
   return (
     <div className={classes.restPage}>
       <div className={classes.requestBlock}>
@@ -77,14 +100,17 @@ const Rest = () => {
             <div className={classes.urlBlock}>
               <input
                 className={classes.urlInput}
-                value={path}
+                value={url}
                 onInput={(e) => {
-                  setPath((e.target as HTMLInputElement).value);
+                  setRest((prev) => ({
+                    ...prev,
+                    url: (e.target as HTMLInputElement).value,
+                  }));
                 }}
                 onPaste={(e) => {
                   e.preventDefault();
                   const pasteData = e.clipboardData.getData("text");
-                  setPath((prev) => prev + pasteData);
+                  setRest((prev) => ({ ...prev, url: pasteData }));
                 }}
               />
             </div>
@@ -107,12 +133,45 @@ const Rest = () => {
           ))}
         </ul>
         {activeEditor === "Body" && (
-          <BodyEditor body={body} setBody={setBody} />
+          <BodyEditor
+            body={body}
+            setBody={(body) => setRest((prev) => ({ ...prev, body }))}
+          />
         )}
         {activeEditor === "Headers" && (
-          <HeadersEditor headers={headers} setHeaders={setHeaders} />
+          <TableEditor
+            rows={headers}
+            setRows={(isLast, id, row) =>
+              setRest((prev) => {
+                const newHeaders = updatedRows(isLast, prev.headers, row, id);
+                console.log(isLast);
+                return { ...prev, headers: newHeaders };
+              })
+            }
+            headerText="Headers"
+          />
         )}
-        {activeEditor === "Params" && <ParamsEditor />}
+        {activeEditor === "Params" && (
+          <TableEditor
+            rows={params}
+            setRows={(isLast, id, row) =>
+              setRest((prev) => {
+                const newArray = updatedRows(isLast, prev.params, row, id);
+                const filteredParams = newArray
+                  .filter(({ key, value }) => key && value)
+                  .map(({ key, value }) => `${key}=${value}`);
+                return {
+                  ...prev,
+                  params: newArray,
+                  url: filteredParams.length
+                    ? `${prev.url.split("?")[0]}?${filteredParams.join("&")}`
+                    : prev.url,
+                };
+              })
+            }
+            headerText="Parameters"
+          />
+        )}
       </div>
       <Response />
     </div>

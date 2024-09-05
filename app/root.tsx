@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import { IsLogInContextProvider } from "./context/loginContext";
+import RequestProvider from "./context/RequestContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -28,13 +29,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <div id="root">
           <Suspense>
-            <IsLogInContextProvider>
-              <div className="page">
-                <Header />
-                <Suspense>{children}</Suspense>
-                <Footer />
-              </div>
-            </IsLogInContextProvider>
+            <RequestProvider>
+              <IsLogInContextProvider>
+                <div className="page">
+                  <Header />
+                  <Suspense>{children}</Suspense>
+                  <Footer />
+                </div>
+              </IsLogInContextProvider>
+            </RequestProvider>
           </Suspense>
         </div>
         <ScrollRestoration />
