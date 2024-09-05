@@ -8,26 +8,29 @@ import BodyEditor from "~/components/bodyEditor/BodyEditor";
 import TableEditor from "~/components/headersEditor/TableEditor";
 import { useRequestContext } from "~/context/RequestContext";
 import { LoaderFunctionArgs } from "@remix-run/node";
+import { useNavigate } from "@remix-run/react";
 
 export interface RestRequestForm {
   method: Request["method"];
 }
 
-export async function loader({ params }: LoaderFunctionArgs) {
-  const { method, url } = params;
-  if (method && url) {
-    console.log(method, url);
-  }
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  const { method, requestUrl, body } = params;
+
+  const formatedURL = atob(requestUrl?.replace(/_/g, "/") || "");
+  const headers = new URL(request.url).searchParams;
+  const parsedBody = JSON.parse(atob(body || "") || "{}");
+
+  console.log(parsedBody, headers, formatedURL, method);
   return null;
 }
 
 const Rest = () => {
   const {
-    rest: { url, params, headers, body },
+    rest: { url, params, headers, body, method },
     setRest,
   } = useRequestContext();
   const [options, setOptions] = useState(defaultMethods);
-  const [methodValue, setMethodValue] = useState("");
   const [isOpened, setIsOpened] = useState(false);
   const [activeEditor, setActiveEditor] = useState<ActiveEditor>("Headers");
   const editors: ActiveEditor[] = ["Params", "Headers", "Body"];
@@ -50,6 +53,7 @@ const Rest = () => {
 
     return newArray;
   };
+  const navigate = useNavigate();
   return (
     <div className={classes.restPage}>
       <div className={classes.requestBlock}>
@@ -59,10 +63,11 @@ const Rest = () => {
               <input
                 name="method"
                 className={classes.methodInput}
+                autoComplete="off"
                 onFocus={() => setIsOpened(true)}
                 onBlur={() => setIsOpened(false)}
                 id="method"
-                value={methodValue}
+                value={method}
                 onInput={(e) =>
                   setOptions(() => [
                     ...defaultMethods,
@@ -70,7 +75,10 @@ const Rest = () => {
                   ])
                 }
                 onChange={({ target }) =>
-                  setMethodValue(target.value.toUpperCase())
+                  setRest((prev) => ({
+                    ...prev,
+                    method: target.value.toUpperCase(),
+                  }))
                 }
               />
               <div
@@ -84,7 +92,7 @@ const Rest = () => {
                     className={classes.methodDropdownItem}
                     onMouseDown={(e) => {
                       e.stopPropagation();
-                      setMethodValue(option);
+                      setRest((prev) => ({ ...prev, method: option }));
                     }}
                   >
                     {option}
@@ -115,7 +123,23 @@ const Rest = () => {
               />
             </div>
           </div>
-          <Button variant="contained" sx={{ padding: "8px", flex: 1 }}>
+          <Button
+            variant="contained"
+            sx={{ padding: "8px", flex: 1 }}
+            onClick={() =>
+              navigate(
+                `/rest/${method}/${btoa(url).replace(/\//g, "_")}${
+                  body ? `/${btoa(body)}` : ""
+                }?${headers
+                  .filter(({ key, value }) => key && value)
+                  .map(
+                    ({ key, value }) =>
+                      `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+                  )
+                  .join("&")}`
+              )
+            }
+          >
             Send
           </Button>
         </div>
