@@ -1,0 +1,16 @@
+{
+  "welcome": {
+    "reactGroup": "React Group",
+    "prepareTogether": "Prepare for interviews with us!",
+    "teamLead": "Team Lead and Frontend Developer",
+    "frontendDeveloper": "Frontend Developer",
+    "studentInfo": "We are students of the web development course at RS School.",
+    "githubProfile": "GitHub Profile",
+    "maksimName": "Maksim Gurbanow",
+    "egorName": "Egor Panevin",
+    "dmitryName": "Dmitry Nikolayev",
+    "maksimBio": "Maksim leads the project architecture and integration with commercetools API...",
+    "egorBio": "Egor is responsible for managing data in commercetools API...",
+    "dmitryBio": "Dmitry is responsible for UI/UX design and interactive elements of the application..."
+  }
+}
