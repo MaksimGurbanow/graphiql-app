@@ -1,0 +1,259 @@
+.aboutUsContainer {
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  overflow-x: hidden;
+}
+
+.welcomeTitle {
+  text-transform: uppercase;
+  padding-bottom: 40px;
+  font-family: "Lobster", cursive;
+  font-size: 2.8em;
+}
+
+.audioBlock {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 20px;
+  text-align: left;
+  flex-wrap: wrap;
+
+  .audioHeading {
+    margin-bottom: 10px;
+    max-width: 100%;
+    width: 100%;
+    word-wrap: break-word;
+    white-space: normal;
+    font-size: 1.5em;
+    font-weight: 700;
+    font-family: "Roboto", sans-serif;
+  }
+}
+
+.audioPlayerContainer {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.bottomTextAndLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.schoolInfo {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+  font-family: "Roboto", sans-serif;
+}
+
+.teamSection {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  position: relative;
+  width: auto;
+}
+
+.teamMember {
+  width: 30%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  min-height: 600px;
+  padding-bottom: 140px;
+  font-family: "Lobster", cursive;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.teamMember p {
+  font-family: "Roboto", sans-serif;
+}
+
+.teamMember:hover {
+  transform: rotate(-3deg);
+  animation: wobble 0.9s ease-in-out infinite;
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.teamMemberPhoto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 15px;
+}
+
+.teamMember h2,
+.teamMember h3 {
+  margin: 10px 0;
+}
+
+.teamMember button {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Roboto", sans-serif;
+  text-transform: none;
+}
+
+.teamMember button:hover {
+  background-color: #333;
+}
+.teamMember p {
+  font-size: 1em;
+  flex-grow: 1;
+}
+.rsSchoolLogo {
+  margin-top: 50px;
+}
+
+.rsSchoolLogo img {
+  width: 200px;
+  transition: transform 0.3s;
+}
+
+.rsSchoolLogo img:hover {
+  transform: scale(1.1);
+}
+
+.invert {
+  filter: invert(1);
+}
+
+.githubButtonContainer {
+  font-family: "Roboto", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .audioBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .audioHeading {
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  .audioPlayerContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .teamSection {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .teamMember {
+    width: 50%;
+    max-width: 420px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .rsSchoolLogo img {
+    width: 150px;
+  }
+
+  .schoolInfo {
+    max-width: 400px !important;
+    word-wrap: break-word;
+    white-space: normal;
+    font-size: 1.5em !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .audioHeading {
+    max-width: 300px !important;
+  }
+
+  .schoolInfo {
+    max-width: 280px !important;
+    font-size: 1em;
+  }
+}
+
+.teamMember {
+  transition: transform 0.3s ease-in-out;
+}
+
+.teamMember.animate {
+  animation: bounce 1s ease-in-out infinite alternate;
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+.teamMember.animate {
+  animation: slide-left 0.5s alternate infinite;
+}
+
+.welcomeTitle.animate {
+  animation: bounce 0.5s alternate infinite;
+}
+
+@media (max-width: 768px) {
+  .welcomeTitle{
+    max-width: 300px;
+    margin: 0 auto;
+  };
+}

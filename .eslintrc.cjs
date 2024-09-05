@@ -23,6 +23,9 @@ module.exports = {
 
   // Base config
   extends: ["eslint:recommended"],
+  rules: {
+    "jsx-a11y/click-events-have-key-events": "off"
+  },
 
   overrides: [
     // React
@@ -82,3 +85,4 @@ module.exports = {
     },
   ],
 };
+

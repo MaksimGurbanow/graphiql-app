@@ -7,9 +7,13 @@ import {
 } from "@remix-run/react";
 import "./App.scss";
 import "./index.scss";
+import { Suspense } from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import { IsLogInContextProvider } from "./context/loginContext";
+import RequestProvider from "./context/RequestContext";
+import './i18n';
+
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,7 +29,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <div id="root">{children}</div>
+        <div id="root">
+          <Suspense>
+            <RequestProvider>
+              <IsLogInContextProvider>
+                <div className="page">
+                  <Header />
+                  <Suspense>{children}</Suspense>
+                  <Footer />
+                </div>
+              </IsLogInContextProvider>
+            </RequestProvider>
+          </Suspense>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -34,13 +50,5 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return (
-    <IsLogInContextProvider>
-      <div className="page">
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
-    </IsLogInContextProvider>
-  );
+  return <Outlet />;
 }

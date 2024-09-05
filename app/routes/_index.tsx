@@ -1,7 +1,5 @@
-"use client";
-
 import type { MetaFunction } from "@remix-run/node";
-import Button from "@mui/material/Button";
+import Welcome from "../components/welcome/Welcome";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,7 +11,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div>
-      <Button>Hello</Button>
+      <Welcome />
     </div>
   );
 }

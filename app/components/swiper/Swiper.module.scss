@@ -1,0 +1,76 @@
+.swiperContainer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.swiperWrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.swiperSlide {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.swiperButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  color: gray;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 32px;
+  z-index: 100;
+}
+
+.swiperButton.prev {
+  left: 100px;
+}
+
+.swiperButton.next {
+  right: 100px;
+}
+
+.swiperPagination {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+}
+
+.swiperPaginationDot {
+  width: 20px;
+  height: 20px;
+  background-color: lightgray;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.swiperPaginationDot.active {
+  background-color: black;
+}
+
+@media (max-width: 480px) {
+  .swiperButton {
+    display: none;
+  }
+  .swiperPagination {
+    position: absolute;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+  }
+  .swiperPaginationBullet {
+    width: 35px !important;
+    height: 35px !important;
+    background-color: red !important;
+  }
+}
