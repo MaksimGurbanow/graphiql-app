@@ -28,13 +28,3 @@ export function ErrorBoundary() {
     </html>
   );
 }
->
-    </html>
-  );
-}>
-    </html>
-  );
-}>
-    </html>
-  );
-}

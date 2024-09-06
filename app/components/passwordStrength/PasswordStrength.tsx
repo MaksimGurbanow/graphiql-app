@@ -54,6 +54,7 @@ const PasswordStrengthMeter = (props: { password: string }) => {
           font-size: 14px;
           text-align: left;
           margin: 0;
+          font-family:'Roboto', 'Helvetica', 'Arial', sans-serif;
           }
         `}
       </style>
