@@ -6,27 +6,27 @@ import enTranslation from "./locales/en/translation.json";
 import ruTranslation from "./locales/ru/translation.json";
 
 const resources = {
-    en: {
-        translation: enTranslation,
-    },
-    ru: {
-        translation: ruTranslation,
-    },
+  en: {
+    translation: enTranslation,
+  },
+  ru: {
+    translation: ruTranslation,
+  },
 };
 
-    use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-        resources,
-        fallbackLng: "ru",
-        debug: true,
-        detection: {
-            order: ["queryString", "cookie"],
-            caches: ["cookie"],
-        },
-        interpolation: {
-            escapeValue: false,
-        },
-    });
+use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    resources,
+    fallbackLng: "ru",
+    debug: true,
+    detection: {
+      order: ["queryString", "cookie"],
+      caches: ["cookie"],
+    },
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
 export default i18n;
