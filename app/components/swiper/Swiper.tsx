@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./Swiper.module.scss";
 
-const Swiper = (children: ReactNode) => {
+const Swiper = ({ children }: { children: ReactNode }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
