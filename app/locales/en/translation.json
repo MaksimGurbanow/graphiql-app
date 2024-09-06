@@ -12,5 +12,19 @@
     "maksimBio": "Maksim leads the project architecture and integration with commercetools API...",
     "egorBio": "Egor is responsible for managing data in commercetools API...",
     "dmitryBio": "Dmitry is responsible for UI/UX design and interactive elements of the application..."
-  }
+  },
+  "header": {
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+   "form": {
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signInHeading": "Sign In",
+    "signUpHeading": "Sign Up",
+    "dontHaveAccount": "Don't have an account?",
+    "haveAccount": "Have an account?"
+   }
 }

@@ -9,7 +9,7 @@
 .welcomeTitle {
   text-transform: uppercase;
   padding-bottom: 40px;
-  font-family: "Lobster", cursive;
+  // font-family: "Lobster", cursive;
   font-size: 2.8em;
 }
 
@@ -28,7 +28,6 @@
     white-space: normal;
     font-size: 1.5em;
     font-weight: 700;
-    font-family: "Roboto", sans-serif;
   }
 }
 
@@ -54,7 +53,6 @@
   overflow-wrap: break-word;
   white-space: normal;
   max-width: 100%;
-  font-family: "Roboto", sans-serif;
 }
 
 .teamSection {
@@ -75,15 +73,10 @@
   position: relative;
   min-height: 600px;
   padding-bottom: 140px;
-  font-family: "Lobster", cursive;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.teamMember p {
-  font-family: "Roboto", sans-serif;
 }
 
 .teamMember:hover {
@@ -124,7 +117,6 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-family: "Roboto", sans-serif;
   text-transform: none;
 }
 
@@ -150,10 +142,6 @@
 
 .invert {
   filter: invert(1);
-}
-
-.githubButtonContainer {
-  font-family: "Roboto", sans-serif;
 }
 
 @media (max-width: 768px) {
@@ -252,8 +240,8 @@
 }
 
 @media (max-width: 768px) {
-  .welcomeTitle{
+  .welcomeTitle {
     max-width: 300px;
     margin: 0 auto;
-  };
+  }
 }

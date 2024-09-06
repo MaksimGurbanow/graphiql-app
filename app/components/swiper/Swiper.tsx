@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./Swiper.module.scss";
 
-const Swiper = ({ children }) => {
+const Swiper = (children: ReactNode) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
@@ -35,7 +35,7 @@ const Swiper = ({ children }) => {
             prevSlide();
           }
         }}
-        tabIndex="0"
+        tabIndex={0}
       >
         &#10094;
       </button>
@@ -47,7 +47,7 @@ const Swiper = ({ children }) => {
             nextSlide();
           }
         }}
-        tabIndex="0"
+        tabIndex={0}
       >
         &#10095;
       </button>
@@ -65,7 +65,7 @@ const Swiper = ({ children }) => {
               }
             }}
             role="button"
-            tabIndex="0"
+            tabIndex={0}
           ></span>
         ))}
       </div>

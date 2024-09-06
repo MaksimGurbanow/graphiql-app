@@ -1,6 +1,6 @@
 import "./header.scss";
 import logo from "../../assets/logo-svg.svg";
-import {useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { IsLogedInContext } from "~/context/loginContext";
 import { useNavigate } from "@remix-run/react";
@@ -13,7 +13,10 @@ const Header = () => {
   const { i18n, t } = useTranslation();
   const [lang, setLang] = useState(i18n.language.toUpperCase());
 
-  const handleChange = (event: React.MouseEvent<HTMLElement>, newLang: string) => {
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newLang: string
+  ) => {
     setLang(newLang);
     i18n.changeLanguage(newLang.toLowerCase());
   };
@@ -52,11 +55,11 @@ const Header = () => {
           </ToggleButton>
         </ToggleButtonGroup>
         <Button onClick={signInHandler} variant="outlined">
-          {isLogin ? "Sign Out" : "Sign In"}
+          {isLogin ? t("header.signOut") : t("header.signIn")}
         </Button>
         {!isLogin && (
           <Button onClick={() => navigate("/registration")} variant="outlined">
-            {"Sign Up"}
+            {t("header.signUp")}
           </Button>
         )}
       </div>
