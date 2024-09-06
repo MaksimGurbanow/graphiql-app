@@ -12,5 +12,19 @@
     "maksimBio": "Максим руководит архитектурой проекта и интеграцией с commercetools API...",
     "egorBio": "Егор отвечает за управление данными в commercetools API...",
     "dmitryBio": "Дмитрий отвечает за UI/UX дизайн и интерактивные элементы приложения..."
-  }
+  },
+  "header": {
+    "signOut": "Выйти",
+    "signIn": "Войти",
+    "signUp": "Регистрация"
+  },
+  "form": {
+    "password": "Пароль",
+    "signIn": "Войти",
+    "signInHeading": "Вход",
+    "signUp": "Зарегистрироваться",
+    "signUpHeading": "Регистрация",
+    "dontHaveAccount": "Еще нет аккаунта?",
+    "haveAccount": "Уже есть аккаунт?"
+   }
 }

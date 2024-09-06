@@ -18,6 +18,7 @@ import { LoadingButton } from "@mui/lab";
 import signIn from "~/utils/signIn";
 import { Navigate } from "@remix-run/react";
 import { IsLogedInContext } from "~/context/loginContext";
+import { useTranslation } from "react-i18next";
 interface IRegisterForm {
   email: string;
   password: string;
@@ -32,6 +33,7 @@ const Login = () => {
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [signInError, setSignInError] = useState(false);
@@ -57,7 +59,7 @@ const Login = () => {
       {!isLogedIn && (
         <section className="login">
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <h1 className="form__heading">Sign In</h1>
+            <h1 className="form__heading">{t("form.signInHeading")}</h1>
             <TextField
               id="outlined-uncontrolled"
               label="E-mail"
@@ -76,7 +78,7 @@ const Login = () => {
               style={{ width: "100%", margin: "0" }}
             >
               <InputLabel htmlFor="outlined-adornment-password">
-                Password
+                {t("form.password")}
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -108,11 +110,13 @@ const Login = () => {
               variant="outlined"
               type="submit"
             >
-              <span>Sign In</span>
+              <span>{t("form.signIn")}</span>
             </LoadingButton>
             <a href="/registration" className="form__link">
-              Don&apos;t have an account?{" "}
-              <span style={{ textDecoration: "underline" }}>Sign Up</span>
+              {t("form.dontHaveAccount")}
+              <span style={{ textDecoration: "underline" }}>
+                {t("form.signUp")}
+              </span>
             </a>
           </form>
           <div style={{ height: "40px" }}>

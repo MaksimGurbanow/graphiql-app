@@ -19,6 +19,7 @@ import signUp from "~/utils/signUp";
 import PasswordStrengthMeter from "~/components/passwordStrength/PasswordStrength";
 import { Navigate } from "@remix-run/react";
 import { IsLogedInContext } from "~/context/loginContext";
+import { useTranslation } from "react-i18next";
 
 interface IRegisterForm {
   email: string;
@@ -34,7 +35,7 @@ const Registration = () => {
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
-
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [signUpError, setSignUpError] = useState(false);
   const [password, setPassword] = useState("");
@@ -65,7 +66,7 @@ const Registration = () => {
       {!isLogedIn && (
         <section className="register">
           <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <h1 className="form__heading">Sign Up</h1>
+            <h1 className="form__heading">{t("form.signUpHeading")}</h1>
             <TextField
               id="outlined-uncontrolled"
               label="E-mail"
@@ -84,7 +85,7 @@ const Registration = () => {
               style={{ width: "100%", margin: "0" }}
             >
               <InputLabel htmlFor="outlined-adornment-password">
-                Password
+                {t("form.password")}
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -130,11 +131,13 @@ const Registration = () => {
               variant="outlined"
               type="submit"
             >
-              <span>Sign Up</span>
+              <span>{t("form.signUp")}</span>
             </LoadingButton>
             <a href="/login" className="form__link">
-              Have an account?{" "}
-              <span style={{ textDecoration: "underline" }}>Sign In</span>
+              {t("form.haveAccount")}
+              <span style={{ textDecoration: "underline" }}>
+                {t("form.signIn")}
+              </span>
             </a>
           </form>
           <div style={{ height: "40px" }}>
