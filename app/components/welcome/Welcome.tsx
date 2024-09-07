@@ -97,7 +97,7 @@ const Welcome = () => {
                     <h2>{t(`welcome.${member.name}`)}</h2>
                     <h3>{t(`welcome.${member.role}`)}</h3>
                     <p>{t(`welcome.${member.bio}`)}</p>
-                    <div className={styles.githubButtonContainer}>
+                    <div>
                       <a
                           href={member.github}
                           target="_blank"
