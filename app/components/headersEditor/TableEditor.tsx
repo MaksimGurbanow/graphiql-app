@@ -12,7 +12,6 @@ export interface TableEditorProps {
 }
 
 const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
-  console.log(rows);
   const columns: GridColDef[] = [
     {
       field: "key",
@@ -24,13 +23,6 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
     {
       field: "value",
       headerName: "Value",
-      headerAlign: "center",
-      flex: 1,
-      editable: true,
-    },
-    {
-      field: "description",
-      headerName: "Description",
       headerAlign: "center",
       flex: 1,
       editable: true,
@@ -57,7 +49,7 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
         columns={columns}
         onCellKeyDown={(params, event) => {
           const {
-            row: { id, value: rowValue, key, description },
+            row: { id, value: rowValue, key },
             field,
           } = params;
           const { target, key: typedKey } = event;
@@ -66,7 +58,6 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
           setRows(isLast, id, {
             value: rowValue,
             key,
-            description,
             [field]: formatValue((target as HTMLInputElement).value, typedKey),
           });
         }}

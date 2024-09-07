@@ -1,7 +1,6 @@
 export interface IRow {
   value: string;
   key: string;
-  description: string;
 }
 
 export interface IParam extends IRow {}

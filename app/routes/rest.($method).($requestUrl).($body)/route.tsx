@@ -1,28 +1,76 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "./rest.module.scss";
 import Response from "~/components/response/Response";
-import { defaultMethods } from "lib/constants";
+import { defaultKeyValuePair, defaultMethods } from "lib/constants";
 import { ActiveEditor, IRow } from "~/types/types";
 import { Button } from "@mui/material";
 import BodyEditor from "~/components/bodyEditor/BodyEditor";
 import TableEditor from "~/components/headersEditor/TableEditor";
 import { useRequestContext } from "~/context/RequestContext";
-import { LoaderFunctionArgs } from "@remix-run/node";
-import { useNavigate } from "@remix-run/react";
+import { LoaderFunctionArgs, TypedResponse } from "@remix-run/node";
+import { json, useLoaderData, useNavigate } from "@remix-run/react";
+import format from "html-format";
+import ErrorMessage from "~/components/errorMessage/ErrorMessage";
 
 export interface RestRequestForm {
   method: Request["method"];
 }
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs): Promise<
+  TypedResponse<{
+    response?: string;
+    url: string;
+    method: string;
+    error?: string;
+    body: string;
+    headers: { key: string; value: string }[];
+  }>
+> {
   const { method, requestUrl, body } = params;
-
+  const decodedBody = atob(body || "") || "";
   const formatedURL = atob(requestUrl?.replace(/_/g, "/") || "");
-  const headers = new URL(request.url).searchParams;
-  const parsedBody = JSON.parse(atob(body || "") || "{}");
-
-  console.log(parsedBody, headers, formatedURL, method);
-  return null;
+  const headers = Object.fromEntries(
+    new URL(request.url).searchParams.entries()
+  );
+  const metadata = {
+    url: formatedURL || "",
+    method: method || "GET",
+    body: decodedBody,
+    headers: Object.entries(headers).map(([key, value]) => ({
+      key,
+      value,
+    })),
+  };
+  try {
+    if (formatedURL && method) {
+      const response = await fetch(formatedURL, {
+        method,
+        headers,
+        body:
+          method && ["GET", "HEAD"].includes(method as string)
+            ? null
+            : decodedBody,
+      });
+      const responseText = await response.text();
+      try {
+        JSON.parse(responseText);
+        return json({ response: responseText, ...metadata });
+      } catch (error) {
+        return json({
+          response: format(
+            `\
+          ${responseText}
+          `,
+            " ".repeat(4)
+          ),
+          ...metadata,
+        });
+      }
+    }
+    return json(metadata);
+  } catch (error) {
+    return json({ ...metadata, error: "Some error hapened" });
+  }
 }
 
 const Rest = () => {
@@ -34,6 +82,7 @@ const Rest = () => {
   const [isOpened, setIsOpened] = useState(false);
   const [activeEditor, setActiveEditor] = useState<ActiveEditor>("Headers");
   const editors: ActiveEditor[] = ["Params", "Headers", "Body"];
+  const data = useLoaderData<typeof loader>();
 
   const updatedRows = (
     isLast: boolean,
@@ -43,17 +92,19 @@ const Rest = () => {
   ) => {
     const newArray = [...prev];
     if (isLast) {
-      newArray.push({ key: "", value: "", description: "" });
+      newArray.push(defaultKeyValuePair);
     }
-    newArray[id as number] = row || {
-      key: "",
-      value: "",
-      description: "",
-    };
+    newArray[id as number] = row || defaultKeyValuePair;
 
     return newArray;
   };
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(data);
+    setRest({ ...data, params: [] });
+  }, []);
+
   return (
     <div className={classes.restPage}>
       <div className={classes.requestBlock}>
@@ -197,7 +248,8 @@ const Rest = () => {
           />
         )}
       </div>
-      <Response />
+      {data.response && <Response data={data.response} />}
+      {data.error && <ErrorMessage message={data.error} />}
     </div>
   );
 };
