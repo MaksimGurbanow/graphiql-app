@@ -13,36 +13,6 @@ import trackSrc from "../../assets/audio/Track.mp3";
 
 const RS_SCHOOL_LOGO_URL: string = RS_SCHOOL_LOGO as unknown as string;
 const RS_SCHOOL_URL: string = "https://rs.school/";
-
-type membertemplateString =
-  | "welcome.maksimName"
-  | "welcome.teamLead"
-  | "welcome.reactGroup"
-  | "welcome.frontendDeveloper"
-  | "welcome.studentInfo"
-  | "welcome.githubProfile"
-  | "welcome.egorName"
-  | "welcome.dmitryName"
-  | "welcome.maksimBio"
-  | "welcome.egorBio"
-  | "welcome.dmitryBio"
-  | "welcome.prepareTogether"
-  | (
-      | "welcome.maksimName"
-      | "welcome.teamLead"
-      | "welcome.reactGroup"
-      | "welcome.frontendDeveloper"
-      | "welcome.studentInfo"
-      | "welcome.githubProfile"
-      | "welcome.egorName"
-      | "welcome.dmitryName"
-      | "welcome.maksimBio"
-      | "welcome.egorBio"
-      | "welcome.dmitryBio"
-      | "welcome.prepareTogether"
-      | TemplateStringsArray
-    )[];
-
 const teamMembers = [
   {
     name: "maksimName",
@@ -121,18 +91,18 @@ const Welcome = () => {
               <img
                 src={member.photo}
                 alt={`Фото ${t(
-                  `welcome.${member.name}` as unknown as membertemplateString
+                  `welcome.${member.name}` as never
                 )}`}
                 className={styles.teamMemberPhoto}
               />
               <h2>
-                {t(`welcome.${member.name}` as unknown as membertemplateString)}
+                {t(`welcome.${member.name}` as never)}
               </h2>
               <h3>
-                {t(`welcome.${member.role}` as unknown as membertemplateString)}
+                {t(`welcome.${member.role}` as never)}
               </h3>
               <p>
-                {t(`welcome.${member.bio}` as unknown as membertemplateString)}
+                {t(`welcome.${member.bio}` as never)}
               </p>
               <div>
                 <a
@@ -164,20 +134,20 @@ const Welcome = () => {
               <img
                 src={member.photo}
                 alt={`Фото ${t(
-                  `welcome.${member.name}` as unknown as membertemplateString
+                  `welcome.${member.name}` as never
                 )}`}
                 className={styles.teamMemberPhoto}
               />
               <h2>
-                {t(`welcome.${member.name}` as unknown as membertemplateString)}
+                {t(`welcome.${member.name}` as never)}
               </h2>
               <h3>
-                {t(`welcome.${member.role}` as unknown as membertemplateString)}
+                {t(`welcome.${member.role}` as never)}
               </h3>
               <p>
-                {t(`welcome.${member.bio}` as unknown as membertemplateString)}
+                {t(`welcome.${member.bio}` as never)}
               </p>
-              <div className={styles.githubButtonContainer}>
+              <div>
                 <a
                   href={member.github}
                   target="_blank"

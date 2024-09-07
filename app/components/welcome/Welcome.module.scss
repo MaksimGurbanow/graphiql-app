@@ -9,7 +9,6 @@
 .welcomeTitle {
   text-transform: uppercase;
   padding-bottom: 40px;
-  // font-family: "Lobster", cursive;
   font-size: 2.8em;
 }
 
@@ -144,7 +143,7 @@
   filter: invert(1);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 865px) {
   .audioBlock {
     display: flex;
     flex-direction: column;
@@ -194,14 +193,18 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 642px) {
   .audioHeading {
     max-width: 300px !important;
   }
 
   .schoolInfo {
-    max-width: 280px !important;
-    font-size: 1em;
+    max-width: 300px !important;
+    font-size: 0.5em;
+  }
+  .teamMember {
+    width: 100%;
+    min-width: 210px;
   }
 }
 
