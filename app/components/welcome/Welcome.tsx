@@ -121,15 +121,15 @@ const Welcome = () => {
               <img
                 src={member.photo}
                 alt={`Фото ${t(
-                  `welcome.${member.name}` as unknown as membertemplateString
+                  `welcome.${member.name}` as never
                 )}`}
                 className={styles.teamMemberPhoto}
               />
               <h2>
-                {t(`welcome.${member.name}` as unknown as membertemplateString)}
+                {t(`welcome.${member.name}` as never)}
               </h2>
               <h3>
-                {t(`welcome.${member.role}` as unknown as membertemplateString)}
+                {t(`welcome.${member.role}` as never)}
               </h3>
               <p>
                 {t(`welcome.${member.bio}` as unknown as membertemplateString)}
