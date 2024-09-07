@@ -9,10 +9,39 @@ import Swiper from "../swiper/Swiper";
 import { Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import useResizeObserver from "@react-hook/resize-observer";
-import trackSrc from '../../assets/audio/Track.mp3';
+import trackSrc from "../../assets/audio/Track.mp3";
 
 const RS_SCHOOL_LOGO_URL: string = RS_SCHOOL_LOGO as unknown as string;
 const RS_SCHOOL_URL: string = "https://rs.school/";
+
+type membertemplateString =
+  | "welcome.maksimName"
+  | "welcome.teamLead"
+  | "welcome.reactGroup"
+  | "welcome.frontendDeveloper"
+  | "welcome.studentInfo"
+  | "welcome.githubProfile"
+  | "welcome.egorName"
+  | "welcome.dmitryName"
+  | "welcome.maksimBio"
+  | "welcome.egorBio"
+  | "welcome.dmitryBio"
+  | "welcome.prepareTogether"
+  | (
+      | "welcome.maksimName"
+      | "welcome.teamLead"
+      | "welcome.reactGroup"
+      | "welcome.frontendDeveloper"
+      | "welcome.studentInfo"
+      | "welcome.githubProfile"
+      | "welcome.egorName"
+      | "welcome.dmitryName"
+      | "welcome.maksimBio"
+      | "welcome.egorBio"
+      | "welcome.dmitryBio"
+      | "welcome.prepareTogether"
+      | TemplateStringsArray
+    )[];
 
 const teamMembers = [
   {
@@ -57,109 +86,125 @@ const Welcome = () => {
   };
 
   return (
-      <div className={styles.aboutUsContainer} ref={ref}>
-        <h1
-            className={`${styles.welcomeTitle} ${
-                isAnimating ? styles.animate : ""
-            }`}
-        >
-          {t("welcome.reactGroup")}
-        </h1>
-        <div className={styles.audioBlock}>
-          <div>
-            <h2 className={styles.audioHeading}>
-              {t("welcome.prepareTogether")}
-            </h2>
-            <div className={styles.audioPlayerContainer}>
-              <AudioPlayer
-                  src={trackSrc as string}
-                  onPlay={handlePlay}
-                  onPause={handlePause}
-              />
-            </div>
-          </div>
-        </div>
-
-        {isMobileView ? (
-            <Swiper>
-              {teamMembers.map((member) => (
-                  <div
-                      key={member.name}
-                      className={`${styles.teamMember} ${
-                          isAnimating ? styles.animate : ""
-                      }`}
-                  >
-                    <img
-                        src={member.photo}
-                        alt={`Фото ${t(`welcome.${member.name}`)}`}
-                        className={styles.teamMemberPhoto}
-                    />
-                    <h2>{t(`welcome.${member.name}`)}</h2>
-                    <h3>{t(`welcome.${member.role}`)}</h3>
-                    <p>{t(`welcome.${member.bio}`)}</p>
-                    <div>
-                      <a
-                          href={member.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                      >
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{ textTransform: "none" }}
-                        >
-                          {t("welcome.githubProfile")}
-                        </Button>
-                      </a>
-                    </div>
-                  </div>
-              ))}
-            </Swiper>
-        ) : (
-            <div className={styles.teamSection}>
-              {teamMembers.map((member) => (
-                  <div
-                      key={member.name}
-                      className={`${styles.teamMember} ${
-                          isAnimating ? styles.animate : ""
-                      }`}
-                  >
-                    <img
-                        src={member.photo}
-                        alt={`Фото ${t(`welcome.${member.name}`)}`}
-                        className={styles.teamMemberPhoto}
-                    />
-                    <h2>{t(`welcome.${member.name}`)}</h2>
-                    <h3>{t(`welcome.${member.role}`)}</h3>
-                    <p>{t(`welcome.${member.bio}`)}</p>
-                    <div className={styles.githubButtonContainer}>
-                      <a
-                          href={member.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                      >
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            sx={{ textTransform: "none" }}
-                        >
-                          {t("welcome.githubProfile")}
-                        </Button>
-                      </a>
-                    </div>
-                  </div>
-              ))}
-            </div>
-        )}
-        <div className={styles.bottomTextAndLogo}>
-          <p className={styles.schoolInfo}>{t("welcome.studentInfo")}</p>
-          <div className={styles.rsSchoolLogo}>
-            <a href={RS_SCHOOL_URL} target="_blank" rel="noopener noreferrer">
-              <img src={RS_SCHOOL_LOGO_URL} alt="RS School Logo" />
-            </a>
+    <div className={styles.aboutUsContainer} ref={ref}>
+      <h1
+        className={`${styles.welcomeTitle} ${
+          isAnimating ? styles.animate : ""
+        }`}
+      >
+        {t("welcome.reactGroup")}
+      </h1>
+      <div className={styles.audioBlock}>
+        <div>
+          <h2 className={styles.audioHeading}>
+            {t("welcome.prepareTogether")}
+          </h2>
+          <div className={styles.audioPlayerContainer}>
+            <AudioPlayer
+              src={trackSrc as string}
+              onPlay={handlePlay}
+              onPause={handlePause}
+            />
           </div>
         </div>
       </div>
+
+      {isMobileView ? (
+        <Swiper>
+          {teamMembers.map((member) => (
+            <div
+              key={member.name}
+              className={`${styles.teamMember} ${
+                isAnimating ? styles.animate : ""
+              }`}
+            >
+              <img
+                src={member.photo}
+                alt={`Фото ${t(
+                  `welcome.${member.name}` as unknown as membertemplateString
+                )}`}
+                className={styles.teamMemberPhoto}
+              />
+              <h2>
+                {t(`welcome.${member.name}` as unknown as membertemplateString)}
+              </h2>
+              <h3>
+                {t(`welcome.${member.role}` as unknown as membertemplateString)}
+              </h3>
+              <p>
+                {t(`welcome.${member.bio}` as unknown as membertemplateString)}
+              </p>
+              <div>
+                <a
+                  href={member.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ textTransform: "none" }}
+                  >
+                    {t("welcome.githubProfile")}
+                  </Button>
+                </a>
+              </div>
+            </div>
+          ))}
+        </Swiper>
+      ) : (
+        <div className={styles.teamSection}>
+          {teamMembers.map((member) => (
+            <div
+              key={member.name}
+              className={`${styles.teamMember} ${
+                isAnimating ? styles.animate : ""
+              }`}
+            >
+              <img
+                src={member.photo}
+                alt={`Фото ${t(
+                  `welcome.${member.name}` as unknown as membertemplateString
+                )}`}
+                className={styles.teamMemberPhoto}
+              />
+              <h2>
+                {t(`welcome.${member.name}` as unknown as membertemplateString)}
+              </h2>
+              <h3>
+                {t(`welcome.${member.role}` as unknown as membertemplateString)}
+              </h3>
+              <p>
+                {t(`welcome.${member.bio}` as unknown as membertemplateString)}
+              </p>
+              <div className={styles.githubButtonContainer}>
+                <a
+                  href={member.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ textTransform: "none" }}
+                  >
+                    {t("welcome.githubProfile")}
+                  </Button>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className={styles.bottomTextAndLogo}>
+        <p className={styles.schoolInfo}>{t("welcome.studentInfo")}</p>
+        <div className={styles.rsSchoolLogo}>
+          <a href={RS_SCHOOL_URL} target="_blank" rel="noopener noreferrer">
+            <img src={RS_SCHOOL_LOGO_URL} alt="RS School Logo" />
+          </a>
+        </div>
+      </div>
+    </div>
   );
 };
 
