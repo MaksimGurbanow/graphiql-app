@@ -252,3 +252,27 @@
     margin: 0 auto;
   }
 }
+
+.welcomeButtonContainer {
+  display: flex;
+  gap: 20px; 
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 450px) {
+  .welcomeButtonContainer {
+    flex-direction: column;
+  }
+}
+
+.welcomeGreetings {
+  font-size: 24px;
+}
+
+@media (max-width: 450px) {
+  .welcomeGreetings {
+    font-size: 18px;
+  }
+}

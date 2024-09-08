@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import AudioPlayer from "../../components/audio-player/AudioPlayer";
 import RS_SCHOOL_LOGO from "../../assets/icons_and_logos/rs_school.svg";
 import EP_PHOTO from "../../assets/photoes/EP.jpg";
@@ -10,6 +10,9 @@ import { Button } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import useResizeObserver from "@react-hook/resize-observer";
 import trackSrc from "../../assets/audio/Track.mp3";
+import { useNavigate } from "@remix-run/react";
+import { IsLogedInContext } from "~/context/loginContext";
+import { auth } from "lib/firebase.config";
 
 const RS_SCHOOL_LOGO_URL: string = RS_SCHOOL_LOGO as unknown as string;
 const RS_SCHOOL_URL: string = "https://rs.school/";
@@ -41,8 +44,11 @@ const teamMembers = [
 const Welcome = () => {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [isAnimating, setIsAnimating] = useState(false);
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement | null>(null);
+  const [isLogin] = useContext(IsLogedInContext);
+  const user = auth.currentUser;
 
   useResizeObserver(ref, (entry) => {
     setIsMobileView(entry.contentRect.width <= 768);
@@ -58,6 +64,40 @@ const Welcome = () => {
 
   return (
     <div className={styles.aboutUsContainer} ref={ref}>
+      {isLogin && (
+        <div>
+          <h2 className={styles.welcomeGreetings}>{`${t(
+            "welcome.welcomeBack"
+          )} ${user?.email}!`}</h2>
+          <div className={styles.welcomeButtonContainer}>
+            <Button onClick={() => navigate("/rest")} variant="outlined">
+              {t("welcome.restClient")}
+            </Button>
+            <Button onClick={() => navigate("/graphiql")} variant="outlined">
+              {t("welcome.graphiQlClient")}
+            </Button>
+            <Button onClick={() => navigate("/history")} variant="outlined">
+              {t("welcome.history")}
+            </Button>
+          </div>
+        </div>
+      )}
+      {!isLogin && (
+        <div>
+          <h2>{t("welcome.welcome")}</h2>
+          <div className={styles.welcomeButtonContainer}>
+            <Button onClick={() => navigate("/login")} variant="outlined">
+              {t("form.signIn")}
+            </Button>
+            <Button
+              onClick={() => navigate("/registration")}
+              variant="outlined"
+            >
+              {t("form.signUp")}
+            </Button>
+          </div>
+        </div>
+      )}
       <h1
         className={`${styles.welcomeTitle} ${
           isAnimating ? styles.animate : ""
