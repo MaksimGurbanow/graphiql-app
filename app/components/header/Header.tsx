@@ -2,9 +2,9 @@ import "./header.scss";
 import logo from "../../assets/logo-svg.svg";
 import { useContext, useState } from "react";
 import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { IsLogedInContext } from "~/context/loginContext";
+import { IsLogedInContext } from "../../context/loginContext";
 import { useNavigate } from "@remix-run/react";
-import { signOut } from "~/utils/signOut";
+import { signOut } from "../../utils/signOut";
 import { useTranslation } from "react-i18next";
 
 const Header = () => {

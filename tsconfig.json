@@ -2,14 +2,22 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
     "**/.server/**/*.ts",
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
-    "**/.client/**/*.tsx"
-, "remix.config.js"  ],
+    "**/.client/**/*.tsx",
+    "remix.config.js",
+    "vitest.setup.ts",
+    "node_modules/vitest/globals.d.ts"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "typeRoots": ["./node_modules/@types", "./app/types"],
+    "types": ["vitest/globals", "node", "@testing-library/jest-dom"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -25,8 +33,6 @@
     "paths": {
       "~/*": ["./app/*"]
     },
-
-    // Vite takes care of building everything, not tsc.
     "noEmit": true
   }
 }
