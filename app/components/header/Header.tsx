@@ -118,10 +118,10 @@ const Header = () => {
           size="small"
           orientation={"horizontal"}
         >
-          <ToggleButton value="EN" aria-label="EN">
+          <ToggleButton value="EN" aria-label="EN" sx={{ color: "grey" }}>
             <span>EN</span>
           </ToggleButton>
-          <ToggleButton value="RU" aria-label="RU">
+          <ToggleButton value="RU" aria-label="RU" sx={{ color: "grey" }}>
             <span>RU</span>
           </ToggleButton>
         </ToggleButtonGroup>
