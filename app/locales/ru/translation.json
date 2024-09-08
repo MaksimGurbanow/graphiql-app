@@ -11,7 +11,12 @@
     "dmitryName": "Дмитрий Николаев",
     "maksimBio": "Максим руководит архитектурой проекта и интеграцией с commercetools API...",
     "egorBio": "Егор отвечает за управление данными в commercetools API...",
-    "dmitryBio": "Дмитрий отвечает за UI/UX дизайн и интерактивные элементы приложения..."
+    "dmitryBio": "Дмитрий отвечает за UI/UX дизайн и интерактивные элементы приложения...",
+    "restClient": "Rest клиент",
+    "graphiQlClient": "GraphiQl клиент",
+    "history": "История",
+    "welcome": "Добро пожаловать!",
+    "welcomeBack":"С возвращением, "
   },
   "header": {
     "signOut": "Выйти",
