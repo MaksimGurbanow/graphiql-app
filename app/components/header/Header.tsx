@@ -27,12 +27,24 @@ const Header = () => {
   const { i18n, t } = useTranslation();
   const [lang, setLang] = useState(i18n.language.toUpperCase());
   const matches = useMediaQuery("(min-width:450px)");
+  const [isFixed, setIsFixed] = useState(true);
+
+  window.onscroll = () => {
+    if (window.scrollY >= 106) {
+      setIsFixed(false);
+    } else if (window.scrollY < 100) {
+      setIsFixed(true);
+    }
+  };
+
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newLang: string
   ) => {
-    setLang(newLang);
-    i18n.changeLanguage(newLang.toLowerCase());
+    if (newLang !== null) {
+      setLang(newLang);
+      i18n.changeLanguage(newLang.toLowerCase());
+    }
   };
 
   const signInHandler = (event: Event | SyntheticEvent<Element, Event>) => {
@@ -90,7 +102,7 @@ const Header = () => {
   }, [open]);
 
   return (
-    <header className="header">
+    <header className={isFixed ? "header" : "header fixed"}>
       <IconButton onClick={() => navigate("/")}>
         <img src={logo} alt="logo" className="logo" />
       </IconButton>
@@ -99,7 +111,7 @@ const Header = () => {
         <ToggleButtonGroup
           color="primary"
           value={lang}
-          exclusive
+          exclusive={true}
           onChange={handleChange}
           aria-label="Language"
           style={{ border: "1px solid #1976d2" }}
