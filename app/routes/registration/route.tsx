@@ -9,6 +9,7 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -17,7 +18,7 @@ import { validationSchema } from "~/utils/validationSchema";
 import { LoadingButton } from "@mui/lab";
 import signUp from "~/utils/signUp";
 import PasswordStrengthMeter from "~/components/passwordStrength/PasswordStrength";
-import { Navigate } from "@remix-run/react";
+import { Navigate, useNavigate } from "@remix-run/react";
 import { IsLogedInContext } from "~/context/loginContext";
 import { useTranslation } from "react-i18next";
 
@@ -42,7 +43,8 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordStrength, setShowPasswordStrength] = useState(false);
   const [isLogedIn] = useContext(IsLogedInContext);
-
+  const matches = useMediaQuery("(min-width:450px)");
+  const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (
@@ -65,7 +67,11 @@ const Registration = () => {
       {isLogedIn && <Navigate to="/" replace={true} />}
       {!isLogedIn && (
         <section className="register">
-          <form onSubmit={handleSubmit(onSubmit)} className="form">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="form"
+            style={{ width: matches ? "400px" : "300px" }}
+          >
             <h1 className="form__heading">{t("form.signUpHeading")}</h1>
             <TextField
               id="outlined-uncontrolled"
@@ -133,12 +139,16 @@ const Registration = () => {
             >
               <span>{t("form.signUp")}</span>
             </LoadingButton>
-            <a href="/login" className="form__link">
+            <button
+              type="button"
+              onClick={() => navigate("/login")}
+              className="form__link"
+            >
               {t("form.haveAccount")}
               <span style={{ textDecoration: "underline" }}>
                 {t("form.signIn")}
               </span>
-            </a>
+            </button>
           </form>
           <div style={{ height: "40px" }}>
             {signUpError && (

@@ -18,6 +18,11 @@ declare module "i18next" {
           maksimBio: string;
           egorBio: string;
           dmitryBio: string;
+          restClient: string;
+          graphiQlClient: string;
+          history: string;
+          welcome: string;
+          welcomeBack: string;
         };
         header: {
           signOut: string;
