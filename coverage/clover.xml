@@ -1,95 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1725757781803" clover="3.2.0">
-  <project timestamp="1725757781803" name="All files">
-    <metrics statements="311" coveredstatements="205" conditionals="19" coveredconditionals="15" methods="8" coveredmethods="5" elements="338" coveredelements="225" complexity="0" loc="311" ncloc="311" packages="4" files="4" classes="4"/>
+<coverage generated="1725757877183" clover="3.2.0">
+  <project timestamp="1725757877183" name="All files">
+    <metrics statements="288" coveredstatements="164" conditionals="7" coveredconditionals="3" methods="7" coveredmethods="2" elements="302" coveredelements="169" complexity="0" loc="288" ncloc="288" packages="3" files="3" classes="3"/>
     <package name="audio-player">
-      <metrics statements="55" coveredstatements="55" conditionals="9" coveredconditionals="8" methods="3" coveredmethods="3"/>
+      <metrics statements="55" coveredstatements="37" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="1"/>
       <file name="AudioPlayer.tsx" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\app\components\audio-player\AudioPlayer.tsx">
-        <metrics statements="55" coveredstatements="55" conditionals="9" coveredconditionals="8" methods="3" coveredmethods="3"/>
+        <metrics statements="55" coveredstatements="37" conditionals="2" coveredconditionals="1" methods="3" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="12" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="13" count="13" type="stmt"/>
-        <line num="14" count="13" type="stmt"/>
-        <line num="15" count="13" type="stmt"/>
-        <line num="17" count="13" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="4" type="cond" truecount="0" falsecount="1"/>
-        <line num="19" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="22" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="23" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="28" count="4" type="stmt"/>
-        <line num="29" count="4" type="stmt"/>
-        <line num="31" count="13" type="cond" truecount="1" falsecount="0"/>
-        <line num="32" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="39" count="13" type="stmt"/>
-        <line num="40" count="13" type="stmt"/>
-        <line num="41" count="13" type="stmt"/>
-        <line num="42" count="13" type="stmt"/>
-        <line num="43" count="13" type="stmt"/>
-        <line num="44" count="13" type="stmt"/>
-        <line num="45" count="13" type="cond" truecount="2" falsecount="0"/>
-        <line num="46" count="13" type="stmt"/>
-        <line num="47" count="13" type="stmt"/>
-        <line num="48" count="13" type="stmt"/>
-        <line num="49" count="13" type="stmt"/>
-        <line num="50" count="13" type="stmt"/>
-        <line num="51" count="13" type="stmt"/>
-        <line num="52" count="13" type="stmt"/>
-        <line num="53" count="13" type="stmt"/>
-        <line num="54" count="13" type="stmt"/>
-        <line num="55" count="13" type="stmt"/>
-        <line num="56" count="13" type="stmt"/>
-        <line num="57" count="13" type="stmt"/>
-        <line num="58" count="13" type="stmt"/>
-        <line num="60" count="13" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="stmt"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="43" count="3" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="45" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="49" count="3" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="54" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="57" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="60" count="3" type="stmt"/>
         <line num="62" count="1" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
         <line num="65" count="1" type="stmt"/>
         <line num="66" count="1" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="error boundary">
-      <metrics statements="23" coveredstatements="23" conditionals="5" coveredconditionals="5" methods="1" coveredmethods="1"/>
-      <file name="ErrorBoundary.tsx" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\app\components\error boundary\ErrorBoundary.tsx">
-        <metrics statements="23" coveredstatements="23" conditionals="5" coveredconditionals="5" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="20" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="21" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="22" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="23" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="4" type="stmt"/>
-        <line num="26" count="4" type="stmt"/>
-        <line num="27" count="4" type="stmt"/>
-        <line num="28" count="4" type="stmt"/>
-        <line num="30" count="4" type="stmt"/>
       </file>
     </package>
     <package name="swiper">
