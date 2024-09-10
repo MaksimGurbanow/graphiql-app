@@ -11,7 +11,12 @@
     "dmitryName": "Dmitry Nikolayev",
     "maksimBio": "Maksim leads the project architecture and integration with commercetools API...",
     "egorBio": "Egor is responsible for managing data in commercetools API...",
-    "dmitryBio": "Dmitry is responsible for UI/UX design and interactive elements of the application..."
+    "dmitryBio": "Dmitry is responsible for UI/UX design and interactive elements of the application...",
+    "restClient": "Rest client",
+    "graphiQlClient": "GraphiQl client",
+    "history": "History",
+    "welcome": "Welcome!",
+    "welcomeBack":"Welcome back, "
   },
   "header": {
     "signOut": "Sign Out",
