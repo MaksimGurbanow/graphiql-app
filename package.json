@@ -28,6 +28,8 @@
     "cross-env": "^7.0.3",
     "express": "^4.19.2",
     "firebase": "^10.13.0",
+    "graphiql": "^3.7.1",
+    "graphql": "^16.9.0",
     "html-format": "^1.1.7",
     "i18next": "^23.14.0",
     "i18next-browser-languagedetector": "^8.0.0",

@@ -1,0 +1,63 @@
+.method {
+  &Block {
+    width: 20%;
+    position: relative;
+    border-radius: 5px 0 0 5px;
+    &.focused {
+      box-shadow: 0 0 0 3px var(--input-shadow-focus);
+    }
+  }
+  &Input {
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    width: 100%;
+    border-radius: 5px 0 0 5px;
+    line-height: 20px;
+    outline: none;
+    border: none;
+    padding: 10px;
+  }
+
+  &Dropdown {
+    &List {
+      position: absolute;
+      top: 120%;
+      left: 25%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding-top: 5px;
+      z-index: 100000;
+      background: wheat;
+    }
+
+    &Divider {
+      margin: 10px 5px;
+    }
+
+    &Item {
+      margin: 0 5px;
+      border-radius: 5px;
+      text-align: justify;
+      padding: 5px 10px;
+      border: none;
+      background: transparent;
+
+      &:hover {
+        background-color: var(--highlight-background-color-primary);
+        color: white;
+      }
+    }
+    &Suggestion {
+      margin: 0 5px;
+      font-size: 11px;
+      color: var(--content-color-secondary);
+    }
+  }
+}
+
+.hidden {
+  display: none;
+}

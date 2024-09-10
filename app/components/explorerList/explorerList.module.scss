@@ -1,0 +1,15 @@
+.documentation {
+  &FieldsItem {
+    border: none;
+    font-size: 17px;
+    background: none;
+    text-align: justify;
+    width: 100%;
+  }
+  &FieldsWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}

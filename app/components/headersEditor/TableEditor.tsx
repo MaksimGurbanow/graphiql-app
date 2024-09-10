@@ -3,6 +3,7 @@ import classes from "./tableEditor.module.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IRow } from "~/types/types";
 import { formatValue } from "~/utils/defineTypedKey";
+import { defaultKeyValuePair } from "lib/constants";
 
 export interface TableEditorProps {
   rows: IRow[];
@@ -44,7 +45,10 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
         </Button>
       </Container>
       <DataGrid
-        rows={rows.map((row, index) => ({ ...row, id: index }))}
+        rows={rows
+          .map((row, index) => ({ ...row, id: index }))
+          .filter(({ key, value }) => key || value)
+          .concat([{ ...defaultKeyValuePair, id: rows.length }])}
         hideFooter
         columns={columns}
         onCellKeyDown={(params, event) => {

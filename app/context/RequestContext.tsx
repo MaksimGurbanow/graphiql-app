@@ -1,4 +1,3 @@
-import { defaultKeyValuePair } from "lib/constants";
 import {
   createContext,
   ReactNode,
@@ -20,9 +19,12 @@ export interface IRequest {
     error?: string;
   };
   graphQL: {
+    query: string;
     url: string;
-    headers: object;
+    sdl: string;
+    headers: IRow[];
     variables: object;
+    response: string;
   };
 }
 
@@ -46,8 +48,11 @@ export const RequestContext = createContext<{
     variables: {},
   },
   graphQL: {
+    sdl: "",
     url: "",
-    headers: {},
+    query: "",
+    response: "",
+    headers: [],
     variables: {},
   },
   setRest: noop,
@@ -59,19 +64,18 @@ export const useRequestContext = () => useContext(RequestContext);
 const RequestProvider = ({ children }: { children: ReactNode }) => {
   const [graphQLState, setGraphQLState] = useState<IRequest["graphQL"]>({
     url: "",
-    headers: {},
+    response: "",
+    query: "",
+    sdl: "",
+    headers: [],
     variables: {},
   });
 
   const [restState, setRestState] = useState<IRequest["rest"]>({
     url: "",
     method: "GET",
-    params: [
-      {...defaultKeyValuePair}
-    ],
-    headers: [
-      {...defaultKeyValuePair}
-    ],
+    params: [],
+    headers: [],
     response: "",
     body: "",
     variables: {},
