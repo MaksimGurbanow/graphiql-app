@@ -38,6 +38,9 @@ declare module "i18next" {
           signInHeading: string;
           signUpHeading: string;
         };
+        history: {
+          history: string;
+        };
       };
     };
   }

@@ -31,5 +31,8 @@
     "signUpHeading": "Sign Up",
     "dontHaveAccount": "Don't have an account?",
     "haveAccount": "Have an account?"
+   },
+   "history": {
+    "history": "History"
    }
 }

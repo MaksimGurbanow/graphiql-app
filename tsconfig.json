@@ -17,7 +17,7 @@
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "typeRoots": ["./node_modules/@types", "./app/types"],
-    "types": ["vitest/globals", "node", "@testing-library/jest-dom"],
+    // "types": ["vitest/globals", "node", "@testing-library/jest-dom"],
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",

@@ -31,5 +31,8 @@
     "signUpHeading": "Регистрация",
     "dontHaveAccount": "Еще нет аккаунта?",
     "haveAccount": "Уже есть аккаунт?"
+   },
+   "history": {
+    "history": "История запросов"
    }
 }
