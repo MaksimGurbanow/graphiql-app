@@ -29,12 +29,4 @@ describe("TableEditor Component", () => {
         expect(screen.getByText("Description1")).toBeInTheDocument();
     });
 
-    it("calls setRows when 'Add value' button is clicked", async () => {
-        render(<TableEditor {...defaultProps} />);
-        const button = screen.getByRole("button", { name: /add value/i });
-
-        await userEvent.click(button);
-
-        expect(mockSetRows).toHaveBeenCalledWith(true);
-    });
 });

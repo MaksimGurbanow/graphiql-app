@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.38% </span>
+                <span class="strong">69.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>136/196</span>
+                <span class='fraction'>135/194</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.38% </span>
+                <span class="strong">69.58% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>136/196</span>
+                <span class='fraction'>135/194</span>
             </div>
         
             
@@ -282,15 +282,7 @@
 <a name='L217'></a><a href='#L217'>217</a>
 <a name='L218'></a><a href='#L218'>218</a>
 <a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a>
-<a name='L221'></a><a href='#L221'>221</a>
-<a name='L222'></a><a href='#L222'>222</a>
-<a name='L223'></a><a href='#L223'>223</a>
-<a name='L224'></a><a href='#L224'>224</a>
-<a name='L225'></a><a href='#L225'>225</a>
-<a name='L226'></a><a href='#L226'>226</a>
-<a name='L227'></a><a href='#L227'>227</a>
-<a name='L228'></a><a href='#L228'>228</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L220'></a><a href='#L220'>220</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -410,11 +402,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -458,11 +446,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
@@ -564,7 +548,7 @@ const Welcome = () =&gt; {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth &lt;= 768);
   const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const ref = useRef&lt;HTMLDivElement | null&gt;(null);
   const [isLogin] = useContext(IsLogedInContext);
   const user = auth.currentUser;
@@ -637,12 +621,8 @@ const Welcome = () =&gt; {
         {<span class="branch-0 cbranch-no" title="branch not covered" >isMobileView ? (</span>
 <span class="cstat-no" title="statement not covered" >            &lt;Swiper&gt;</span>
 <span class="cstat-no" title="statement not covered" >              {teamMembers.map((member) =&gt; {</span>
-                // Получаем текст биографии из локализации
 <span class="cstat-no" title="statement not covered" >                const bio = t(`welcome.${member.bio}` as never);</span>
-                // Определяем ключевую фразу в зависимости от текущего языка
-<span class="cstat-no" title="statement not covered" >                const splitPhrase = i18n.language === "ru" ? "Вклад в проект:" : "Contribution to the project:";</span>
-                // Разделяем текст на части до и после ключевой фразы
-<span class="cstat-no" title="statement not covered" >                const [mainPart, contribution] = bio.split(splitPhrase);</span>
+<span class="cstat-no" title="statement not covered" >                const [mainPart, contribution] = bio.split("Вклад в проект:");</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                return (</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;div</span>
@@ -660,7 +640,7 @@ const Welcome = () =&gt; {
 <span class="cstat-no" title="statement not covered" >                      &lt;h3&gt;{t(`welcome.${member.role}` as never)}&lt;/h3&gt;</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;p&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        {mainPart}</span>
-<span class="cstat-no" title="statement not covered" >                        &lt;span style={{ fontWeight: "bold" }}&gt;{splitPhrase}&lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;span style={{ fontWeight: "bold" }}&gt;Вклад в проект:&lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        {contribution}</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;/p&gt;</span>
 <span class="cstat-no" title="statement not covered" >                      &lt;div&gt;</span>
@@ -685,12 +665,8 @@ const Welcome = () =&gt; {
         ) : (
             &lt;div className={styles.teamSection}&gt;
               {teamMembers.map((member) =&gt; {
-                // Получаем текст биографии из локализации
                 const bio = t(`welcome.${member.bio}` as never);
-                // Определяем ключевую фразу в зависимости от текущего языка
-                const splitPhrase = i18n.language === <span class="branch-0 cbranch-no" title="branch not covered" >"ru" ? "Вклад в проект:" : "</span>Contribution to the project:";
-                // Разделяем текст на части до и после ключевой фразы
-                const [mainPart, contribution] = bio.split(splitPhrase);
+                const [mainPart, contribution] = bio.split("Вклад в проект:");
 &nbsp;
                 return (
                     &lt;div
@@ -708,7 +684,7 @@ const Welcome = () =&gt; {
                       &lt;h3&gt;{t(`welcome.${member.role}` as never)}&lt;/h3&gt;
                       &lt;p&gt;
                         {mainPart}
-                        &lt;span style={{ fontWeight: "bold" }}&gt;{splitPhrase}&lt;/span&gt;
+                        &lt;span style={{ fontWeight: "bold" }}&gt;Вклад в проект:&lt;/span&gt;
                         {contribution}
                       &lt;/p&gt;
                       &lt;div&gt;
@@ -751,7 +727,7 @@ export default Welcome;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-13T21:01:30.502Z
+                at 2024-09-13T23:46:09.613Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

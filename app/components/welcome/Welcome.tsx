@@ -45,7 +45,7 @@ const Welcome = () => {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement | null>(null);
   const [isLogin] = useContext(IsLogedInContext);
   const user = auth.currentUser;
@@ -118,12 +118,8 @@ const Welcome = () => {
         {isMobileView ? (
             <Swiper>
               {teamMembers.map((member) => {
-                // Получаем текст биографии из локализации
                 const bio = t(`welcome.${member.bio}` as never);
-                // Определяем ключевую фразу в зависимости от текущего языка
-                const splitPhrase = i18n.language === "ru" ? "Вклад в проект:" : "Contribution to the project:";
-                // Разделяем текст на части до и после ключевой фразы
-                const [mainPart, contribution] = bio.split(splitPhrase);
+                const [mainPart, contribution] = bio.split("Вклад в проект:");
 
                 return (
                     <div
@@ -141,7 +137,7 @@ const Welcome = () => {
                       <h3>{t(`welcome.${member.role}` as never)}</h3>
                       <p>
                         {mainPart}
-                        <span style={{ fontWeight: "bold" }}>{splitPhrase}</span>
+                        <span style={{ fontWeight: "bold" }}>Вклад в проект:</span>
                         {contribution}
                       </p>
                       <div>
@@ -166,12 +162,8 @@ const Welcome = () => {
         ) : (
             <div className={styles.teamSection}>
               {teamMembers.map((member) => {
-                // Получаем текст биографии из локализации
                 const bio = t(`welcome.${member.bio}` as never);
-                // Определяем ключевую фразу в зависимости от текущего языка
-                const splitPhrase = i18n.language === "ru" ? "Вклад в проект:" : "Contribution to the project:";
-                // Разделяем текст на части до и после ключевой фразы
-                const [mainPart, contribution] = bio.split(splitPhrase);
+                const [mainPart, contribution] = bio.split("Вклад в проект:");
 
                 return (
                     <div
@@ -189,7 +181,7 @@ const Welcome = () => {
                       <h3>{t(`welcome.${member.role}` as never)}</h3>
                       <p>
                         {mainPart}
-                        <span style={{ fontWeight: "bold" }}>{splitPhrase}</span>
+                        <span style={{ fontWeight: "bold" }}>Вклад в проект:</span>
                         {contribution}
                       </p>
                       <div>

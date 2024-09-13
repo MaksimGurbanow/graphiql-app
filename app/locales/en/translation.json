@@ -31,5 +31,21 @@
     "signUpHeading": "Sign Up",
     "dontHaveAccount": "Don't have an account?",
     "haveAccount": "Have an account?"
-   }
+   },
+  "rest": {
+    "typeYourOwnMethod": "Type your own method",
+    "sendButton": "Send",
+    "params": "Parameters",
+    "headers": "Headers",
+    "body": "Body"
+  },
+  "tableEditor": {
+    "key": "Key",
+    "value": "Value",
+    "description": "Description",
+    "addValue": "Add value"
+  },
+  "response": {
+    "title": "Response"
+  }
 }
