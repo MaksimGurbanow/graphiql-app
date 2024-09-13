@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726191498019" clover="3.2.0">
-  <project timestamp="1726191498019" name="All files">
-    <metrics statements="5761" coveredstatements="928" conditionals="122" coveredconditionals="74" methods="95" coveredmethods="36" elements="5978" coveredelements="1038" complexity="0" loc="5761" ncloc="5761" packages="21" files="49" classes="49"/>
+<coverage generated="1726260164701" clover="3.2.0">
+  <project timestamp="1726260164701" name="All files">
+    <metrics statements="5784" coveredstatements="932" conditionals="123" coveredconditionals="74" methods="95" coveredmethods="36" elements="6002" coveredelements="1042" complexity="0" loc="5784" ncloc="5784" packages="21" files="49" classes="49"/>
     <package name="app">
       <metrics statements="197" coveredstatements="104" conditionals="11" coveredconditionals="8" methods="7" coveredmethods="5"/>
       <file name="entry.client.tsx" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\app\entry.client.tsx">
@@ -739,9 +739,9 @@
       </file>
     </package>
     <package name="app.components.welcome">
-      <metrics statements="184" coveredstatements="132" conditionals="6" coveredconditionals="2" methods="8" coveredmethods="1"/>
+      <metrics statements="196" coveredstatements="136" conditionals="7" coveredconditionals="2" methods="8" coveredmethods="1"/>
       <file name="Welcome.tsx" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\app\components\welcome\Welcome.tsx">
-        <metrics statements="184" coveredstatements="132" conditionals="6" coveredconditionals="2" methods="8" coveredmethods="1"/>
+        <metrics statements="196" coveredstatements="136" conditionals="7" coveredconditionals="2" methods="8" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -828,14 +828,15 @@
         <line num="92" count="3" type="stmt"/>
         <line num="93" count="3" type="stmt"/>
         <line num="94" count="3" type="stmt"/>
+        <line num="95" count="3" type="stmt"/>
         <line num="96" count="3" type="stmt"/>
-        <line num="97" count="3" type="stmt"/>
         <line num="98" count="3" type="stmt"/>
-        <line num="99" count="3" type="stmt"/>
+        <line num="99" count="3" type="cond" truecount="0" falsecount="1"/>
         <line num="101" count="3" type="stmt"/>
         <line num="102" count="3" type="stmt"/>
-        <line num="103" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="103" count="3" type="stmt"/>
         <line num="104" count="3" type="stmt"/>
+        <line num="105" count="3" type="stmt"/>
         <line num="106" count="3" type="stmt"/>
         <line num="107" count="3" type="stmt"/>
         <line num="108" count="3" type="stmt"/>
@@ -847,22 +848,18 @@
         <line num="114" count="3" type="stmt"/>
         <line num="115" count="3" type="stmt"/>
         <line num="116" count="3" type="stmt"/>
-        <line num="117" count="3" type="stmt"/>
-        <line num="118" count="3" type="stmt"/>
-        <line num="119" count="3" type="stmt"/>
-        <line num="120" count="3" type="stmt"/>
-        <line num="121" count="3" type="stmt"/>
-        <line num="123" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="118" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
         <line num="124" count="0" type="stmt"/>
-        <line num="125" count="0" type="stmt"/>
         <line num="126" count="0" type="stmt"/>
-        <line num="127" count="0" type="stmt"/>
         <line num="128" count="0" type="stmt"/>
         <line num="129" count="0" type="stmt"/>
         <line num="130" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
         <line num="132" count="0" type="stmt"/>
         <line num="133" count="0" type="stmt"/>
-        <line num="134" count="0" type="stmt"/>
         <line num="135" count="0" type="stmt"/>
         <line num="136" count="0" type="stmt"/>
         <line num="137" count="0" type="stmt"/>
@@ -873,59 +870,74 @@
         <line num="142" count="0" type="stmt"/>
         <line num="143" count="0" type="stmt"/>
         <line num="144" count="0" type="stmt"/>
+        <line num="145" count="0" type="stmt"/>
         <line num="146" count="0" type="stmt"/>
         <line num="147" count="0" type="stmt"/>
         <line num="148" count="0" type="stmt"/>
         <line num="149" count="0" type="stmt"/>
+        <line num="150" count="0" type="stmt"/>
         <line num="151" count="0" type="stmt"/>
-        <line num="152" count="0" type="stmt"/>
         <line num="153" count="0" type="stmt"/>
         <line num="154" count="0" type="stmt"/>
         <line num="155" count="0" type="stmt"/>
         <line num="156" count="0" type="stmt"/>
-        <line num="157" count="0" type="stmt"/>
-        <line num="159" count="3" type="stmt"/>
-        <line num="160" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="161" count="9" type="stmt"/>
-        <line num="162" count="9" type="stmt"/>
-        <line num="163" count="9" type="stmt"/>
-        <line num="164" count="9" type="cond" truecount="0" falsecount="1"/>
-        <line num="165" count="9" type="stmt"/>
-        <line num="167" count="9" type="stmt"/>
-        <line num="168" count="9" type="stmt"/>
-        <line num="169" count="9" type="stmt"/>
+        <line num="158" count="0" type="stmt"/>
+        <line num="159" count="0" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+        <line num="161" count="0" type="stmt"/>
+        <line num="162" count="0" type="stmt"/>
+        <line num="164" count="0" type="stmt"/>
+        <line num="165" count="0" type="stmt"/>
+        <line num="167" count="3" type="stmt"/>
+        <line num="168" count="3" type="cond" truecount="1" falsecount="0"/>
         <line num="170" count="9" type="stmt"/>
-        <line num="171" count="9" type="stmt"/>
-        <line num="172" count="9" type="stmt"/>
-        <line num="173" count="9" type="stmt"/>
+        <line num="172" count="9" type="cond" truecount="0" falsecount="1"/>
         <line num="174" count="9" type="stmt"/>
-        <line num="175" count="9" type="stmt"/>
         <line num="176" count="9" type="stmt"/>
         <line num="177" count="9" type="stmt"/>
         <line num="178" count="9" type="stmt"/>
         <line num="179" count="9" type="stmt"/>
+        <line num="180" count="9" type="cond" truecount="0" falsecount="1"/>
         <line num="181" count="9" type="stmt"/>
-        <line num="182" count="9" type="stmt"/>
         <line num="183" count="9" type="stmt"/>
         <line num="184" count="9" type="stmt"/>
+        <line num="185" count="9" type="stmt"/>
         <line num="186" count="9" type="stmt"/>
         <line num="187" count="9" type="stmt"/>
         <line num="188" count="9" type="stmt"/>
         <line num="189" count="9" type="stmt"/>
         <line num="190" count="9" type="stmt"/>
-        <line num="191" count="3" type="stmt"/>
-        <line num="192" count="3" type="stmt"/>
-        <line num="194" count="3" type="stmt"/>
-        <line num="195" count="3" type="stmt"/>
-        <line num="196" count="3" type="stmt"/>
-        <line num="197" count="3" type="stmt"/>
-        <line num="198" count="3" type="stmt"/>
-        <line num="199" count="3" type="stmt"/>
-        <line num="200" count="3" type="stmt"/>
-        <line num="201" count="3" type="stmt"/>
-        <line num="202" count="3" type="stmt"/>
-        <line num="204" count="3" type="stmt"/>
-        <line num="206" count="1" type="stmt"/>
+        <line num="191" count="9" type="stmt"/>
+        <line num="192" count="9" type="stmt"/>
+        <line num="193" count="9" type="stmt"/>
+        <line num="194" count="9" type="stmt"/>
+        <line num="195" count="9" type="stmt"/>
+        <line num="196" count="9" type="stmt"/>
+        <line num="197" count="9" type="stmt"/>
+        <line num="198" count="9" type="stmt"/>
+        <line num="199" count="9" type="stmt"/>
+        <line num="201" count="9" type="stmt"/>
+        <line num="202" count="9" type="stmt"/>
+        <line num="203" count="9" type="stmt"/>
+        <line num="204" count="9" type="stmt"/>
+        <line num="206" count="9" type="stmt"/>
+        <line num="207" count="9" type="stmt"/>
+        <line num="208" count="9" type="stmt"/>
+        <line num="209" count="9" type="stmt"/>
+        <line num="210" count="9" type="stmt"/>
+        <line num="212" count="3" type="stmt"/>
+        <line num="213" count="3" type="stmt"/>
+        <line num="215" count="3" type="stmt"/>
+        <line num="216" count="3" type="stmt"/>
+        <line num="217" count="3" type="stmt"/>
+        <line num="218" count="3" type="stmt"/>
+        <line num="219" count="3" type="stmt"/>
+        <line num="220" count="3" type="stmt"/>
+        <line num="221" count="3" type="stmt"/>
+        <line num="222" count="3" type="stmt"/>
+        <line num="223" count="3" type="stmt"/>
+        <line num="225" count="3" type="stmt"/>
+        <line num="227" count="1" type="stmt"/>
       </file>
     </package>
     <package name="app.context">
@@ -1761,7 +1773,7 @@
         <metrics statements="1" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
       </file>
-      <file name="_index-DYoVeGSA.js" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\build\client\assets\_index-DYoVeGSA.js">
+      <file name="_index-D-LEMkIZ.js" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\build\client\assets\_index-D-LEMkIZ.js">
         <metrics statements="1" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
       </file>
@@ -2009,7 +2021,7 @@
         <metrics statements="1" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
       </file>
-      <file name="manifest-3ca713f4.js" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\build\client\assets\manifest-3ca713f4.js">
+      <file name="manifest-4b32a915.js" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\build\client\assets\manifest-4b32a915.js">
         <metrics statements="1" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
       </file>
@@ -4393,9 +4405,9 @@
       </file>
     </package>
     <package name="build.server">
-      <metrics statements="1539" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="1550" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="index.js" path="C:\Users\react\OneDrive\Documents\React_RSS_Final_Project\graphiql-app\build\server\index.js">
-        <metrics statements="1539" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="1550" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
@@ -5935,6 +5947,17 @@
         <line num="1537" count="0" type="stmt"/>
         <line num="1538" count="0" type="stmt"/>
         <line num="1539" count="0" type="stmt"/>
+        <line num="1540" count="0" type="stmt"/>
+        <line num="1541" count="0" type="stmt"/>
+        <line num="1542" count="0" type="stmt"/>
+        <line num="1543" count="0" type="stmt"/>
+        <line num="1544" count="0" type="stmt"/>
+        <line num="1545" count="0" type="stmt"/>
+        <line num="1546" count="0" type="stmt"/>
+        <line num="1547" count="0" type="stmt"/>
+        <line num="1548" count="0" type="stmt"/>
+        <line num="1549" count="0" type="stmt"/>
+        <line num="1550" count="0" type="stmt"/>
       </file>
     </package>
     <package name="lib">

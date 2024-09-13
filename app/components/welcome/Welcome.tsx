@@ -45,7 +45,7 @@ const Welcome = () => {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const ref = useRef<HTMLDivElement | null>(null);
   const [isLogin] = useContext(IsLogedInContext);
   const user = auth.currentUser;
@@ -63,143 +63,164 @@ const Welcome = () => {
   };
 
   return (
-    <div className={styles.aboutUsContainer} ref={ref}>
-      {isLogin && (
-        <div>
-          <h2 className={styles.welcomeGreetings}>{`${t(
-            "welcome.welcomeBack"
-          )} ${user?.email}!`}</h2>
-          <div className={styles.welcomeButtonContainer}>
-            <Button onClick={() => navigate("/rest")} variant="outlined">
-              {t("welcome.restClient")}
-            </Button>
-            <Button onClick={() => navigate("/graphiql")} variant="outlined">
-              {t("welcome.graphiQlClient")}
-            </Button>
-            <Button onClick={() => navigate("/history")} variant="outlined">
-              {t("welcome.history")}
-            </Button>
+      <div className={styles.aboutUsContainer} ref={ref}>
+        {isLogin && (
+            <div>
+              <h2 className={styles.welcomeGreetings}>{`${t(
+                  "welcome.welcomeBack"
+              )} ${user?.email}!`}</h2>
+              <div className={styles.welcomeButtonContainer}>
+                <Button onClick={() => navigate("/rest")} variant="outlined">
+                  {t("welcome.restClient")}
+                </Button>
+                <Button onClick={() => navigate("/graphiql")} variant="outlined">
+                  {t("welcome.graphiQlClient")}
+                </Button>
+                <Button onClick={() => navigate("/history")} variant="outlined">
+                  {t("welcome.history")}
+                </Button>
+              </div>
+            </div>
+        )}
+        {!isLogin && (
+            <div>
+              <h2>{t("welcome.welcome")}</h2>
+              <div className={styles.welcomeButtonContainer}>
+                <Button onClick={() => navigate("/login")} variant="outlined">
+                  {t("form.signIn")}
+                </Button>
+                <Button onClick={() => navigate("/registration")} variant="outlined">
+                  {t("form.signUp")}
+                </Button>
+              </div>
+            </div>
+        )}
+        <h1
+            className={`${styles.welcomeTitle} ${isAnimating ? styles.animate : ""}`}
+        >
+          {t("welcome.reactGroup")}
+        </h1>
+        <div className={styles.audioBlock}>
+          <div>
+            <h2 className={styles.audioHeading}>
+              {t("welcome.prepareTogether")}
+            </h2>
+            <div className={styles.audioPlayerContainer}>
+              <AudioPlayer
+                  src={trackSrc as string}
+                  onPlay={handlePlay}
+                  onPause={handlePause}
+              />
+            </div>
           </div>
         </div>
-      )}
-      {!isLogin && (
-        <div>
-          <h2>{t("welcome.welcome")}</h2>
-          <div className={styles.welcomeButtonContainer}>
-            <Button onClick={() => navigate("/login")} variant="outlined">
-              {t("form.signIn")}
-            </Button>
-            <Button
-              onClick={() => navigate("/registration")}
-              variant="outlined"
-            >
-              {t("form.signUp")}
-            </Button>
-          </div>
-        </div>
-      )}
-      <h1
-        className={`${styles.welcomeTitle} ${
-          isAnimating ? styles.animate : ""
-        }`}
-      >
-        {t("welcome.reactGroup")}
-      </h1>
-      <div className={styles.audioBlock}>
-        <div>
-          <h2 className={styles.audioHeading}>
-            {t("welcome.prepareTogether")}
-          </h2>
-          <div className={styles.audioPlayerContainer}>
-            <AudioPlayer
-              src={trackSrc as string}
-              onPlay={handlePlay}
-              onPause={handlePause}
-            />
-          </div>
-        </div>
-      </div>
 
-      {isMobileView ? (
-        <Swiper>
-          {teamMembers.map((member) => (
-            <div
-              key={member.name}
-              className={`${styles.teamMember} ${
-                isAnimating ? styles.animate : ""
-              }`}
-            >
-              <img
-                src={member.photo}
-                alt={`Фото ${t(`welcome.${member.name}` as never)}`}
-                className={styles.teamMemberPhoto}
-              />
-              <h2>{t(`welcome.${member.name}` as never)}</h2>
-              <h3>{t(`welcome.${member.role}` as never)}</h3>
-              <p>{t(`welcome.${member.bio}` as never)}</p>
-              <div>
-                <a
-                  href={member.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ textTransform: "none" }}
-                  >
-                    {t("welcome.githubProfile")}
-                  </Button>
-                </a>
-              </div>
+        {isMobileView ? (
+            <Swiper>
+              {teamMembers.map((member) => {
+                // Получаем текст биографии из локализации
+                const bio = t(`welcome.${member.bio}` as never);
+                // Определяем ключевую фразу в зависимости от текущего языка
+                const splitPhrase = i18n.language === "ru" ? "Вклад в проект:" : "Contribution to the project:";
+                // Разделяем текст на части до и после ключевой фразы
+                const [mainPart, contribution] = bio.split(splitPhrase);
+
+                return (
+                    <div
+                        key={member.name}
+                        className={`${styles.teamMember} ${
+                            isAnimating ? styles.animate : ""
+                        }`}
+                    >
+                      <img
+                          src={member.photo}
+                          alt={`Фото ${t(`welcome.${member.name}` as never)}`}
+                          className={styles.teamMemberPhoto}
+                      />
+                      <h2>{t(`welcome.${member.name}` as never)}</h2>
+                      <h3>{t(`welcome.${member.role}` as never)}</h3>
+                      <p>
+                        {mainPart}
+                        <span style={{ fontWeight: "bold" }}>{splitPhrase}</span>
+                        {contribution}
+                      </p>
+                      <div>
+                        <a
+                            href={member.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                          <Button
+                              variant="contained"
+                              color="primary"
+                              sx={{ textTransform: "none" }}
+                          >
+                            {t("welcome.githubProfile")}
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
+                );
+              })}
+            </Swiper>
+        ) : (
+            <div className={styles.teamSection}>
+              {teamMembers.map((member) => {
+                // Получаем текст биографии из локализации
+                const bio = t(`welcome.${member.bio}` as never);
+                // Определяем ключевую фразу в зависимости от текущего языка
+                const splitPhrase = i18n.language === "ru" ? "Вклад в проект:" : "Contribution to the project:";
+                // Разделяем текст на части до и после ключевой фразы
+                const [mainPart, contribution] = bio.split(splitPhrase);
+
+                return (
+                    <div
+                        key={member.name}
+                        className={`${styles.teamMember} ${
+                            isAnimating ? styles.animate : ""
+                        }`}
+                    >
+                      <img
+                          src={member.photo}
+                          alt={`Фото ${t(`welcome.${member.name}` as never)}`}
+                          className={styles.teamMemberPhoto}
+                      />
+                      <h2>{t(`welcome.${member.name}` as never)}</h2>
+                      <h3>{t(`welcome.${member.role}` as never)}</h3>
+                      <p>
+                        {mainPart}
+                        <span style={{ fontWeight: "bold" }}>{splitPhrase}</span>
+                        {contribution}
+                      </p>
+                      <div>
+                        <a
+                            href={member.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                          <Button
+                              variant="contained"
+                              color="primary"
+                              sx={{ textTransform: "none" }}
+                          >
+                            {t("welcome.githubProfile")}
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
+                );
+              })}
             </div>
-          ))}
-        </Swiper>
-      ) : (
-        <div className={styles.teamSection}>
-          {teamMembers.map((member) => (
-            <div
-              key={member.name}
-              className={`${styles.teamMember} ${
-                isAnimating ? styles.animate : ""
-              }`}
-            >
-              <img
-                src={member.photo}
-                alt={`Фото ${t(`welcome.${member.name}` as never)}`}
-                className={styles.teamMemberPhoto}
-              />
-              <h2>{t(`welcome.${member.name}` as never)}</h2>
-              <h3>{t(`welcome.${member.role}` as never)}</h3>
-              <p>{t(`welcome.${member.bio}` as never)}</p>
-              <div>
-                <a
-                  href={member.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ textTransform: "none" }}
-                  >
-                    {t("welcome.githubProfile")}
-                  </Button>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      <div className={styles.bottomTextAndLogo}>
-        <p className={styles.schoolInfo}>{t("welcome.studentInfo")}</p>
-        <div className={styles.rsSchoolLogo}>
-          <a href={RS_SCHOOL_URL} target="_blank" rel="noopener noreferrer">
-            <img src={RS_SCHOOL_LOGO_URL} alt="RS School Logo" />
-          </a>
+        )}
+        <div className={styles.bottomTextAndLogo}>
+          <p className={styles.schoolInfo}>{t("welcome.studentInfo")}</p>
+          <div className={styles.rsSchoolLogo}>
+            <a href={RS_SCHOOL_URL} target="_blank" rel="noopener noreferrer">
+              <img src={RS_SCHOOL_LOGO_URL} alt="RS School Logo" />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
