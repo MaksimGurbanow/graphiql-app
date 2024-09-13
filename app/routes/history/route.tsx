@@ -13,6 +13,8 @@ const History = () => {
 
   const navigate = useNavigate();
 
+  console.log(requestArr);
+
   return (
     <main className={styles.historyContainer}>
       {!isLogedIn && <Navigate to="/" replace={true} />}
@@ -40,7 +42,7 @@ const History = () => {
               <button
                 className={styles.historyLink}
                 key={i}
-                onClick={() => navigate(`/${el}`)}
+                onClick={() => navigate(`${el}`)}
               >
                 {el}
               </button>
