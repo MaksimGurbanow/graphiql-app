@@ -33,5 +33,21 @@
     "signUpHeading": "Регистрация",
     "dontHaveAccount": "Еще нет аккаунта?",
     "haveAccount": "Уже есть аккаунт?"
-   }
+   },
+  "rest": {
+    "typeYourOwnMethod": "Введите собственный метод",
+    "sendButton": "Отправить",
+    "params": "Параметры",
+    "headers": "Заголовки",
+    "body": "Тело"
+  },
+  "tableEditor": {
+    "key": "Ключ",
+    "value": "Значение",
+    "description": "Описание",
+    "addValue": "Добавить значение"
+  },
+  "response": {
+    "title": "Ответ"
+  }
 }

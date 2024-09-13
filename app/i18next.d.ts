@@ -38,6 +38,22 @@ declare module "i18next" {
           signInHeading: string;
           signUpHeading: string;
         };
+        rest: {
+          typeYourOwnMethod: string;
+          sendButton: string;
+          params: string;
+          headers: string;
+          body: string;
+        };
+        tableEditor: {
+          key: string;
+          value: string;
+          description: string;
+          addValue: string;
+        };
+        response: {
+          title: string;
+        };
       };
     };
   }

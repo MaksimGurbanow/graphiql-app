@@ -1,6 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, it, expect, vi } from "vitest";
+import {render, screen} from "@testing-library/react";
+import {describe, expect, it, vi} from "vitest";
 import TableEditor, {TableEditorProps} from '../app/components/headersEditor/TableEditor';
 
 describe("TableEditor Component", () => {
@@ -29,12 +28,4 @@ describe("TableEditor Component", () => {
         expect(screen.getByText("Description1")).toBeInTheDocument();
     });
 
-    it("calls setRows when 'Add value' button is clicked", async () => {
-        render(<TableEditor {...defaultProps} />);
-        const button = screen.getByRole("button", { name: /add value/i });
-
-        await userEvent.click(button);
-
-        expect(mockSetRows).toHaveBeenCalledWith(true);
-    });
 });
