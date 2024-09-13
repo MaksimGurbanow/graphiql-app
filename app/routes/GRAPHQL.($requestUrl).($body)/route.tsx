@@ -1,17 +1,17 @@
 import UrlInput from "~/components/urlInput/UrlInput";
 import classes from "./graphiql.module.scss";
 import { Button, CircularProgress, Typography } from "@mui/material";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SwitchEditorList from "~/components/switchEditorList/SwitchEditorList";
 import BodyEditor from "~/components/bodyEditor/BodyEditor";
 import { useRequestContext } from "~/context/RequestContext";
 import TableEditor from "~/components/headersEditor/TableEditor";
-import { getIntrospectionQuery } from "graphql";
-import { Await, defer, useLoaderData, useNavigate } from "@remix-run/react";
+import { json, useLoaderData, useNavigate } from "@remix-run/react";
 import DocumentationExplorer from "~/components/documentationExplorer/DocumentationExplorer";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import Response from "~/components/response/Response";
 import { updatedRows } from "~/utils/updatedRows";
+import { useSchemaContext } from "~/context/SchemaContext";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { requestUrl, body } = params;
@@ -35,35 +35,28 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       body: decodedBody,
     });
     const queryText = await queryResponse.text();
-    const schema = fetch(formatedURL, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ query: getIntrospectionQuery() }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch(() => "");
 
-    return defer({ ...metadata, schema, response: queryText });
+    return json({ ...metadata, response: queryText });
   } catch (error) {
-    return defer({ ...metadata, schema: "", response: "" });
+    return json({ ...metadata, response: "" });
   }
 }
 
 const GraphiQL = () => {
   const {
-    graphQL: { headers, query, response, url },
+    graphQL: { headers, query, response, url, variables },
     setGraphql,
   } = useRequestContext();
-  const editors = useMemo(() => ["headers", "query"], []);
+  const editors = useMemo(() => ["headers", "query", "variables"], []);
   const [activeEditor, setActiveEditor] = useState("headers");
   const data = useLoaderData<typeof loader>();
+  const [bodyMode, setBodyMode] = useState("JSON");
+  const { isLoading, schema } = useSchemaContext();
 
   useEffect(() => {
-    const { query, variables } = JSON.parse(data.body);
+    const { query, variables } = JSON.parse(
+      data.body || '{ "query": "", "variables": {} }'
+    );
     setGraphql((prev) => ({
       ...prev,
       url: data.url,
@@ -71,11 +64,30 @@ const GraphiQL = () => {
       headers: data.headers,
       sdl: data.url + "?sdl",
       response: data.response,
-      variables,
+      variables: variables,
     }));
-  }, [data.body, data.headers, data.response, data.url, setGraphql]);
+  }, [data, data.body, data.headers, data.response, data.url, setGraphql]);
+
+  const variablesArray = useMemo(
+    () => Object.entries(variables).map(([key, value]) => ({ key, value })),
+    [variables]
+  );
 
   const navigate = useNavigate();
+
+  const handleSeearchClick = () => {
+    navigate(
+      `/GRAPHQL/${btoa(url).replace(/\//g, "_")}${
+        query ? `/${btoa(JSON.stringify({ query, variables }))}` : ""
+      }?${headers
+        .filter(({ key, value }) => key && value)
+        .map(
+          ({ key, value }) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join("&")}`
+    );
+  };
 
   return (
     <main className={classes.graphiqlPage}>
@@ -87,19 +99,7 @@ const GraphiQL = () => {
         <Button
           variant="contained"
           sx={{ padding: "8px", flex: 1 }}
-          onClick={() =>
-            navigate(
-              `/GRAPHQL/${btoa(url).replace(/\//g, "_")}${
-                query ? `/${btoa(JSON.stringify({ query }))}` : ""
-              }?${headers
-                .filter(({ key, value }) => key && value)
-                .map(
-                  ({ key, value }) =>
-                    `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-                )
-                .join("&")}`
-            )
-          }
+          onClick={() => handleSeearchClick()}
         >
           Send
         </Button>
@@ -119,6 +119,8 @@ const GraphiQL = () => {
           setBody={(query: string) =>
             setGraphql((prev) => ({ ...prev, query }))
           }
+          bodyMode={bodyMode}
+          setBodyMode={setBodyMode}
         />
       )}
       {activeEditor === "headers" && (
@@ -133,11 +135,25 @@ const GraphiQL = () => {
           headerText="Headers"
         />
       )}
-      <Suspense fallback={<CircularProgress />}>
-        <Await resolve={data.schema}>
-          <DocumentationExplorer />
-        </Await>
-      </Suspense>
+      {activeEditor === "variables" && (
+        <TableEditor
+          rows={variablesArray}
+          setRows={(isLast, id, row) => {
+            setGraphql((prev) => {
+              const newVariables = Object.fromEntries(
+                updatedRows(isLast, variablesArray, row, id).map((row) => [
+                  row.key,
+                  row.value,
+                ])
+              );
+              return { ...prev, variables: newVariables };
+            });
+          }}
+          headerText="Variables"
+        />
+      )}
+      {isLoading && <CircularProgress />}
+      {!isLoading && schema && <DocumentationExplorer />}
       {response && <Response data={response} />}
     </main>
   );

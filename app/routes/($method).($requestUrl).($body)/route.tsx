@@ -13,6 +13,8 @@ import MethodSelector from "~/components/methodSelector/MethodSelector";
 import SwitchEditorList from "~/components/switchEditorList/SwitchEditorList";
 import UrlInput from "~/components/urlInput/UrlInput";
 import { updatedRows } from "~/utils/updatedRows";
+import { IRow } from "~/types/types";
+import { useTranslation } from "react-i18next";
 
 export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   TypedResponse<{
@@ -22,8 +24,9 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
     error?: string;
     body: string;
     status?: number;
+    variables: IRow[];
     statusText?: string;
-    headers: { key: string; value: string }[];
+    headers: IRow[];
   }>
 > {
   const { method, requestUrl, body } = params;
@@ -32,10 +35,26 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   const headers = Object.fromEntries(
     new URL(request.url).searchParams.entries()
   );
+  let parsedBody: { body: string; variables: IRow[] };
+  try {
+    parsedBody = JSON.parse(decodedBody);
+  } catch (error) {
+    parsedBody = { body: "", variables: [] };
+  }
+
+  const variableMap = new Map(
+    parsedBody.variables.map(({ key, value }) => [key, value])
+  );
+
+  const formatedBody = parsedBody.body.replace(/{{(.*?)}}/g, (match, p1) => {
+    return variableMap.get(p1) || match;
+  });
+  console.log(parsedBody);
   const metadata = {
     url: formatedURL || "",
     method: method || "GET",
-    body: decodedBody,
+    body: parsedBody.body,
+    variables: parsedBody.variables,
     headers: Object.entries(headers).map(([key, value]) => ({
       key,
       value,
@@ -49,7 +68,7 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
         body:
           method && ["GET", "HEAD"].includes(method as string)
             ? null
-            : decodedBody,
+            : formatedBody,
       });
       const { status, statusText } = response;
       const responseText = await response.text();
@@ -83,17 +102,46 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
 
 const Rest = () => {
   const {
-    rest: { url, params, headers, body, method },
+    rest: { url, params, headers, body, method, variables },
     setRest,
   } = useRequestContext();
   const [activeEditor, setActiveEditor] = useState<string>("Headers");
-  const editors: string[] = ["Params", "Headers", "Body"];
+  const editors: string[] = ["Params", "Headers", "Body", "Variables"];
   const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
-
+  const [bodyMode, setBodyMode] = useState("JSON");
   useEffect(() => {
-    setRest({ ...data, params: [] });
+    const restoredBody = data.body.replace(/"{{.*?}}"/g, (match) => {
+      return match.slice(1, match.length - 1);
+    });
+    setRest((prev) => ({ ...prev, ...data, body: restoredBody }));
   }, [data, setRest]);
+  const { t } = useTranslation();
+
+  const handleSearchClick = () => {
+    const params = new URLSearchParams();
+    headers
+      .filter(({ key, value }) => key && value)
+      .forEach(({ key, value }) => {
+        params.append(key, value);
+      });
+    const formatedBody =
+      body.replace(/{{(.*?)}}/g, (match) => {
+        return `"${match}"`;
+      }) || "";
+    navigate(
+      `/${method}/${btoa(url).replace(/\//g, "_")}${
+        formatedBody || variables.length
+          ? `/${btoa(
+              JSON.stringify({
+                body: formatedBody,
+                variables: variables,
+              })
+            )}`
+          : ""
+      }?${params.toString()}`
+    );
+  };
 
   return (
     <div className={classes.restPage}>
@@ -107,19 +155,7 @@ const Rest = () => {
           <Button
             variant="contained"
             sx={{ padding: "8px", flex: 1 }}
-            onClick={() =>
-              navigate(
-                `/${method}/${btoa(url).replace(/\//g, "_")}${
-                  body ? `/${btoa(body)}` : ""
-                }?${headers
-                  .filter(({ key, value }) => key && value)
-                  .map(
-                    ({ key, value }) =>
-                      `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-                  )
-                  .join("&")}`
-              )
-            }
+            onClick={() => handleSearchClick()}
           >
             Send
           </Button>
@@ -133,6 +169,8 @@ const Rest = () => {
           <BodyEditor
             body={body}
             setBody={(body) => setRest((prev) => ({ ...prev, body }))}
+            bodyMode={bodyMode}
+            setBodyMode={setBodyMode}
           />
         )}
         {activeEditor === "Headers" && (
@@ -168,8 +206,22 @@ const Rest = () => {
             headerText="Parameters"
           />
         )}
+        {activeEditor === "Variables" && (
+          <TableEditor
+            rows={variables}
+            setRows={(isLast, id, row) => {
+              setRest((prev) => {
+                const newVariables = updatedRows(isLast, prev.headers, row, id);
+                return { ...prev, variables: newVariables };
+              });
+            }}
+            headerText="Variables"
+          />
+        )}
       </div>
-      {data.response && <Response data={data.response} status={data.status} />}
+      {data.response && (
+        <Response data={"data.response"} status={data.status} />
+      )}
       {data.error && <ErrorMessage message={data.error} />}
     </div>
   );

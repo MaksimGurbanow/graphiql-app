@@ -14,6 +14,7 @@ import { IsLogInContextProvider } from "./context/loginContext";
 import RequestProvider from "./context/RequestContext";
 import "./i18n";
 import AlertProvider from "./context/alertContext";
+import SchemaProvider from "./context/SchemaContext";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -33,13 +34,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Suspense>
             <AlertProvider>
               <RequestProvider>
-                <IsLogInContextProvider>
-                  <div className="page">
-                    <Header />
-                    <Suspense>{children}</Suspense>
-                    <Footer />
-                  </div>
-                </IsLogInContextProvider>
+                <SchemaProvider>
+                  <IsLogInContextProvider>
+                    <div className="page">
+                      <Header />
+                      <Suspense>{children}</Suspense>
+                      <Footer />
+                    </div>
+                  </IsLogInContextProvider>
+                </SchemaProvider>
               </RequestProvider>
             </AlertProvider>
           </Suspense>

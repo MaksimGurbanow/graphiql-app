@@ -14,16 +14,15 @@ export interface IRequest {
     headers: IRow[];
     response: string;
     body: string;
-    variables: object;
+    variables: IRow[];
     params: IRow[];
     error?: string;
   };
   graphQL: {
     query: string;
     url: string;
-    sdl: string;
     headers: IRow[];
-    variables: object;
+    variables: { [key: string]: string };
     response: string;
   };
 }
@@ -45,10 +44,9 @@ export const RequestContext = createContext<{
     headers: [],
     response: "",
     body: "",
-    variables: {},
+    variables: [],
   },
   graphQL: {
-    sdl: "",
     url: "",
     query: "",
     response: "",
@@ -66,10 +64,34 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
     url: "",
     response: "",
     query: "",
-    sdl: "",
     headers: [],
     variables: {},
   });
+
+  useEffect(() => {
+    if (graphQLState.url) {
+      window.history.replaceState(
+        null,
+        "",
+        `/GRAPHQL/${btoa(graphQLState.url).replace(/\//g, "_")}${
+          graphQLState.query || Object.entries(graphQLState.variables).length > 1
+            ? `/${btoa(
+                JSON.stringify({
+                  query: graphQLState.query,
+                  variables: graphQLState.variables,
+                })
+              )}`
+            : ""
+        }?${graphQLState.headers
+          .filter(({ key, value }) => key && value)
+          .map(
+            ({ key, value }) =>
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          )
+          .join("&")}`
+      );
+    }
+  }, [graphQLState]);
 
   const [restState, setRestState] = useState<IRequest["rest"]>({
     url: "",
@@ -78,28 +100,37 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
     headers: [],
     response: "",
     body: "",
-    variables: {},
+    variables: [],
   });
 
   useEffect(() => {
-    const [, par] = restState.url.split("?");
-    const params = par?.split("&")?.map((param) => ({
-      key: param.split("=")[0] || "",
-      value: param.split("=")[1] || "",
-    }));
-    setRestState((prev) => ({
-      ...prev,
-      params: params?.map((param) => ({
-        ...param,
-      })) || [
-        {
-          key: "",
-          value: "",
-          description: "",
-        },
-      ],
-    }));
-  }, [restState.url]);
+    const params = new URLSearchParams();
+    restState.headers
+      .filter(({ key, value }) => key && value)
+      .forEach(({ key, value }) => {
+        params.append(key, value);
+      });
+    const formatedBody =
+      restState.body.replace(/{{(.*?)}}/g, (match) => {
+        return `"${match}"`;
+      }) || "";
+    if (restState.url) {
+      window.history.replaceState(
+        null,
+        "",
+        `/${restState.method}/${btoa(restState.url).replace(/\//g, "_")}${
+          formatedBody || restState.variables.length
+            ? `/${btoa(
+                JSON.stringify({
+                  body: formatedBody,
+                  variables: restState.variables,
+                })
+              )}`
+            : ""
+        }?${params.toString()}`
+      );
+    }
+  }, [restState]);
 
   return (
     <RequestContext.Provider

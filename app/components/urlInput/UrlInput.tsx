@@ -1,12 +1,15 @@
 import { useRequestContext } from "~/context/RequestContext";
 import classes from "./urlInput.module.scss";
+import { useSchemaContext } from "~/context/SchemaContext";
 
 export interface UrlInputProps {
   mode: "rest" | "graphQL" | "graphQlSdl";
+  extraClass?: string;
 }
 
-const UrlInput = ({ mode }: UrlInputProps) => {
+const UrlInput = ({ mode, extraClass }: UrlInputProps) => {
   const { rest, setRest, graphQL, setGraphql } = useRequestContext();
+  const { sdl, setSdl, setIsChanged } = useSchemaContext();
 
   const updateState = (value: string) => {
     switch (mode) {
@@ -23,21 +26,19 @@ const UrlInput = ({ mode }: UrlInputProps) => {
         }));
         break;
       case "graphQlSdl":
-        setGraphql((prev) => ({
-          ...prev,
-          sdl: value,
-        }));
+        setSdl(value);
+        setIsChanged(true);
         break;
     }
   };
   return (
-    <div className={classes.urlBlock}>
+    <div className={`${classes.urlBlock}  ${extraClass}`}>
       <input
         className={classes.urlInput}
         value={
           (mode === "rest" && rest.url) ||
           (mode === "graphQL" && graphQL.url) ||
-          graphQL.sdl
+          sdl
         }
         onInput={(e) => {
           updateState((e.target as HTMLInputElement).value);

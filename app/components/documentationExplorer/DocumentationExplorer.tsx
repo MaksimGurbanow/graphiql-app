@@ -1,6 +1,4 @@
-import { useAsyncError, useAsyncValue } from "@remix-run/react";
 import { IntrospectionObjectType } from "graphql";
-import { DocumentationQuery } from "~/types/types";
 import classes from "./documentationExplorer.module.scss";
 import {
   Accordion,
@@ -12,11 +10,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ExplorerList from "../explorerList/ExplorerList";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useAlertContext } from "~/context/alertContext";
+import { useSchemaContext } from "~/context/SchemaContext";
 
 const defineDocsCurrentHeadlint = (pathSegments: string[]) => {
   return (
@@ -27,17 +25,12 @@ const defineDocsCurrentHeadlint = (pathSegments: string[]) => {
 };
 
 const DocumentationExplorer = () => {
-  const schema = (useAsyncValue() as DocumentationQuery)?.data?.__schema;
+  const { schema: SchemaObject } = useSchemaContext();
+  const schema = SchemaObject?.data.__schema;
   const { types } = schema || { types: [] };
-  const { setMessage } = useAlertContext();
   const [pathSegments, setPathSegments] = useState<
     { type: string; name: string }[]
   >([{ type: "Root", name: "Root" }]);
-  useEffect(() => {
-    if (!schema) {
-      setMessage("Documentation wasn't fetched");
-    }
-  }, []);
   const [isOpen, setisOpen] = useState(false);
   if (!schema) return;
   return (

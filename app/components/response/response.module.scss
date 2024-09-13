@@ -18,11 +18,26 @@
   //   padding: 5px 15px;
   // }
   width: 100%;
+  flex: 1;
+  display: flex;
   & pre {
     padding: 10px 30px;
+    flex: 1;
     background: #000 !important;
+    font-weight: 800;
+    font-size: 16px;
     & span {
       white-space: normal;
     }
   }
+}
+
+.responseStatus {
+  display: flex;
+  gap: 5px;
+  border: 1px solid;
+  border-radius: 50px;
+  padding: 2px 5px;
+  align-self: end;
+  margin-right: 10px;
 }

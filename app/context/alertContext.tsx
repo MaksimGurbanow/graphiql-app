@@ -1,4 +1,4 @@
-import { Alert } from "@mui/material";
+import { Alert, Button } from "@mui/material";
 import {
   createContext,
   ReactNode,
@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { Close } from "@mui/icons-material";
 
 export interface IAlertContext {
   message: string;
@@ -38,14 +39,19 @@ const AlertProvider = ({ children }: { children: ReactNode }) => {
           severity="error"
           sx={{
             position: "fixed",
-            top: "15%",
+            top: "2%",
             right: "50%",
             transform: "translate(50%, 0)",
+            width: "80%",
+            zIndex: 10000
           }}
           color="error"
           variant="filled"
         >
           {message}
+          <Button sx={{ background: "black" }} onClick={(() => setMessage(""))}>
+            <Close sx={{ color: "white" }} />
+          </Button>
         </Alert>
       )}
     </AlertContext.Provider>

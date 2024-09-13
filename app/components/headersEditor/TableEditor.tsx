@@ -3,6 +3,7 @@ import classes from "./tableEditor.module.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IRow } from "~/types/types";
 import { formatValue } from "~/utils/defineTypedKey";
+import { useEffect } from "react";
 import { defaultKeyValuePair } from "lib/constants";
 
 export interface TableEditorProps {
@@ -29,6 +30,9 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
       editable: true,
     },
   ];
+  useEffect(() => {
+    if (!rows.length) setRows(true, rows.length, { ...defaultKeyValuePair });
+  }, [rows, setRows]);
   return (
     <Box className={classes.headersEditor}>
       <Container
@@ -40,15 +44,15 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
         }}
       >
         <Typography variant="h6">{headerText}</Typography>
-        <Button variant="contained" onClick={() => setRows(true)}>
+        <Button
+          variant="contained"
+          onClick={() => setRows(true, rows.length, { key: "", value: "" })}
+        >
           Add value
         </Button>
       </Container>
       <DataGrid
-        rows={rows
-          .map((row, index) => ({ ...row, id: index }))
-          .filter(({ key, value }) => key || value)
-          .concat([{ ...defaultKeyValuePair, id: rows.length }])}
+        rows={rows.map((row, index) => ({ ...row, id: index }))}
         hideFooter
         columns={columns}
         onCellKeyDown={(params, event) => {
