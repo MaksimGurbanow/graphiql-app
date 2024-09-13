@@ -49,6 +49,8 @@ function handleBotRequest(
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
       <RemixServer
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         context={remixContext}
         url={request.url}
         abortDelay={ABORT_DELAY}
@@ -99,6 +101,8 @@ function handleBrowserRequest(
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
       <RemixServer
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         context={remixContext}
         url={request.url}
         abortDelay={ABORT_DELAY}

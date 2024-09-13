@@ -9,8 +9,27 @@
     "maksimName": "Maksim Gurbanow",
     "egorName": "Egor Panevin",
     "dmitryName": "Dmitry Nikolayev",
-    "maksimBio": "Maksim leads the project architecture and integration with commercetools API...",
-    "egorBio": "Egor is responsible for managing data in commercetools API...",
-    "dmitryBio": "Dmitry is responsible for UI/UX design and interactive elements of the application..."
-  }
+    "maksimBio": "Maxim is the project leader and a natural-born leader. He is studying piano at a prestigious conservatoire, but will most likely end up as a conductor whose concerts you’ll need connections to attend. So while you can, make sure to ask him for complimentary tickets. What he's doing in programming is anyone's guess, but there's no denying his talent. Contribution to the project: naturally, the toughest parts — the REST and GraphQL pages.",
+    "egorBio": "Egor is the owner of a prestigious cosmetics and wellness store in the city centre. In his spare time, he learned frontend development to finally understand the mysterious phrase 'it's not a bug, it's a feature,' which he often hears from his website support team, and to figure out if his developer team is larger than it really needs to be. Contribution to the project: Pages: sign in, sign up, 404, history, error boundary, registration/authentication, logout via Firebase, header, footer.",
+    "dmitryBio": "Dmitry couldn’t say no to his wife’s New Year’s wish of having a husband who’s a software engineer, so he became a frontend developer. As they say, a wife’s dreams must come true, lest she starts thinking of finding someone else to fulfil them. Contribution to the project: Welcome page, internationalisation setup, tests.",
+    "restClient": "Rest client",
+    "graphiQlClient": "GraphiQl client",
+    "history": "History",
+    "welcome": "Welcome!",
+    "welcomeBack":"Welcome back, "
+  },
+  "header": {
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+   "form": {
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signInHeading": "Sign In",
+    "signUpHeading": "Sign Up",
+    "dontHaveAccount": "Don't have an account?",
+    "haveAccount": "Have an account?"
+   }
 }

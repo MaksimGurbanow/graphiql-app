@@ -19,7 +19,7 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  ignorePatterns: ["!**/.server", "!**/.client"],
+  ignorePatterns: ["!**/.server", "!**/.client", "**/*.test.*"],
 
   // Base config
   extends: ["eslint:recommended"],
@@ -56,6 +56,7 @@ module.exports = {
     // Typescript
     {
       files: ["**/*.{ts,tsx}"],
+      
       plugins: ["@typescript-eslint", "import"],
       parser: "@typescript-eslint/parser",
       settings: {

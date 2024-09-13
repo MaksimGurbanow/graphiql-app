@@ -1,5 +1,5 @@
 import { NextOrObserver, onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "lib/firebase.config";
+import { auth } from "../../lib/firebase.config";
 import {
   createContext,
   Dispatch,

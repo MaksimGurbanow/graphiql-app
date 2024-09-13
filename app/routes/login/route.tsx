@@ -9,15 +9,17 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
+  useMediaQuery,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchema } from "~/utils/validationSchema";
+import { validationSchema } from "../../utils/validationSchema";
 import { LoadingButton } from "@mui/lab";
-import signIn from "~/utils/signIn";
-import { Navigate } from "@remix-run/react";
-import { IsLogedInContext } from "~/context/loginContext";
+import signIn from "../../utils/signIn";
+import { Navigate, useNavigate } from "@remix-run/react";
+import { IsLogedInContext } from "../../context/loginContext";
+import { useTranslation } from "react-i18next";
 interface IRegisterForm {
   email: string;
   password: string;
@@ -32,10 +34,13 @@ const Login = () => {
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [signInError, setSignInError] = useState(false);
   const [isLogedIn] = useContext(IsLogedInContext);
+  const matches = useMediaQuery("(min-width:450px)");
+  const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement>
@@ -56,8 +61,12 @@ const Login = () => {
       {isLogedIn && <Navigate to="/" replace={true} />}
       {!isLogedIn && (
         <section className="login">
-          <form onSubmit={handleSubmit(onSubmit)} className="form">
-            <h1 className="form__heading">Sign In</h1>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="form"
+            style={{ width: matches ? "400px" : "300px" }}
+          >
+            <h1 className="form__heading">{t("form.signInHeading")}</h1>
             <TextField
               id="outlined-uncontrolled"
               label="E-mail"
@@ -76,7 +85,7 @@ const Login = () => {
               style={{ width: "100%", margin: "0" }}
             >
               <InputLabel htmlFor="outlined-adornment-password">
-                Password
+                {t("form.password")}
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password"
@@ -108,12 +117,18 @@ const Login = () => {
               variant="outlined"
               type="submit"
             >
-              <span>Sign In</span>
+              <span>{t("form.signIn")}</span>
             </LoadingButton>
-            <a href="/registration" className="form__link">
-              Don&apos;t have an account?{" "}
-              <span style={{ textDecoration: "underline" }}>Sign Up</span>
-            </a>
+            <button
+              type="button"
+              onClick={() => navigate("/registration")}
+              className="form__link"
+            >
+              {t("form.dontHaveAccount")}
+              <span style={{ textDecoration: "underline" }}>
+                {t("form.signUp")}
+              </span>
+            </button>
           </form>
           <div style={{ height: "40px" }}>
             {signInError && (

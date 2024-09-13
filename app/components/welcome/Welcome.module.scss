@@ -9,7 +9,6 @@
 .welcomeTitle {
   text-transform: uppercase;
   padding-bottom: 40px;
-  font-family: "Lobster", cursive;
   font-size: 2.8em;
 }
 
@@ -28,7 +27,6 @@
     white-space: normal;
     font-size: 1.5em;
     font-weight: 700;
-    font-family: "Roboto", sans-serif;
   }
 }
 
@@ -54,7 +52,6 @@
   overflow-wrap: break-word;
   white-space: normal;
   max-width: 100%;
-  font-family: "Roboto", sans-serif;
 }
 
 .teamSection {
@@ -75,17 +72,15 @@
   position: relative;
   min-height: 600px;
   padding-bottom: 140px;
-  font-family: "Lobster", cursive;
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-
 .teamMember p {
-  font-family: "Roboto", sans-serif;
+  text-align: justify;
+  margin: 0 0 20px 0;
 }
-
 .teamMember:hover {
   transform: rotate(-3deg);
   animation: wobble 0.9s ease-in-out infinite;
@@ -124,7 +119,6 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-family: "Roboto", sans-serif;
   text-transform: none;
 }
 
@@ -152,11 +146,7 @@
   filter: invert(1);
 }
 
-.githubButtonContainer {
-  font-family: "Roboto", sans-serif;
-}
-
-@media (max-width: 768px) {
+@media (max-width: 865px) {
   .audioBlock {
     display: flex;
     flex-direction: column;
@@ -206,14 +196,22 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 642px) {
   .audioHeading {
     max-width: 300px !important;
   }
 
   .schoolInfo {
-    max-width: 280px !important;
-    font-size: 1em;
+    max-width: 300px !important;
+    font-size: 0.5em;
+  }
+  .teamMember {
+    width: 100%;
+    min-width: 210px;
+  }
+  .teamMember {
+    width: 50%;
+    min-width: 210px;
   }
 }
 
@@ -252,8 +250,32 @@
 }
 
 @media (max-width: 768px) {
-  .welcomeTitle{
+  .welcomeTitle {
     max-width: 300px;
     margin: 0 auto;
-  };
+  }
+}
+
+.welcomeButtonContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 450px) {
+  .welcomeButtonContainer {
+    flex-direction: column;
+  }
+}
+
+.welcomeGreetings {
+  font-size: 24px;
+}
+
+@media (max-width: 450px) {
+  .welcomeGreetings {
+    font-size: 18px;
+  }
 }

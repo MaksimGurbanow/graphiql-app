@@ -14,7 +14,6 @@ import SwitchEditorList from "~/components/switchEditorList/SwitchEditorList";
 import UrlInput from "~/components/urlInput/UrlInput";
 import { updatedRows } from "~/utils/updatedRows";
 import { IRow } from "~/types/types";
-import { useTranslation } from "react-i18next";
 
 export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   TypedResponse<{
@@ -116,7 +115,6 @@ const Rest = () => {
     });
     setRest((prev) => ({ ...prev, ...data, body: restoredBody }));
   }, [data, setRest]);
-  const { t } = useTranslation();
 
   const handleSearchClick = () => {
     const params = new URLSearchParams();
