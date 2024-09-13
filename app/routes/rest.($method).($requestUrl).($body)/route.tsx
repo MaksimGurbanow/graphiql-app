@@ -1,12 +1,12 @@
 import { useState } from "react";
 import classes from "./rest.module.scss";
-import Response from "~/components/response/Response";
-import { defaultMethods } from "lib/constants";
+import Response from "../../components/response/Response";
+import { defaultMethods } from "../../../lib/constants";
 import { ActiveEditor, IRow } from "~/types/types";
 import { Button } from "@mui/material";
-import BodyEditor from "~/components/bodyEditor/BodyEditor";
-import TableEditor from "~/components/headersEditor/TableEditor";
-import { useRequestContext } from "~/context/RequestContext";
+import BodyEditor from "../../components/bodyEditor/BodyEditor";
+import TableEditor from "../../components/headersEditor/TableEditor";
+import { useRequestContext } from "../../context/RequestContext";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { useNavigate } from "@remix-run/react";
 

@@ -14,12 +14,12 @@ import {
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchema } from "~/utils/validationSchema";
+import { validationSchema } from "../../utils/validationSchema";
 import { LoadingButton } from "@mui/lab";
-import signUp from "~/utils/signUp";
-import PasswordStrengthMeter from "~/components/passwordStrength/PasswordStrength";
+import signUp from "../../utils/signUp";
+import PasswordStrengthMeter from "../../components/passwordStrength/PasswordStrength";
 import { Navigate, useNavigate } from "@remix-run/react";
-import { IsLogedInContext } from "~/context/loginContext";
+import { IsLogedInContext } from "../../context/loginContext";
 import { useTranslation } from "react-i18next";
 
 interface IRegisterForm {

@@ -2,7 +2,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import classes from "./tableEditor.module.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IRow } from "~/types/types";
-import { formatValue } from "~/utils/defineTypedKey";
+import { formatValue } from "../../utils/defineTypedKey";
 
 export interface TableEditorProps {
   rows: IRow[];

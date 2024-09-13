@@ -54,7 +54,7 @@ export const RequestContext = createContext<{
 
 export const useRequestContext = () => useContext(RequestContext);
 
-const RequestProvider = ({ children }: { children: ReactNode }) => {
+export const RequestProvider = ({ children }: { children: ReactNode }) => {
   const [graphQLState, setGraphQLState] = useState<IRequest["graphQL"]>({
     url: "",
     headers: {},
@@ -118,4 +118,3 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default RequestProvider;

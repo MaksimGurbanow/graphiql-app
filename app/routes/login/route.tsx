@@ -14,11 +14,11 @@ import {
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { validationSchema } from "~/utils/validationSchema";
+import { validationSchema } from "../../utils/validationSchema";
 import { LoadingButton } from "@mui/lab";
-import signIn from "~/utils/signIn";
+import signIn from "../../utils/signIn";
 import { Navigate, useNavigate } from "@remix-run/react";
-import { IsLogedInContext } from "~/context/loginContext";
+import { IsLogedInContext } from "../../context/loginContext";
 import { useTranslation } from "react-i18next";
 interface IRegisterForm {
   email: string;

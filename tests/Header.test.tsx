@@ -6,7 +6,6 @@ import i18n from "../app/i18n";
 import { describe, it, expect } from "vitest";
 import userEvent from '@testing-library/user-event';
 
-// Initialize i18n configuration
 i18n.use(initReactI18next).init({
     lng: 'en',
     fallbackLng: 'en',
@@ -65,18 +64,14 @@ describe('Header Component', () => {
 
         const menuIcon = screen.getByTestId('MenuIcon');
 
-        // Click the menu icon to open the menu
         await userEvent.click(menuIcon);
 
-        // Wait for the menu content to be displayed
         await waitFor(() => {
             expect(screen.getByRole('menu')).toBeInTheDocument();
         });
 
-        // Click the menu icon again to close the menu
         await userEvent.click(menuIcon);
 
-        // Wait for the menu content to be removed
         await waitFor(() => {
             expect(screen.queryByRole('menu')).not.toBeInTheDocument();
         });

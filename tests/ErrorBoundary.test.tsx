@@ -3,7 +3,6 @@ import { isRouteErrorResponse, useRouteError } from "@remix-run/react";
 import { describe, it, vi, expect } from "vitest";
 import { ErrorBoundary } from "../app/components/error boundary/ErrorBoundary";
 
-// Mocking Remix functions
 vi.mock("@remix-run/react", () => ({
   isRouteErrorResponse: vi.fn(),
   Links: () => <link />,

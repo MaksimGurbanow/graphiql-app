@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.58% </span>
+                <span class="strong">96.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/31</span>
+                <span class='fraction'>30/31</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">80% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.58% </span>
+                <span class="strong">96.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/31</span>
+                <span class='fraction'>30/31</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -133,32 +133,32 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { NextOrObserver, onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../../lib/firebase.config";
 import {
@@ -180,33 +180,33 @@ export const IsLogedInContext = createContext(
   [] as unknown as IsLoginContextType
 );
 &nbsp;
-export const IsLogInContextProvider = <span class="fstat-no" title="function not covered" >({</span>
-<span class="cstat-no" title="statement not covered" >  children,</span>
-<span class="cstat-no" title="statement not covered" >}: IsLoginContextProviderType) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const [isLogedIn, setIsLogedIn] = useState(false);</span>
-<span class="cstat-no" title="statement not covered" >  const [userLoading, setUserLoading] = useState(true);</span>
+export const IsLogInContextProvider = ({
+  children,
+}: IsLoginContextProviderType) =&gt; {
+  const [isLogedIn, setIsLogedIn] = useState(false);
+  const [userLoading, setUserLoading] = useState(true);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const unsubscribe = onAuthStateChanged(</span>
-<span class="cstat-no" title="statement not covered" >      auth,</span>
-<span class="cstat-no" title="statement not covered" >      initializeUser as NextOrObserver&lt;User&gt;</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
-<span class="cstat-no" title="statement not covered" >    return unsubscribe;</span>
-<span class="cstat-no" title="statement not covered" >  }, []);</span>
-<span class="cstat-no" title="statement not covered" >  async function initializeUser(user: User) {</span>
-<span class="cstat-no" title="statement not covered" >    if (user) {</span>
+  useEffect(() =&gt; {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      initializeUser as NextOrObserver&lt;User&gt;
+    );
+    return unsubscribe;
+  }, []);
+  async function initializeUser(user: User) {
+    if (user) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      setIsLogedIn(true);</span>
-<span class="cstat-no" title="statement not covered" >    } else {</span>
-<span class="cstat-no" title="statement not covered" >      setIsLogedIn(false);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    setUserLoading(false);</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;IsLogedInContext.Provider value={[isLogedIn, setIsLogedIn, userLoading]}&gt;</span>
-<span class="cstat-no" title="statement not covered" >      {!userLoading &amp;&amp; children}</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/IsLogedInContext.Provider&gt;</span>
+    } else {
+      setIsLogedIn(false);
+    }
+    setUserLoading(false);
+  }
+  return (
+    &lt;IsLogedInContext.Provider value={[isLogedIn, setIsLogedIn, userLoading]}&gt;
+      {!userLoading &amp;&amp; children}
+    &lt;/IsLogedInContext.Provider&gt;
   );
-<span class="cstat-no" title="statement not covered" >};</span>
+};
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -214,7 +214,7 @@ export const IsLogInContextProvider = <span class="fstat-no" title="function not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-10T18:15:49.167Z
+                at 2024-09-13T01:38:17.886Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
