@@ -13,10 +13,10 @@ export const defaultMethods = [
 export const defaultKeyValuePair: IRow = {
   key: "",
   value: "",
-}
+};
 
 export const defaultRestClientResponse = {
   body: "",
   url: "",
   method: "GET",
-}
+};

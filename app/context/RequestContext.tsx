@@ -74,7 +74,8 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
         null,
         "",
         `/GRAPHQL/${btoa(graphQLState.url).replace(/\//g, "_")}${
-          graphQLState.query || Object.entries(graphQLState.variables).length > 1
+          graphQLState.query ||
+          Object.entries(graphQLState.variables).length > 1
             ? `/${btoa(
                 JSON.stringify({
                   query: graphQLState.query,

@@ -43,13 +43,13 @@ const AlertProvider = ({ children }: { children: ReactNode }) => {
             right: "50%",
             transform: "translate(50%, 0)",
             width: "80%",
-            zIndex: 10000
+            zIndex: 10000,
           }}
           color="error"
           variant="filled"
         >
           {message}
-          <Button sx={{ background: "black" }} onClick={(() => setMessage(""))}>
+          <Button sx={{ background: "black" }} onClick={() => setMessage("")}>
             <Close sx={{ color: "white" }} />
           </Button>
         </Alert>

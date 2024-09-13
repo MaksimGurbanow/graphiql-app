@@ -48,7 +48,6 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   const formatedBody = parsedBody.body.replace(/{{(.*?)}}/g, (match, p1) => {
     return variableMap.get(p1) || match;
   });
-  console.log(parsedBody);
   const metadata = {
     url: formatedURL || "",
     method: method || "GET",
@@ -127,17 +126,21 @@ const Rest = () => {
       body.replace(/{{(.*?)}}/g, (match) => {
         return `"${match}"`;
       }) || "";
-    navigate(
-      `/${method}/${btoa(url).replace(/\//g, "_")}${
-        formatedBody || variables.length
-          ? `/${btoa(
-              JSON.stringify({
-                body: formatedBody,
-                variables: variables,
-              })
-            )}`
-          : ""
-      }?${params.toString()}`
+    const sentURL = `/${method}/${btoa(url).replace(/\//g, "_")}${
+      formatedBody || variables.length
+        ? `/${btoa(
+            JSON.stringify({
+              body: formatedBody,
+              variables: variables,
+            })
+          )}`
+        : ""
+    }?${params.toString()}`;
+    navigate(sentURL);
+    localStorage.setItem(
+      "history",
+      localStorage.getItem("history")?.split(",").concat(sentURL).join(",") ||
+        ""
     );
   };
 
@@ -218,7 +221,11 @@ const Rest = () => {
         )}
       </div>
       {data.response && (
-        <Response data={"data.response"} status={data.status} />
+        <Response
+          data={data.response}
+          status={data.status}
+          statusText={data.statusText}
+        />
       )}
       {data.error && <ErrorMessage message={data.error} />}
     </div>

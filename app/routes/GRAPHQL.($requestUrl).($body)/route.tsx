@@ -34,11 +34,17 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
       headers: { ...headers, "Content-Type": "application/json" },
       body: decodedBody,
     });
+    const { status, statusText } = queryResponse;
     const queryText = await queryResponse.text();
 
-    return json({ ...metadata, response: queryText });
+    return json({ ...metadata, response: queryText, status, statusText });
   } catch (error) {
-    return json({ ...metadata, response: "" });
+    return json({
+      ...metadata,
+      response: "",
+      status: 404,
+      statusText: "Not Found",
+    });
   }
 }
 
@@ -75,17 +81,21 @@ const GraphiQL = () => {
 
   const navigate = useNavigate();
 
-  const handleSeearchClick = () => {
-    navigate(
-      `/GRAPHQL/${btoa(url).replace(/\//g, "_")}${
-        query ? `/${btoa(JSON.stringify({ query, variables }))}` : ""
-      }?${headers
-        .filter(({ key, value }) => key && value)
-        .map(
-          ({ key, value }) =>
-            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-        )
-        .join("&")}`
+  const handleSearchClick = () => {
+    const sentURL = `/GRAPHQL/${btoa(url).replace(/\//g, "_")}${
+      query ? `/${btoa(JSON.stringify({ query, variables }))}` : ""
+    }?${headers
+      .filter(({ key, value }) => key && value)
+      .map(
+        ({ key, value }) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+      )
+      .join("&")}`;
+    navigate(sentURL);
+    localStorage.setItem(
+      "history",
+      localStorage.getItem("history")?.split(",").concat(sentURL).join(",") ||
+        ""
     );
   };
 
@@ -99,7 +109,7 @@ const GraphiQL = () => {
         <Button
           variant="contained"
           sx={{ padding: "8px", flex: 1 }}
-          onClick={() => handleSeearchClick()}
+          onClick={() => handleSearchClick()}
         >
           Send
         </Button>
@@ -154,7 +164,13 @@ const GraphiQL = () => {
       )}
       {isLoading && <CircularProgress />}
       {!isLoading && schema && <DocumentationExplorer />}
-      {response && <Response data={response} />}
+      {response && (
+        <Response
+          data={response}
+          status={data.status}
+          statusText={data.statusText}
+        />
+      )}
     </main>
   );
 };
