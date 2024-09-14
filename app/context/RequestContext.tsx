@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { IRow } from "~/types/types";
+import { IRow } from "../../app/types/types";
 
 export interface IRequest {
   rest: {

@@ -1,17 +1,17 @@
-import UrlInput from "~/components/urlInput/UrlInput";
+import UrlInput from "../../components/urlInput/UrlInput";
 import classes from "./graphiql.module.scss";
 import { Button, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import SwitchEditorList from "~/components/switchEditorList/SwitchEditorList";
-import BodyEditor from "~/components/bodyEditor/BodyEditor";
-import { useRequestContext } from "~/context/RequestContext";
-import TableEditor from "~/components/headersEditor/TableEditor";
+import SwitchEditorList from "../../components/switchEditorList/SwitchEditorList";
+import BodyEditor from "../../components/bodyEditor/BodyEditor";
+import { useRequestContext } from "../../context/RequestContext";
+import TableEditor from "../../components/headersEditor/TableEditor";
 import { json, useLoaderData, useNavigate } from "@remix-run/react";
-import DocumentationExplorer from "~/components/documentationExplorer/DocumentationExplorer";
+import DocumentationExplorer from "../../components/documentationExplorer/DocumentationExplorer";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import Response from "~/components/response/Response";
-import { updatedRows } from "~/utils/updatedRows";
-import { useSchemaContext } from "~/context/SchemaContext";
+import Response from "../../components/response/Response";
+import { updatedRows } from "../../utils/updatedRows";
+import { useSchemaContext } from "../../context/SchemaContext";
 import { useTranslation } from "react-i18next";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {

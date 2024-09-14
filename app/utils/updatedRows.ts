@@ -1,5 +1,5 @@
-import { defaultKeyValuePair } from "lib/constants";
-import { IRow } from "~/types/types";
+import { defaultKeyValuePair } from "../../lib/constants";
+import { IRow } from "../types/types";
 
 export const updatedRows = (
   isLast: boolean,

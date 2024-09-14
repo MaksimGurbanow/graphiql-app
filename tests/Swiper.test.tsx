@@ -42,7 +42,6 @@ describe("Swiper Component", () => {
 
     fireEvent.click(paginationDots[1]);
 
-    // Проверяем, что второй слайд активен
     expect(screen.getByText("Slide 2")).toBeVisible();
   });
 

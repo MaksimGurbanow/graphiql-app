@@ -4,7 +4,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IRow } from "../../types/types";
 import { formatValue } from "../../utils/defineTypedKey";
 import { useEffect } from "react";
-import { defaultKeyValuePair } from "lib/constants";
+import { defaultKeyValuePair } from "../../../lib/constants";
 import { useTranslation } from "react-i18next";
 
 export interface TableEditorProps {

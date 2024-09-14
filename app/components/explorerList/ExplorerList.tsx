@@ -1,7 +1,7 @@
 import { IntrospectionObjectType, IntrospectionScalarType } from "graphql";
 import classes from "./explorerList.module.scss";
 import { Dispatch, SetStateAction } from "react";
-import { Oftype } from "~/types/types";
+import { Oftype } from "../../types/types";
 
 const ExplorerList = ({
   pathSegments,

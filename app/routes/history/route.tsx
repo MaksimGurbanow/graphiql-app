@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { Navigate, useNavigate } from "@remix-run/react";
 import { useContext } from "react";
-import { IsLogedInContext } from "~/context/loginContext";
+import { IsLogedInContext } from "../../context/loginContext";
 import styles from "./history.module.scss";
 import { useTranslation } from "react-i18next";
 

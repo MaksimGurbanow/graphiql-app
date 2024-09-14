@@ -1,7 +1,7 @@
 import classes from "./methodSelector.module.scss";
 import { useState } from "react";
-import { useRequestContext } from "~/context/RequestContext";
-import { defaultMethods } from "lib/constants";
+import { useRequestContext } from "../../context/RequestContext";
+import { defaultMethods } from "../../../lib/constants";
 
 const MethodSelector = () => {
   const {

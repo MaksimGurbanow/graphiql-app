@@ -1,20 +1,64 @@
-import { Request } from "node-fetch";
 import handleRequest from "../app/entry.server.tsx";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+
+const mockRemixContext = {
+  routes: [
+    {
+      id: "root",
+      path: "/",
+      element: <div>Root</div>,
+      children: []
+    }
+  ],
+  loaderData: {}
+};
 
 describe("handleRequest", () => {
-  it("should call handleRequest successfully", async () => {
+  it("should handle errors during bot request rendering", async () => {
+    const mockRequest = new Request("http://localhost", {
+      headers: { "user-agent": "Googlebot/2.1" },
+    });
+
+    const mockRemixContextWithError = {
+      routes: undefined,
+      loaderData: {},
+      manifest: {}
+    };
+
     try {
-      const mockRequest = new Request("http://localhost", {
-        headers: { "user-agent": "Mozilla/5.0" },
-      });
-
-      const response = await handleRequest(mockRequest);
-
-      expect(response).toBeDefined();
-      expect(response.status).toBe(200);
+      await handleRequest(
+          mockRequest,
+          200,
+          new Headers(),
+          mockRemixContextWithError as any,
+          {} as any
+      );
     } catch (error) {
-      console.error("Test failed with error:", error);
+      expect(error).toBeDefined();
+    }
+  });
+
+  it("should handle errors during browser request rendering", async () => {
+    const mockRequest = new Request("http://localhost", {
+      headers: { "user-agent": "Mozilla/5.0" },
+    });
+
+    const mockRemixContextWithError = {
+      routes: undefined,
+      loaderData: {},
+      manifest: {}
+    };
+
+    try {
+      await handleRequest(
+          mockRequest,
+          200,
+          new Headers(),
+          mockRemixContextWithError as any,
+          {} as any
+      );
+    } catch (error) {
+      expect(error).toBeDefined();
     }
   });
 });

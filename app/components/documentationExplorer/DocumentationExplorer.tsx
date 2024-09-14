@@ -14,7 +14,7 @@ import { useState } from "react";
 import ExplorerList from "../explorerList/ExplorerList";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import { useSchemaContext } from "~/context/SchemaContext";
+import { useSchemaContext } from "../../context/SchemaContext";
 
 const defineDocsCurrentHeadlint = (pathSegments: string[]) => {
   return (
@@ -43,39 +43,35 @@ const DocumentationExplorer = () => {
             {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails style={{ display: isOpen ? 'block' : 'none' }}>
           <Stack className="documentationPath">
             <Breadcrumbs separator=">">
               {pathSegments.map((segment, index) => (
-                <Button
-                  key={index + segment.name}
-                  onClick={() =>
-                    setPathSegments((prev) =>
-                      prev.slice(
-                        0,
-                        prev.findIndex((segm) => segm === segment) + 1
-                      )
-                    )
-                  }
-                >
-                  {segment.name}
-                </Button>
+                  <Button
+                      key={index + segment.name}
+                      onClick={() =>
+                          setPathSegments((prev) =>
+                              prev.slice(0, prev.findIndex((segm) => segm === segment) + 1)
+                          )
+                      }
+                  >
+                    {segment.name}
+                  </Button>
               ))}
             </Breadcrumbs>
           </Stack>
           <Stack className={classes.documentationFieldsBlock}>
-            <Typography variant="h6" sx={{ fontSize: "16px" }}>
-              {defineDocsCurrentHeadlint(
-                pathSegments.map((segment) => segment.name)
-              )}
+            <Typography variant="h6" sx={{ fontSize: '16px' }}>
+              {defineDocsCurrentHeadlint(pathSegments.map((segment) => segment.name))}
             </Typography>
           </Stack>
           <ExplorerList
-            types={types as IntrospectionObjectType[]}
-            pathSegments={pathSegments}
-            setPathSegments={setPathSegments}
+              types={types as IntrospectionObjectType[]}
+              pathSegments={pathSegments}
+              setPathSegments={setPathSegments}
           />
         </AccordionDetails>
+
       </Accordion>
     </div>
   );

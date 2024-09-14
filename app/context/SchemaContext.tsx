@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { DocumentationQuery } from "~/types/types";
+import { DocumentationQuery } from "../types/types";
 import { useRequestContext } from "./RequestContext";
 import { getIntrospectionQuery } from "graphql";
 import { useAlertContext } from "./alertContext";

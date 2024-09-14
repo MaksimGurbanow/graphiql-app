@@ -1,8 +1,8 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import Welcome from "../app/components/welcome/Welcome";
-import { IsLogedInContext } from "../app/context/loginContext";
-import { MemoryRouter } from "react-router-dom";
-import { vi } from "vitest";
+import {IsLogedInContext} from "../app/context/loginContext";
+import {MemoryRouter} from "react-router-dom";
+import {vi} from "vitest";
 
 vi.mock("@react-hook/resize-observer", () => ({
     default: vi.fn(),
