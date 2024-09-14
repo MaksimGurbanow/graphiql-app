@@ -16,14 +16,14 @@
     "graphiQlClient": "GraphiQl client",
     "history": "History",
     "welcome": "Welcome!",
-    "welcomeBack":"Welcome back, "
+    "welcomeBack": "Welcome back, "
   },
   "header": {
     "signOut": "Sign Out",
     "signIn": "Sign In",
     "signUp": "Sign Up"
   },
-   "form": {
+  "form": {
     "password": "Password",
     "signIn": "Sign In",
     "signUp": "Sign Up",
@@ -31,16 +31,18 @@
     "signUpHeading": "Sign Up",
     "dontHaveAccount": "Don't have an account?",
     "haveAccount": "Have an account?"
-   },
-   "history": {
-    "history": "History"
-   },
+  },
+  "history": {
+    "history": "History",
+    "noRequestsMessage": "You haven't executed any requests. It's empty here. Try:"
+  },
   "rest": {
     "typeYourOwnMethod": "Type your own method",
     "sendButton": "Send",
     "params": "Parameters",
     "headers": "Headers",
-    "body": "Body"
+    "body": "Body",
+    "variables": "Variables"
   },
   "tableEditor": {
     "key": "Key",
@@ -50,5 +52,13 @@
   },
   "response": {
     "title": "Response"
+  },
+  "graphiql": {
+    "urlLabel": "URL:",
+    "sendButton": "Send",
+    "sdlLabel": "SDL:",
+    "headers": "Headers",
+    "query": "Query",
+    "variables": "Variables"
   }
 }

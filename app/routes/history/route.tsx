@@ -13,43 +13,38 @@ const History = () => {
 
   const navigate = useNavigate();
 
-  console.log(requestArr);
-
   return (
-    <main className={styles.historyContainer}>
-      {!isLogedIn && <Navigate to="/" replace={true} />}
-      {isLogedIn && (
-        <div className={styles.history}>
-          <h1 className={styles.historyHeading}>{t("history.history")}</h1>
-          {!data && (
-            <div>
-              <p>
-                You haven&apos;t executed any requests. It&apos;s empty here.
-                Try:
-              </p>
-              <div className={styles.historyButtons}>
-                <Button onClick={() => navigate("/GET")} variant="outlined">
-                  {t("welcome.restClient")}
-                </Button>
-                <Button onClick={() => navigate("/GRAPHQL")} variant="outlined">
-                  {t("welcome.graphiQlClient")}
-                </Button>
-              </div>
+      <main className={styles.historyContainer}>
+        {!isLogedIn && <Navigate to="/" replace={true} />}
+        {isLogedIn && (
+            <div className={styles.history}>
+              <h1 className={styles.historyHeading}>{t("history.history")}</h1>
+              {!data && (
+                  <div>
+                    <p>{t("history.noRequestsMessage")}</p>
+                    <div className={styles.historyButtons}>
+                      <Button onClick={() => navigate("/GET")} variant="outlined">
+                        {t("welcome.restClient")}
+                      </Button>
+                      <Button onClick={() => navigate("/GRAPHQL")} variant="outlined">
+                        {t("welcome.graphiQlClient")}
+                      </Button>
+                    </div>
+                  </div>
+              )}
+              {data &&
+                  requestArr.map((el: string, i: number) => (
+                      <button
+                          className={styles.historyLink}
+                          key={i}
+                          onClick={() => navigate(`${el}`)}
+                      >
+                        {el}
+                      </button>
+                  ))}
             </div>
-          )}
-          {data &&
-            requestArr.map((el: string, i: number) => (
-              <button
-                className={styles.historyLink}
-                key={i}
-                onClick={() => navigate(`${el}`)}
-              >
-                {el}
-              </button>
-            ))}
-        </div>
-      )}
-    </main>
+        )}
+      </main>
   );
 };
 

@@ -13,7 +13,7 @@ import trackSrc from "../../assets/audio/Track.mp3";
 import { useNavigate } from "@remix-run/react";
 import { IsLogedInContext } from "../../context/loginContext";
 import { auth } from "../../../lib/firebase.config";
-import i18n from "~/i18n";
+import i18n from "../../i18n";
 
 const RS_SCHOOL_LOGO_URL: string = RS_SCHOOL_LOGO as unknown as string;
 const RS_SCHOOL_URL: string = "https://rs.school/";
