@@ -14,13 +14,16 @@ export interface IRequest {
     headers: IRow[];
     response: string;
     body: string;
-    variables: object;
+    variables: IRow[];
     params: IRow[];
+    error?: string;
   };
   graphQL: {
+    query: string;
     url: string;
-    headers: object;
-    variables: object;
+    headers: IRow[];
+    variables: { [key: string]: string };
+    response: string;
   };
 }
 
@@ -41,11 +44,13 @@ export const RequestContext = createContext<{
     headers: [],
     response: "",
     body: "",
-    variables: {},
+    variables: [],
   },
   graphQL: {
     url: "",
-    headers: {},
+    query: "",
+    response: "",
+    headers: [],
     variables: {},
   },
   setRest: noop,
@@ -54,55 +59,79 @@ export const RequestContext = createContext<{
 
 export const useRequestContext = () => useContext(RequestContext);
 
-export const RequestProvider = ({ children }: { children: ReactNode }) => {
+const RequestProvider = ({ children }: { children: ReactNode }) => {
   const [graphQLState, setGraphQLState] = useState<IRequest["graphQL"]>({
     url: "",
-    headers: {},
-    variables: {},
-  });
-
-  const [restState, setRestState] = useState<IRequest["rest"]>({
-    url: "",
-    method: "",
-    params: [
-      {
-        value: "",
-        key: "",
-        description: "",
-      },
-    ],
-    headers: [
-      {
-        value: "",
-        key: "",
-        description: "",
-      },
-    ],
     response: "",
-    body: "",
+    query: "",
+    headers: [],
     variables: {},
   });
 
   useEffect(() => {
-    const [, par] = restState.url.split("?");
-    const params = par?.split("&")?.map((param) => ({
-      key: param.split("=")[0] || "",
-      value: param.split("=")[1] || "",
-    }));
-    setRestState((prev) => ({
-      ...prev,
-      params: params?.map((param, index) => ({
-        ...param,
-        description: prev.params[index]?.description || "",
-      })) || [
-        {
-          key: "",
-          value: "",
-          description: "",
-        },
-      ],
-    }));
-  }, [restState.url]);
+    if (graphQLState.url) {
+      window.history.replaceState(
+        null,
+        "",
+        `/GRAPHQL/${btoa(graphQLState.url).replace(/\//g, "_")}${
+          graphQLState.query ||
+          Object.entries(graphQLState.variables).length > 1
+            ? `/${btoa(
+                JSON.stringify({
+                  query: graphQLState.query,
+                  variables: graphQLState.variables,
+                })
+              )}`
+            : ""
+        }?${graphQLState.headers
+          .filter(({ key, value }) => key && value)
+          .map(
+            ({ key, value }) =>
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          )
+          .join("&")}`
+      );
+    }
+  }, [graphQLState]);
+
+  const [restState, setRestState] = useState<IRequest["rest"]>({
+    url: "",
+    method: "GET",
+    params: [],
+    headers: [],
+    response: "",
+    body: "",
+    variables: [],
+  });
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    restState.headers
+      .filter(({ key, value }) => key && value)
+      .forEach(({ key, value }) => {
+        params.append(key, value);
+      });
+    const formatedBody =
+      restState.body.replace(/{{(.*?)}}/g, (match) => {
+        return `"${match}"`;
+      }) || "";
+    if (restState.url) {
+      window.history.replaceState(
+        null,
+        "",
+        `/${restState.method}/${btoa(restState.url).replace(/\//g, "_")}${
+          formatedBody || restState.variables.length
+            ? `/${btoa(
+                JSON.stringify({
+                  body: formatedBody,
+                  variables: restState.variables,
+                })
+              )}`
+            : ""
+        }?${params.toString()}`
+      );
+    }
+  }, [restState]);
 
   return (
     <RequestContext.Provider
@@ -118,3 +147,4 @@ export const RequestProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+export default RequestProvider;

@@ -34,6 +34,9 @@
     "dontHaveAccount": "Еще нет аккаунта?",
     "haveAccount": "Уже есть аккаунт?"
    },
+   "history": {
+    "history": "История запросов"
+   },
   "rest": {
     "typeYourOwnMethod": "Введите собственный метод",
     "sendButton": "Отправить",

@@ -12,7 +12,7 @@ import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 
-const ABORT_DELAY = 5_000;
+const ABORT_DELAY = 8_000;
 
 export default function handleRequest(
   request: Request,
@@ -49,6 +49,8 @@ function handleBotRequest(
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
       <RemixServer
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         context={remixContext}
         url={request.url}
         abortDelay={ABORT_DELAY}
@@ -99,6 +101,8 @@ function handleBrowserRequest(
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
       <RemixServer
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
         context={remixContext}
         url={request.url}
         abortDelay={ABORT_DELAY}

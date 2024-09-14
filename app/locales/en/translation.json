@@ -32,6 +32,9 @@
     "dontHaveAccount": "Don't have an account?",
     "haveAccount": "Have an account?"
    },
+   "history": {
+    "history": "History"
+   },
   "rest": {
     "typeYourOwnMethod": "Type your own method",
     "sendButton": "Send",

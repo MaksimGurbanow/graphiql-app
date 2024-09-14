@@ -1,0 +1,36 @@
+.history {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+  align-items: center;
+}
+
+.historyHeading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.historyContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.historyLink {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+}
+
+.historyButtons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
