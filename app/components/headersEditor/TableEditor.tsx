@@ -5,6 +5,7 @@ import { IRow } from "~/types/types";
 import { formatValue } from "~/utils/defineTypedKey";
 import { useEffect } from "react";
 import { defaultKeyValuePair } from "lib/constants";
+import { useTranslation } from "react-i18next";
 
 export interface TableEditorProps {
   rows: IRow[];
@@ -30,6 +31,7 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
       editable: true,
     },
   ];
+  const { t } = useTranslation();
   useEffect(() => {
     if (!rows.length) setRows(true, rows.length, { ...defaultKeyValuePair });
   }, [rows, setRows]);
@@ -48,7 +50,7 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
           variant="contained"
           onClick={() => setRows(true, rows.length, { key: "", value: "" })}
         >
-          Add value
+          {t("tableEditor.addValue")}
         </Button>
       </Container>
       <DataGrid

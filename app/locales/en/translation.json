@@ -34,5 +34,21 @@
    },
    "history": {
     "history": "History"
-   }
+   },
+  "rest": {
+    "typeYourOwnMethod": "Type your own method",
+    "sendButton": "Send",
+    "params": "Parameters",
+    "headers": "Headers",
+    "body": "Body"
+  },
+  "tableEditor": {
+    "key": "Key",
+    "value": "Value",
+    "description": "Description",
+    "addValue": "Add value"
+  },
+  "response": {
+    "title": "Response"
+  }
 }

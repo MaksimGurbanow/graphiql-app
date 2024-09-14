@@ -13,6 +13,7 @@ import trackSrc from "../../assets/audio/Track.mp3";
 import { useNavigate } from "@remix-run/react";
 import { IsLogedInContext } from "../../context/loginContext";
 import { auth } from "../../../lib/firebase.config";
+import i18n from "~/i18n";
 
 const RS_SCHOOL_LOGO_URL: string = RS_SCHOOL_LOGO as unknown as string;
 const RS_SCHOOL_URL: string = "https://rs.school/";
@@ -51,7 +52,7 @@ const Welcome = () => {
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const [isAnimating, setIsAnimating] = useState(false);
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const ref = useRef<HTMLDivElement | null>(null);
   const [isLogin] = useContext(IsLogedInContext);
   const user = auth.currentUser;

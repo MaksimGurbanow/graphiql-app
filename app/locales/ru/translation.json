@@ -36,5 +36,21 @@
    },
    "history": {
     "history": "История запросов"
-   }
+   },
+  "rest": {
+    "typeYourOwnMethod": "Введите собственный метод",
+    "sendButton": "Отправить",
+    "params": "Параметры",
+    "headers": "Заголовки",
+    "body": "Тело"
+  },
+  "tableEditor": {
+    "key": "Ключ",
+    "value": "Значение",
+    "description": "Описание",
+    "addValue": "Добавить значение"
+  },
+  "response": {
+    "title": "Ответ"
+  }
 }

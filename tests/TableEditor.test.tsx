@@ -10,8 +10,8 @@ describe("TableEditor Component", () => {
 
   const defaultProps: TableEditorProps = {
     rows: [
-      { key: "Key1", value: "Value1", description: "Description1" },
-      { key: "Key2", value: "Value2", description: "Description2" },
+      { key: "Key1", value: "Value1" },
+      { key: "Key2", value: "Value2" },
     ],
     setRows: mockSetRows,
     headerText: "Test Header",

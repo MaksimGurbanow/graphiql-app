@@ -41,6 +41,9 @@ declare module "i18next" {
         history: {
           history: string;
         };
+        tableEditor: {
+          addValue: string;
+        };
       };
     };
   }

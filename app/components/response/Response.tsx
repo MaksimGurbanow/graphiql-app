@@ -56,5 +56,4 @@ const Response = ({ data, status, statusText }: ResponseProps) => {
     </Box>
   );
 };
-
 export default Response;
