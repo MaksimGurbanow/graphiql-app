@@ -1,0 +1,21 @@
+.documentation {
+  &FieldsItem {
+    border: none;
+    font-size: 17px;
+    background: none;
+    text-align: justify;
+  }
+
+  &PathSegment {
+    border: none;
+    background: none;
+    font-size: 19px;
+  }
+}
+
+.docsContainer {
+  padding: 30px 50px 50px;
+  width: 70%;
+  border: 1px solid;
+  border-radius: 5px;
+}

@@ -1,0 +1,42 @@
+.urlMethod {
+  border: 1px solid var(--content-color-tertiary);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: auto;
+  flex: 13;
+  &Wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    margin-bottom: 30px;
+  }
+}
+
+.restPage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.request {
+  &Block {
+    width: 90%;
+    margin-top: 100px;
+  }
+
+  &Divider {
+    width: 3px;
+    background-color: var(--content-color-tertiary);
+    z-index: 1000;
+  }
+}
+
+.hidden {
+  display: none;
+}

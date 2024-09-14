@@ -1,0 +1,18 @@
+.switchEditor {
+  &List {
+    list-style-type: none;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  &Item {
+    cursor: pointer;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+    &.active {
+      opacity: 1;
+    }
+  }
+}

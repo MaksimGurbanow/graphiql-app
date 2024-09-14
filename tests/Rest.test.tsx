@@ -1,42 +1,42 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import Rest from '../app/routes/rest.($method).($requestUrl).($body)/route';
-import { useRequestContext } from '../app/context/RequestContext';
-import { useNavigate } from '@remix-run/react';
+import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import Rest from "../app/routes/rest.($method).($requestUrl).($body)/route";
+import { useRequestContext } from "../app/context/RequestContext";
+import { useNavigate } from "@remix-run/react";
 
-vi.mock('../app/context/RequestContext', () => ({
-    useRequestContext: vi.fn(),
+vi.mock("../app/context/RequestContext", () => ({
+  useRequestContext: vi.fn(),
 }));
 
-vi.mock('@remix-run/react', () => ({
-    useNavigate: vi.fn(),
+vi.mock("@remix-run/react", () => ({
+  useNavigate: vi.fn(),
 }));
 
-describe('Rest Component', () => {
-    const mockSetRest = vi.fn();
-    const mockNavigate = vi.fn();
+describe("Rest Component", () => {
+  const mockSetRest = vi.fn();
+  const mockNavigate = vi.fn();
 
-    beforeEach(() => {
-        (useRequestContext as vi.Mock).mockReturnValue({
-            rest: {
-                url: '',
-                params: [],
-                headers: [],
-                body: '',
-                method: 'GET',
-            },
-            setRest: mockSetRest,
-        });
-
-        (useNavigate as vi.Mock).mockReturnValue(mockNavigate);
+  beforeEach(() => {
+    (useRequestContext as vi.Mock).mockReturnValue({
+      rest: {
+        url: "",
+        params: [],
+        headers: [],
+        body: "",
+        method: "GET",
+      },
+      setRest: mockSetRest,
     });
 
-    it('navigates on send button click', () => {
-        render(<Rest />);
+    (useNavigate as vi.Mock).mockReturnValue(mockNavigate);
+  });
 
-        const sendButton = screen.getByRole('button', { name: /Send/i });
-        fireEvent.click(sendButton);
+  it("navigates on send button click", () => {
+    render(<Rest />);
 
-        expect(mockNavigate).toHaveBeenCalledWith(expect.any(String));
-    });
+    const sendButton = screen.getByRole("button", { name: /Send/i });
+    fireEvent.click(sendButton);
+
+    expect(mockNavigate).toHaveBeenCalledWith(expect.any(String));
+  });
 });

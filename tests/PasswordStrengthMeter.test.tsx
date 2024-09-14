@@ -3,8 +3,8 @@ import PasswordStrengthMeter from "../app/components/passwordStrength/PasswordSt
 import { describe, it, expect } from "vitest";
 
 describe("PasswordStrengthMeter Component", () => {
-    it("renders the PasswordStrengthMeter component", () => {
-        render(<PasswordStrengthMeter password="" />);
-        expect(screen.getByText(/password strength/i)).toBeInTheDocument();
-    });
+  it("renders the PasswordStrengthMeter component", () => {
+    render(<PasswordStrengthMeter password="" />);
+    expect(screen.getByText(/password strength/i)).toBeInTheDocument();
+  });
 });
