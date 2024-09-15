@@ -6,6 +6,7 @@ import TableEditor, {
 } from "../app/components/headersEditor/TableEditor";
 import i18n from "../app/i18n";
 import { IRow } from "../app/types/types";
+import React from "react";
 
 i18n.use(initReactI18next).init({
   lng: "en",
@@ -36,7 +37,7 @@ describe("TableEditor Component", () => {
     render(
       <I18nextProvider i18n={i18n}>
         <TableEditor {...defaultProps} />
-      </I18nextProvider>
+      </I18nextProvider>,
     );
 
     const keyElements = screen.getAllByText(/Key/i);
@@ -46,7 +47,7 @@ describe("TableEditor Component", () => {
     expect(valueElements[0]).toBeInTheDocument();
 
     expect(
-      screen.getByRole("button", { name: /Add Value/i })
+      screen.getByRole("button", { name: /Add Value/i }),
     ).toBeInTheDocument();
   });
 
@@ -54,7 +55,7 @@ describe("TableEditor Component", () => {
     render(
       <I18nextProvider i18n={i18n}>
         <TableEditor {...defaultProps} />
-      </I18nextProvider>
+      </I18nextProvider>,
     );
 
     const addButton = screen.getByRole("button", { name: /Add Value/i });
@@ -70,7 +71,7 @@ describe("TableEditor Component", () => {
     render(
       <I18nextProvider i18n={i18n}>
         <TableEditor {...defaultProps} />
-      </I18nextProvider>
+      </I18nextProvider>,
     );
 
     expect(screen.getByText(/testKey/i)).toBeInTheDocument();

@@ -39,7 +39,7 @@ const Header = () => {
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newLang: string
+    newLang: string,
   ) => {
     if (newLang !== null) {
       setLang(newLang);

@@ -65,4 +65,5 @@ describe("Swiper Component", () => {
 
     expect(screen.getByText("Slide 3")).toBeVisible();
   });
+  it("Should move to prev slide when");
 });

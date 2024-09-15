@@ -8,7 +8,7 @@ describe("IsLogInContextProvider", () => {
       render(
         <IsLogInContextProvider>
           <div data-testid="child">Content</div>
-        </IsLogInContextProvider>
+        </IsLogInContextProvider>,
       );
     });
 

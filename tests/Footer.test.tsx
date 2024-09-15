@@ -20,12 +20,12 @@ describe("Footer Component", () => {
 
     expect(links[0]).toHaveAttribute(
       "href",
-      "https://github.com/maksimgurbanow"
+      "https://github.com/maksimgurbanow",
     );
     expect(links[1]).toHaveAttribute("href", "https://github.com/grammeri");
     expect(links[2]).toHaveAttribute(
       "href",
-      "https://github.com/predsedatel228"
+      "https://github.com/predsedatel228",
     );
   });
 

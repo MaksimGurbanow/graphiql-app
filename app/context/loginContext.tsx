@@ -9,14 +9,18 @@ import {
   useState,
 } from "react";
 
-type IsLoginContextType = [boolean, Dispatch<SetStateAction<boolean>>, boolean];
+export type IsLoginContextType = [
+  boolean,
+  Dispatch<SetStateAction<boolean>>,
+  boolean,
+];
 
 type IsLoginContextProviderType = {
   children: ReactNode;
 };
 
 export const IsLogedInContext = createContext(
-  [] as unknown as IsLoginContextType
+  [] as unknown as IsLoginContextType,
 );
 
 export const IsLogInContextProvider = ({
@@ -28,7 +32,7 @@ export const IsLogInContextProvider = ({
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
       auth,
-      initializeUser as NextOrObserver<User>
+      initializeUser as NextOrObserver<User>,
     );
     return unsubscribe;
   }, []);

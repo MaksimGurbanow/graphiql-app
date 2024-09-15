@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import classes from "./response.module.scss";
 import JSONPretty from "react-json-pretty";
 import JSONPrettyMon from "react-json-pretty/dist/monikai";
@@ -19,22 +18,14 @@ const Response = ({ data, status, statusText }: ResponseProps) => {
     return null;
   };
   return (
-    <Box
-      sx={{
-        width: "100%",
-        marginTop: "10px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        flex: 1,
-        gap: "10px",
-      }}
-    >
+    <div className={classes.responseBlock} data-testid="response-block">
       {status && statusText && (
-        <div className={`${classes.responseStatus} ${statusConverter()}`}>
-          <span>{status}</span>
-          <span>{statusText}</span>
+        <div
+          className={`${classes.responseStatus} ${statusConverter()}`}
+          data-testid="response-status"
+        >
+          <span data-testid="status-code">{status}</span>
+          <span data-testid="status-text">{statusText}</span>
         </div>
       )}
       <JSONPretty
@@ -53,7 +44,7 @@ const Response = ({ data, status, statusText }: ResponseProps) => {
         }}
         space="4"
       />
-    </Box>
+    </div>
   );
 };
 export default Response;

@@ -25,7 +25,7 @@ const renderWithSchema = (ui: JSX.Element) => {
   return render(
     <SchemaContext.Provider value={{ schema: mockSchema }}>
       {ui}
-    </SchemaContext.Provider>
+    </SchemaContext.Provider>,
   );
 };
 

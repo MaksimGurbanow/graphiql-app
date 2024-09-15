@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import classes from "./tableEditor.module.scss";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { IRow } from "../../types/types";
@@ -12,9 +12,15 @@ export interface TableEditorProps {
   setRows: (isLast: boolean, id?: number, row?: IRow) => void;
   headerText: string;
   onValueChange?: (v: string) => void;
+  testId?: string;
 }
 
-const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
+const TableEditor = ({
+  rows = [],
+  setRows,
+  headerText,
+  testId,
+}: TableEditorProps) => {
   const { t } = useTranslation();
 
   const columns: GridColDef[] = [
@@ -39,7 +45,7 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
   }, [rows, setRows]);
 
   return (
-    <Box className={classes.headersEditor}>
+    <div className={classes.headersEditor} data-testid={testId}>
       <Container
         sx={{
           flexDirection: "row",
@@ -76,7 +82,7 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
         }}
         rowHeight={30}
       />
-    </Box>
+    </div>
   );
 };
 

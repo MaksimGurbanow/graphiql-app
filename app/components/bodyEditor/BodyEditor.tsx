@@ -12,6 +12,7 @@ export interface BodyEditorProps {
   setBody: (v: string) => void;
   bodyMode: string;
   setBodyMode: (v: string) => void;
+  testId?: string;
 }
 
 const BodyEditor = ({
@@ -19,12 +20,13 @@ const BodyEditor = ({
   setBody,
   bodyMode,
   setBodyMode,
+  testId,
 }: BodyEditorProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBodyMode((event.target as HTMLInputElement).value);
   };
   return (
-    <Container>
+    <Container id={testId}>
       <Box>
         <RadioGroup
           sx={{ display: "flex", gap: "10px" }}

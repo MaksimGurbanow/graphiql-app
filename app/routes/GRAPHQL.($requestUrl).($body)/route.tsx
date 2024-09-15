@@ -13,15 +13,18 @@ import Response from "../../components/response/Response";
 import { updatedRows } from "../../utils/updatedRows";
 import { useSchemaContext } from "../../context/SchemaContext";
 import { useTranslation } from "react-i18next";
-import { base64ToString, stringToBase64 } from "~/utils/encodeDecodeStrings";
-import { IsLogedInContext } from "~/context/loginContext";
+import {
+  base64ToString,
+  stringToBase64,
+} from "../../utils/encodeDecodeStrings";
+import { IsLogedInContext } from "../../context/loginContext";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { requestUrl, body } = params;
   const decodedBody = base64ToString(body || "");
   const formatedURL = base64ToString(requestUrl || "");
   const headers = Object.fromEntries(
-    new URL(request.url).searchParams.entries()
+    new URL(request.url).searchParams.entries(),
   );
   const metadata = {
     body: decodedBody,
@@ -64,7 +67,7 @@ const GraphiQL = () => {
       { key: "query", label: t("graphiql.query") },
       { key: "variables", label: t("graphiql.variables") },
     ],
-    [t]
+    [t],
   );
 
   const [activeEditor, setActiveEditor] = useState("headers");
@@ -74,7 +77,7 @@ const GraphiQL = () => {
 
   useEffect(() => {
     const { query, variables } = JSON.parse(
-      data.body || '{ "query": "", "variables": {} }'
+      data.body || '{ "query": "", "variables": {} }',
     );
     setGraphql((prev) => ({
       ...prev,
@@ -88,7 +91,7 @@ const GraphiQL = () => {
 
   const variablesArray = useMemo(
     () => Object.entries(variables).map(([key, value]) => ({ key, value })),
-    [variables]
+    [variables],
   );
 
   const navigate = useNavigate();
@@ -101,7 +104,7 @@ const GraphiQL = () => {
       .filter(({ key, value }) => key && value)
       .map(
         ({ key, value }) =>
-          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
       )
       .join("&")}`;
     navigate(sentURL);
@@ -110,17 +113,17 @@ const GraphiQL = () => {
       (localStorage.getItem("history") || "")
         .split(",")
         .concat(sentURL)
-        .join(",")
+        .join(","),
     );
   };
 
   return (
-    <main className={classes.graphiqlPage}>
+    <main className={classes.graphiqlPage} data-testid="graphql-page">
       {!isLogedIn && <Navigate to="/" replace={true} />}
       <div className={classes.urlSendWrapper}>
         <div className={classes.urlWrapper}>
           <Typography variant="h5">{t("graphiql.urlLabel")}</Typography>
-          <UrlInput mode="graphQL" />
+          <UrlInput mode="graphQL" testId="url-input" />
         </div>
         <Button
           variant="contained"
@@ -132,7 +135,7 @@ const GraphiQL = () => {
       </div>
       <div className={classes.urlWrapper}>
         <Typography variant="h5">{t("graphiql.sdlLabel")}</Typography>
-        <UrlInput mode="graphQlSdl" />
+        <UrlInput mode="graphQlSdl" testId="url-sdl-input" />
       </div>
       <SwitchEditorList
         editors={editors.map((editor) => editor.label)}
@@ -152,6 +155,7 @@ const GraphiQL = () => {
           }
           bodyMode={bodyMode}
           setBodyMode={setBodyMode}
+          testId="body-editor"
         />
       )}
       {activeEditor === "headers" && (
@@ -164,6 +168,7 @@ const GraphiQL = () => {
             })
           }
           headerText={t("graphiql.headers")}
+          testId="header-editor"
         />
       )}
       {activeEditor === "variables" && (
@@ -175,12 +180,13 @@ const GraphiQL = () => {
                 updatedRows(isLast, variablesArray, row, id).map((row) => [
                   row.key,
                   row.value,
-                ])
+                ]),
               );
               return { ...prev, variables: newVariables };
             });
           }}
           headerText={t("graphiql.variables")}
+          testId="header-variables"
         />
       )}
       {isLoading && <CircularProgress />}

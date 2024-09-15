@@ -79,16 +79,16 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
               JSON.stringify({
                 query: graphQLState.query,
                 variables: graphQLState.variables,
-              })
+              }),
             )}`
           : ""
       }?${graphQLState.headers
         .filter(({ key, value }) => key && value)
         .map(
           ({ key, value }) =>
-            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
         )
-        .join("&")}`
+        .join("&")}`,
     );
   }, [graphQLState]);
 
@@ -119,17 +119,17 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
       "",
       `/${restState.method}/${stringToBase64(restState.url).replace(
         /\//g,
-        "_"
+        "_",
       )}${
         formatedBody || restState.variables.length
           ? `/${stringToBase64(
               JSON.stringify({
                 body: formatedBody,
                 variables: restState.variables,
-              })
+              }),
             )}`
           : ""
-      }?${params.toString()}`
+      }?${params.toString()}`,
     );
     // }
   }, [restState]);

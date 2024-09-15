@@ -43,7 +43,7 @@ const Login = () => {
   const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
   };
@@ -71,6 +71,7 @@ const Login = () => {
               id="outlined-uncontrolled"
               label="E-mail"
               {...register("email")}
+              inputProps={{ "data-testid": "email-input" }}
             />
             <div
               style={{ height: "20px", marginTop: "-15px", marginLeft: "10px" }}
@@ -97,12 +98,14 @@ const Login = () => {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
+                      sx={{ '&[data-testid="show-hide-button"]': {} }}
                     >
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 }
                 label="Password"
+                inputProps={{ "data-testid": "password-input" }}
                 {...register("password")}
               />
               <div style={{ height: "20px" }}>
@@ -116,6 +119,7 @@ const Login = () => {
               loading={loading}
               variant="outlined"
               type="submit"
+              data-testid="login-button"
             >
               <span>{t("form.signIn")}</span>
             </LoadingButton>
@@ -132,7 +136,11 @@ const Login = () => {
           </form>
           <div style={{ height: "40px" }}>
             {signInError && (
-              <Alert variant="filled" severity="error">
+              <Alert
+                variant="filled"
+                severity="error"
+                data-testid="alert-error"
+              >
                 {signInError}
               </Alert>
             )}

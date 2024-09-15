@@ -15,8 +15,11 @@ import UrlInput from "../../components/urlInput/UrlInput";
 import { updatedRows } from "../../utils/updatedRows";
 import { IRow } from "../../types/types";
 import { useTranslation } from "react-i18next";
-import { base64ToString, stringToBase64 } from "~/utils/encodeDecodeStrings";
-import { IsLogedInContext } from "~/context/loginContext";
+import {
+  base64ToString,
+  stringToBase64,
+} from "../../utils/encodeDecodeStrings";
+import { IsLogedInContext } from "../../context/loginContext";
 
 export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   TypedResponse<{
@@ -35,7 +38,7 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   const decodedBody = base64ToString(body || "") || "";
   const formatedURL = base64ToString(requestUrl || "");
   const headers = Object.fromEntries(
-    new URL(request.url).searchParams.entries()
+    new URL(request.url).searchParams.entries(),
   );
   let parsedBody: { body: string; variables: IRow[] };
   try {
@@ -45,7 +48,7 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   }
 
   const variableMap = new Map(
-    parsedBody.variables.map(({ key, value }) => [key, value])
+    parsedBody.variables.map(({ key, value }) => [key, value]),
   );
 
   const formatedBody = parsedBody.body.replace(/{{(.*?)}}/g, (match, p1) => {
@@ -87,7 +90,7 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
             `\
           ${responseText}
           `,
-            " ".repeat(4)
+            " ".repeat(4),
           ),
           ...metadata,
           status,
@@ -115,7 +118,7 @@ const Rest = () => {
       { key: "body", label: t("rest.body") },
       { key: "variables", label: t("rest.variables") },
     ],
-    [t]
+    [t],
   );
   const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
@@ -146,7 +149,7 @@ const Rest = () => {
             JSON.stringify({
               body: formatedBody,
               variables: variables,
-            })
+            }),
           )}`
         : ""
     }?${params.toString()}`;
@@ -156,24 +159,25 @@ const Rest = () => {
       (localStorage.getItem("history") || "")
         .split(",")
         .concat(sentURL)
-        .join(",")
+        .join(","),
     );
   };
 
   return (
-    <main className={classes.restPage}>
+    <main className={classes.restPage} data-testid="rest-page">
       {!isLogedIn && <Navigate to="/" replace={true} />}
-      <div className={classes.requestBlock}>
+      <div className={classes.requestBlock} data-testid="requestBlock">
         <div className={classes.urlMethodWrapper}>
           <div className={classes.urlMethod}>
             <MethodSelector />
             <hr className={classes.requestDivider} />
-            <UrlInput mode="rest" />
+            <UrlInput mode="rest" testId="url-input" />
           </div>
           <Button
             variant="contained"
             sx={{ padding: "8px", flex: 1 }}
             onClick={() => handleSearchClick()}
+            id="send-button"
           >
             {t("rest.sendButton")}
           </Button>
@@ -206,6 +210,7 @@ const Rest = () => {
               })
             }
             headerText={t("rest.headers")}
+            testId="header-editor"
           />
         )}
         {activeEditor === "params" && (
@@ -227,6 +232,7 @@ const Rest = () => {
               })
             }
             headerText={t("rest.params")}
+            testId="params-editor"
           />
         )}
         {activeEditor === "variables" && (
@@ -239,6 +245,7 @@ const Rest = () => {
               });
             }}
             headerText={t("rest.variables")}
+            testId="variables-editor"
           />
         )}
       </div>

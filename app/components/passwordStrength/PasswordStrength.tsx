@@ -15,7 +15,7 @@ const PasswordStrengthMeter = (props: { password: string }) => {
   };
 
   const passwordStrength = Object.values(passwordTracker).filter(
-    (value) => value
+    (value) => value,
   ).length;
   return (
     <div>

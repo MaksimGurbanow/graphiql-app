@@ -70,11 +70,15 @@ const Welcome = () => {
   };
 
   return (
-    <div className={styles.aboutUsContainer} ref={ref}>
+    <div
+      className={styles.aboutUsContainer}
+      ref={ref}
+      data-testid="welcome-page"
+    >
       {isLogin && (
         <div>
           <h2 className={styles.welcomeGreetings}>{`${t(
-            "welcome.welcomeBack"
+            "welcome.welcomeBack",
           )} ${user?.email}!`}</h2>
           <div className={styles.welcomeButtonContainer}>
             <Button onClick={() => navigate("/GET")} variant="outlined">

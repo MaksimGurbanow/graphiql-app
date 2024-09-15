@@ -16,7 +16,7 @@ describe("Response", () => {
 
   it("applies appropriate class based on status", () => {
     const { container } = render(
-      <Response data="{}" status={500} statusText="Server Error" />
+      <Response data="{}" status={500} statusText="Server Error" />,
     );
 
     const statusDiv = container.querySelector(`.${classes.responseStatus}`);
@@ -27,14 +27,20 @@ describe("Response", () => {
 
   it("prints class names for debugging and checks class application", () => {
     const { container } = render(
-      <Response data="{}" status={500} statusText="Server Error" />
+      <Response data="{}" status={500} statusText="Server Error" />,
     );
 
     const statusDiv = container.querySelector(`.${classes.responseStatus}`);
 
-    console.log(statusDiv.className);
+    console.log(statusDiv?.className);
 
     expect(statusDiv).toBeInTheDocument();
-    expect(statusDiv.className).toMatch(/error/);
+    expect(statusDiv?.className).toMatch(/error/);
+  });
+  it("Shouldn't render status code if it's not provided", async () => {
+    render(<Response data="{}" />);
+    expect(screen.queryByTestId("response-status")).toBeNull();
+    expect(screen.queryByTestId("response-code")).toBeNull();
+    expect(screen.queryByTestId("response-text")).toBeNull();
   });
 });
