@@ -12,7 +12,8 @@
     "format:fix": "prettier --write \"**/*.{ts,tsx,js,jsx,scss,css}\"",
     "precommit": "lint-staged",
     "prepare": "npx husky install",
-    "test": "vitest --coverage"
+    "test": "vitest --coverage",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@emotion/react": "^11.13.0",
@@ -68,7 +69,8 @@
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
-    "@vitest/ui": "^2.0.5",
+    "@vitest/coverage-v8": "^2.1.1",
+    "@vitest/ui": "^2.1.1",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.38.0",
     "eslint-import-resolver-typescript": "^3.6.1",

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import classes from "./rest.module.scss";
 import Response from "../../components/response/Response";
 import { Button } from "@mui/material";
@@ -6,7 +6,7 @@ import BodyEditor from "../../components/bodyEditor/BodyEditor";
 import TableEditor from "../../components/headersEditor/TableEditor";
 import { useRequestContext } from "../../context/RequestContext";
 import { LoaderFunctionArgs, TypedResponse } from "@remix-run/node";
-import { json, useLoaderData, useNavigate } from "@remix-run/react";
+import { json, Navigate, useLoaderData, useNavigate } from "@remix-run/react";
 import format from "html-format";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import MethodSelector from "../../components/methodSelector/MethodSelector";
@@ -16,6 +16,7 @@ import { updatedRows } from "../../utils/updatedRows";
 import { IRow } from "../../types/types";
 import { useTranslation } from "react-i18next";
 import { base64ToString, stringToBase64 } from "~/utils/encodeDecodeStrings";
+import { IsLogedInContext } from "~/context/loginContext";
 
 export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   TypedResponse<{
@@ -119,6 +120,7 @@ const Rest = () => {
   const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const [bodyMode, setBodyMode] = useState("JSON");
+  const [isLogedIn] = useContext(IsLogedInContext);
 
   useEffect(() => {
     const restoredBody = data.body.replace(/"{{.*?}}"/g, (match) => {
@@ -160,6 +162,7 @@ const Rest = () => {
 
   return (
     <main className={classes.restPage}>
+      {!isLogedIn && <Navigate to="/" replace={true} />}
       <div className={classes.requestBlock}>
         <div className={classes.urlMethodWrapper}>
           <div className={classes.urlMethod}>

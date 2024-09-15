@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { IRow } from "../../app/types/types";
-import { stringToBase64 } from "~/utils/encodeDecodeStrings";
+import { stringToBase64 } from "../utils/encodeDecodeStrings";
 
 export interface IRequest {
   rest: {

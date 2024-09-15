@@ -1,12 +1,12 @@
 import UrlInput from "../../components/urlInput/UrlInput";
 import classes from "./graphiql.module.scss";
 import { Button, CircularProgress, Typography } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import SwitchEditorList from "../../components/switchEditorList/SwitchEditorList";
 import BodyEditor from "../../components/bodyEditor/BodyEditor";
 import { useRequestContext } from "../../context/RequestContext";
 import TableEditor from "../../components/headersEditor/TableEditor";
-import { json, useLoaderData, useNavigate } from "@remix-run/react";
+import { json, Navigate, useLoaderData, useNavigate } from "@remix-run/react";
 import DocumentationExplorer from "../../components/documentationExplorer/DocumentationExplorer";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import Response from "../../components/response/Response";
@@ -14,6 +14,7 @@ import { updatedRows } from "../../utils/updatedRows";
 import { useSchemaContext } from "../../context/SchemaContext";
 import { useTranslation } from "react-i18next";
 import { base64ToString, stringToBase64 } from "~/utils/encodeDecodeStrings";
+import { IsLogedInContext } from "~/context/loginContext";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { requestUrl, body } = params;
@@ -91,6 +92,7 @@ const GraphiQL = () => {
   );
 
   const navigate = useNavigate();
+  const [isLogedIn] = useContext(IsLogedInContext);
 
   const handleSearchClick = () => {
     const sentURL = `/GRAPHQL/${stringToBase64(url)}${
@@ -114,6 +116,7 @@ const GraphiQL = () => {
 
   return (
     <main className={classes.graphiqlPage}>
+      {!isLogedIn && <Navigate to="/" replace={true} />}
       <div className={classes.urlSendWrapper}>
         <div className={classes.urlWrapper}>
           <Typography variant="h5">{t("graphiql.urlLabel")}</Typography>

@@ -3,8 +3,8 @@ import Welcome from "../components/welcome/Welcome";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "GraphQl/Rest client" },
+    { name: "description", content: "Welcome to GrpahQl/Rest application!" },
   ];
 };
 
