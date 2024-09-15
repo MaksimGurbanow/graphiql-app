@@ -53,8 +53,8 @@ const DocumentationExplorer = () => {
                     setPathSegments((prev) =>
                       prev.slice(
                         0,
-                        prev.findIndex((segm) => segm === segment) + 1,
-                      ),
+                        prev.findIndex((segm) => segm === segment) + 1
+                      )
                     )
                   }
                 >
