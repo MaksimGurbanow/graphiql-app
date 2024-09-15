@@ -48,7 +48,7 @@ const TableEditor = ({ rows = [], setRows, headerText }: TableEditorProps) => {
           gap: "20px",
         }}
       >
-        <Typography variant="h6">{t(headerText)}</Typography>
+        <Typography variant="h6">{headerText}</Typography>
         <Button
           variant="contained"
           onClick={() => setRows(true, rows.length, { key: "", value: "" })}

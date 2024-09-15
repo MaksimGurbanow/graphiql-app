@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import classes from "./rest.module.scss";
 import Response from "../../components/response/Response";
 import { Button } from "@mui/material";
@@ -15,6 +15,7 @@ import UrlInput from "../../components/urlInput/UrlInput";
 import { updatedRows } from "../../utils/updatedRows";
 import { IRow } from "../../types/types";
 import { useTranslation } from "react-i18next";
+import { base64ToString, stringToBase64 } from "~/utils/encodeDecodeStrings";
 
 export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   TypedResponse<{
@@ -30,8 +31,8 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   }>
 > {
   const { method, requestUrl, body } = params;
-  const decodedBody = atob(body || "") || "";
-  const formatedURL = atob(requestUrl?.replace(/_/g, "/") || "");
+  const decodedBody = base64ToString(body || "") || "";
+  const formatedURL = base64ToString(requestUrl || "");
   const headers = Object.fromEntries(
     new URL(request.url).searchParams.entries()
   );
@@ -104,12 +105,20 @@ const Rest = () => {
     rest: { url, params, headers, body, method, variables },
     setRest,
   } = useRequestContext();
-  const [activeEditor, setActiveEditor] = useState<string>("Headers");
-  const editors: string[] = ["Params", "Headers", "Body", "Variables"];
+  const [activeEditor, setActiveEditor] = useState<string>("headers");
+  const { t } = useTranslation();
+  const editors = useMemo(
+    () => [
+      { key: "headers", label: t("rest.headers") },
+      { key: "params", label: t("rest.params") },
+      { key: "body", label: t("rest.body") },
+      { key: "variables", label: t("rest.variables") },
+    ],
+    [t]
+  );
   const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const [bodyMode, setBodyMode] = useState("JSON");
-  const { t } = useTranslation();
 
   useEffect(() => {
     const restoredBody = data.body.replace(/"{{.*?}}"/g, (match) => {
@@ -129,9 +138,9 @@ const Rest = () => {
       body.replace(/{{(.*?)}}/g, (match) => {
         return `"${match}"`;
       }) || "";
-    const sentURL = `/${method}/${btoa(url).replace(/\//g, "_")}${
+    const sentURL = `/${method}/${stringToBase64(url)}${
       formatedBody || variables.length
-        ? `/${btoa(
+        ? `/${stringToBase64(
             JSON.stringify({
               body: formatedBody,
               variables: variables,
@@ -150,7 +159,7 @@ const Rest = () => {
   };
 
   return (
-    <div className={classes.restPage}>
+    <main className={classes.restPage}>
       <div className={classes.requestBlock}>
         <div className={classes.urlMethodWrapper}>
           <div className={classes.urlMethod}>
@@ -167,19 +176,16 @@ const Rest = () => {
           </Button>
         </div>
         <SwitchEditorList
-          editors={editors.map((editor) =>
-            t(
-              `rest.${editor.toLowerCase()}` as
-                | "rest.params"
-                | "rest.headers"
-                | "rest.body"
-                | "rest.variables"
-            )
-          )}
-          setActiveEditor={(v) => setActiveEditor(v)}
-          activeEditor={activeEditor}
+          editors={editors.map((editor) => editor.label)}
+          setActiveEditor={(label) => {
+            const selected = editors.find((editor) => editor.label === label);
+            if (selected) setActiveEditor(selected.key);
+          }}
+          activeEditor={
+            editors.find((editor) => editor.key === activeEditor)?.label || ""
+          }
         />
-        {activeEditor === "Body" && (
+        {activeEditor === "body" && (
           <BodyEditor
             body={body}
             setBody={(body) => setRest((prev) => ({ ...prev, body }))}
@@ -187,7 +193,7 @@ const Rest = () => {
             setBodyMode={setBodyMode}
           />
         )}
-        {activeEditor === "Headers" && (
+        {activeEditor === "headers" && (
           <TableEditor
             rows={headers}
             setRows={(isLast, id, row) =>
@@ -199,7 +205,7 @@ const Rest = () => {
             headerText={t("rest.headers")}
           />
         )}
-        {activeEditor === "Params" && (
+        {activeEditor === "params" && (
           <TableEditor
             rows={params}
             setRows={(isLast, id, row) =>
@@ -220,7 +226,7 @@ const Rest = () => {
             headerText={t("rest.params")}
           />
         )}
-        {activeEditor === "Variables" && (
+        {activeEditor === "variables" && (
           <TableEditor
             rows={variables}
             setRows={(isLast, id, row) => {
@@ -241,7 +247,7 @@ const Rest = () => {
         />
       )}
       {data.error && <ErrorMessage message={data.error} />}
-    </div>
+    </main>
   );
 };
 

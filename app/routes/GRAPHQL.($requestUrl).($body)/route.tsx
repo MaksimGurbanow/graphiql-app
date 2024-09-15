@@ -13,11 +13,12 @@ import Response from "../../components/response/Response";
 import { updatedRows } from "../../utils/updatedRows";
 import { useSchemaContext } from "../../context/SchemaContext";
 import { useTranslation } from "react-i18next";
+import { base64ToString, stringToBase64 } from "~/utils/encodeDecodeStrings";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { requestUrl, body } = params;
-  const decodedBody = atob(body || "");
-  const formatedURL = atob(requestUrl?.replace(/_/g, "/") || "");
+  const decodedBody = base64ToString(body || "");
+  const formatedURL = base64ToString(requestUrl || "");
   const headers = Object.fromEntries(
     new URL(request.url).searchParams.entries()
   );
@@ -79,11 +80,10 @@ const GraphiQL = () => {
       url: data.url,
       query,
       headers: data.headers,
-      sdl: data.url + "?sdl",
       response: data.response,
       variables: variables,
     }));
-  }, [data, data.body, data.headers, data.response, data.url, setGraphql]);
+  }, [data.body, data.headers, data.response, data.url, setGraphql]);
 
   const variablesArray = useMemo(
     () => Object.entries(variables).map(([key, value]) => ({ key, value })),
@@ -93,8 +93,8 @@ const GraphiQL = () => {
   const navigate = useNavigate();
 
   const handleSearchClick = () => {
-    const sentURL = `/GRAPHQL/${btoa(url).replace(/\//g, "_")}${
-      query ? `/${btoa(JSON.stringify({ query, variables }))}` : ""
+    const sentURL = `/GRAPHQL/${stringToBase64(url)}${
+      query ? `/${stringToBase64(JSON.stringify({ query, variables }))}` : ""
     }?${headers
       .filter(({ key, value }) => key && value)
       .map(

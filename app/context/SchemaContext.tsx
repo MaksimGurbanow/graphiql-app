@@ -47,6 +47,10 @@ const SchemaProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     if (url && !isChanged) {
       setSdl(`${url}?sdl`);
+    } else {
+      if (!isChanged) {
+        setSdl("");
+      }
     }
   }, [isChanged, url]);
 
