@@ -11,7 +11,7 @@ import {
   TextField,
   useMediaQuery,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../../utils/validationSchema";
@@ -21,6 +21,7 @@ import PasswordStrengthMeter from "../../components/passwordStrength/PasswordStr
 import { Navigate, useNavigate } from "@remix-run/react";
 import { IsLogedInContext } from "../../context/loginContext";
 import { useTranslation } from "react-i18next";
+import { useRequestContext } from "~/context/RequestContext";
 
 interface IRegisterForm {
   email: string;
@@ -28,6 +29,8 @@ interface IRegisterForm {
 }
 
 const Registration = () => {
+  const { setIsActive } = useRequestContext();
+
   const {
     register,
     handleSubmit,
@@ -47,8 +50,12 @@ const Registration = () => {
   const navigate = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  useEffect(() => {
+    setIsActive(false);
+  }, [setIsActive]);
+
   const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
   };

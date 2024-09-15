@@ -78,7 +78,7 @@ describe("AudioPlayer Component", () => {
     await expect(audioPlayMock).toHaveBeenCalled();
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Failed to play the audio:",
-      expect.any(Error)
+      expect.any(Error),
     );
 
     consoleErrorSpy.mockRestore();

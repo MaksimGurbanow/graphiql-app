@@ -14,7 +14,7 @@ describe("SwitchEditorList", () => {
         editors={editors}
         setActiveEditor={setActiveEditor}
         activeEditor={activeEditor}
-      />
+      />,
     );
 
     editors.forEach((editor) => {
@@ -32,7 +32,7 @@ describe("SwitchEditorList", () => {
         editors={editors}
         setActiveEditor={setActiveEditor}
         activeEditor={activeEditor}
-      />
+      />,
     );
 
     const activeItem = screen.getByText("Editor1");
@@ -49,7 +49,7 @@ describe("SwitchEditorList", () => {
         editors={editors}
         setActiveEditor={setActiveEditor}
         activeEditor={activeEditor}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByText("Editor2"));

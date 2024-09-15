@@ -62,7 +62,10 @@ declare module "i18next" {
         response: {
           title: string;
         };
-        headerText: string;
+        history: {
+          history: string;
+          noRequestsMessage: string;
+        };
       };
     };
   }

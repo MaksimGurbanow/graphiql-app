@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
 import "./notFound/notFound.scss";
 import { useNavigate } from "@remix-run/react";
+import { useRequestContext } from "~/context/RequestContext";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();
+  useRequestContext().setIsActive(false);
   return (
     <div className="not-found-page">
       <h1>404. Page not found</h1>

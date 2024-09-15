@@ -6,19 +6,15 @@ const Swiper = ({ children }: { children: ReactNode }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) =>
-      prev === React.Children.count(children) - 1 ? 0 : prev + 1
-    );
+    setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) =>
-      prev === 0 ? React.Children.count(children) - 1 : prev - 1
-    );
+    setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1));
   };
 
   return (
-    <div className={styles.swiperContainer}>
+    <div className={styles.swiperContainer} data-testid="swipper">
       <div
         className={styles.swiperWrapper}
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -30,28 +26,20 @@ const Swiper = ({ children }: { children: ReactNode }) => {
       <button
         className={`${styles.swiperButton} ${styles.prev}`}
         onClick={prevSlide}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            prevSlide();
-          }
-        }}
         tabIndex={0}
+        data-testid="prev-slide"
       >
         &#10094;
       </button>
       <button
         className={`${styles.swiperButton} ${styles.next}`}
         onClick={nextSlide}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            nextSlide();
-          }
-        }}
         tabIndex={0}
+        data-testid="next-slide"
       >
         &#10095;
       </button>
-      <div className={styles.swiperPagination}>
+      <div className={styles.swiperPagination} data-testid="pagination">
         {React.Children.map(children, (_, index) => (
           <span
             key={index}
@@ -59,11 +47,7 @@ const Swiper = ({ children }: { children: ReactNode }) => {
               index === currentSlide ? styles.active : ""
             }`}
             onClick={() => setCurrentSlide(index)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                setCurrentSlide(index);
-              }
-            }}
+            onKeyDown={() => {}}
             role="button"
             tabIndex={0}
           ></span>

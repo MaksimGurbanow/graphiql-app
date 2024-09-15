@@ -68,7 +68,7 @@ window.PR_SHOULD_USE_CONTINUATION = true;
       } else {
         if (
           /[a-z]/i.test(
-            ae.source.replace(/\\u[0-9a-f]{4}|\\x[0-9a-f]{2}|\\[^ux]/gi, "")
+            ae.source.replace(/\\u[0-9a-f]{4}|\\x[0-9a-f]{2}|\\[^ux]/gi, ""),
           )
         ) {
           S = true;
@@ -115,8 +115,8 @@ window.PR_SHOULD_USE_CONTINUATION = true;
         .match(
           new RegExp(
             "\\\\u[0-9A-Fa-f]{4}|\\\\x[0-9A-Fa-f]{2}|\\\\[0-3][0-7]{0,2}|\\\\[0-7]{1,2}|\\\\[\\s\\S]|-|[^-\\\\]",
-            "g"
-          )
+            "g",
+          ),
         );
       var ak = [];
       var af = [];
@@ -180,8 +180,8 @@ window.PR_SHOULD_USE_CONTINUATION = true;
       var aj = al.source.match(
         new RegExp(
           "(?:\\[(?:[^\\x5C\\x5D]|\\\\[\\s\\S])*\\]|\\\\u[A-Fa-f0-9]{4}|\\\\x[A-Fa-f0-9]{2}|\\\\[0-9]+|\\\\[^ux0-9]|\\(\\?[:!=]|[\\(\\)\\^]|[^\\x5B\\x5C\\(\\)\\^]+)",
-          "g"
-        )
+          "g",
+        ),
       );
       var ah = aj.length;
       var an = [];
@@ -493,13 +493,13 @@ window.PR_SHOULD_USE_CONTINUATION = true;
         G,
         new RegExp(
           "^(?:0x[a-f0-9]+|(?:\\d(?:_\\d+)*\\d*(?:\\.\\d*)?|\\.\\d\\+)(?:e[+\\-]?\\d+)?)[a-z]*",
-          "i"
+          "i",
         ),
         null,
         "0123456789",
       ],
       [F, /^\\[\s\S]?/, null],
-      [L, /^.[^\s\w\.$@\'\"\`\/\#\\]*/, null]
+      [L, /^.[^\s\w\.$@\'\"\`\/\#\\]*/, null],
     );
     return g(W, S);
   }
@@ -718,9 +718,9 @@ window.PR_SHOULD_USE_CONTINUATION = true;
         ["lang-js", /^<script\b[^>]*>([\s\S]*?)(<\/script\b[^>]*>)/i],
         ["lang-css", /^<style\b[^>]*>([\s\S]*?)(<\/style\b[^>]*>)/i],
         ["lang-in.tag", /^(<\/?[a-z][^<>]*>)/i],
-      ]
+      ],
     ),
-    ["default-markup", "htm", "html", "mxml", "xhtml", "xml", "xsl"]
+    ["default-markup", "htm", "html", "mxml", "xhtml", "xml", "xsl"],
   );
   c(
     g(
@@ -739,9 +739,9 @@ window.PR_SHOULD_USE_CONTINUATION = true;
         ["lang-css", /^style\s*=\s*\"([^\"]+)\"/i],
         ["lang-css", /^style\s*=\s*\'([^\']+)\'/i],
         ["lang-css", /^style\s*=\s*([^\"\'>\s]+)/i],
-      ]
+      ],
     ),
-    ["in.tag"]
+    ["in.tag"],
   );
   c(g([], [[n, /^[\s\S]+/]]), ["uq.val"]);
   c(i({ keywords: l, hashComments: true, cStyleComments: true, types: e }), [
@@ -761,7 +761,7 @@ window.PR_SHOULD_USE_CONTINUATION = true;
       verbatimStrings: true,
       types: e,
     }),
-    ["cs"]
+    ["cs"],
   );
   c(i({ keywords: x, cStyleComments: true }), ["java"]);
   c(i({ keywords: H, hashComments: true, multiLineStrings: true }), [
@@ -776,7 +776,7 @@ window.PR_SHOULD_USE_CONTINUATION = true;
       multiLineStrings: true,
       tripleQuotedStrings: true,
     }),
-    ["cv", "py"]
+    ["cv", "py"],
   );
   c(
     i({
@@ -785,7 +785,7 @@ window.PR_SHOULD_USE_CONTINUATION = true;
       multiLineStrings: true,
       regexLiterals: true,
     }),
-    ["perl", "pl", "pm"]
+    ["perl", "pl", "pm"],
   );
   c(
     i({
@@ -794,7 +794,7 @@ window.PR_SHOULD_USE_CONTINUATION = true;
       multiLineStrings: true,
       regexLiterals: true,
     }),
-    ["rb"]
+    ["rb"],
   );
   c(i({ keywords: w, cStyleComments: true, regexLiterals: true }), ["js"]);
   c(
@@ -806,7 +806,7 @@ window.PR_SHOULD_USE_CONTINUATION = true;
       tripleQuotedStrings: true,
       regexLiterals: true,
     }),
-    ["coffee"]
+    ["coffee"],
   );
   c(g([], [[C, /^[\s\S]+/]]), ["regex"]);
   function d(V) {
@@ -949,9 +949,9 @@ PR.registerLangHandler(
       [PR.PR_DECLARATION, /^{{&?\s*[\w.][^}]*}}/],
       [PR.PR_DECLARATION, /^{{{>?\s*[\w.][^}]*}}}/],
       [PR.PR_COMMENT, /^{{![^}]*}}/],
-    ]
+    ],
   ),
-  ["handlebars", "hbs"]
+  ["handlebars", "hbs"],
 );
 PR.registerLangHandler(
   PR.createSimpleLexer(
@@ -986,9 +986,9 @@ PR.registerLangHandler(
         /^-?(?:[_a-z]|(?:\\[\da-f]+ ?))(?:[_a-z\d\-]|\\(?:\\[\da-f]+ ?))*/i,
       ],
       [PR.PR_PUNCTUATION, /^[^\s\w\'\"]+/],
-    ]
+    ],
   ),
-  ["css"]
+  ["css"],
 );
 PR.registerLangHandler(
   PR.createSimpleLexer(
@@ -998,11 +998,11 @@ PR.registerLangHandler(
         PR.PR_KEYWORD,
         /^-?(?:[_a-z]|(?:\\[\da-f]+ ?))(?:[_a-z\d\-]|\\(?:\\[\da-f]+ ?))*/i,
       ],
-    ]
+    ],
   ),
-  ["css-kw"]
+  ["css-kw"],
 );
 PR.registerLangHandler(
   PR.createSimpleLexer([], [[PR.PR_STRING, /^[^\)\"\']+/]]),
-  ["css-str"]
+  ["css-str"],
 );

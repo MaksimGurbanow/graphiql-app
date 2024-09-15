@@ -12,8 +12,9 @@
     "**/.client/**/*.tsx",
     "remix.config.js",
     "vitest.setup.ts",
-    "node_modules/vitest/globals.d.ts"
+    "node_modules/vitest/globals.d.ts",
   ],
+  "exclude": ["test", "app/entry.server.tsx"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "typeRoots": ["./node_modules/@types", "./app/types"],

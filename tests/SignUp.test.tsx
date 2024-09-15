@@ -28,7 +28,7 @@ describe("signUp function", () => {
     expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
       expect.any(Object),
       "test@example.com",
-      "Password1!"
+      "Password1!",
     );
   });
 
@@ -37,12 +37,12 @@ describe("signUp function", () => {
     createUserWithEmailAndPassword.mockRejectedValue(new Error(errorMessage));
 
     await expect(signUp("invalid-email", "short")).rejects.toThrow(
-      errorMessage
+      errorMessage,
     );
     expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(
       expect.any(Object),
       "invalid-email",
-      "short"
+      "short",
     );
   });
 });

@@ -12,7 +12,7 @@ const SwitchEditorList = ({
   activeEditor,
 }: SwitchEditorListProps) => {
   return (
-    <ul className={classes.switchEditorList}>
+    <ul className={classes.switchEditorList} data-testid="switch-editor-list">
       {editors.map((editorMode) => (
         <li
           className={`${classes.switchEditorItem} ${
@@ -20,6 +20,7 @@ const SwitchEditorList = ({
           }`}
           key={editorMode}
           onClickCapture={() => setActiveEditor(editorMode)}
+          data-testid={editorMode}
         >
           {editorMode}
         </li>

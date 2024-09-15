@@ -70,7 +70,7 @@ const SchemaProvider = ({ children }: { children: ReactNode }) => {
         .then((res) => setSchema(res))
         .catch(() => {
           setMessage(
-            "Documentation was not found. Either change API URL or try to input the documentation address by hand."
+            "Documentation was not found. Either change API URL or try to input the documentation address by hand.",
           );
           setSchema(undefined);
         })

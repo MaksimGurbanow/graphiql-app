@@ -23,3 +23,14 @@
   align-self: end;
   margin-right: 10px;
 }
+
+.responseBlock {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}

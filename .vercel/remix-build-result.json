@@ -1,0 +1,164 @@
+{
+  "buildManifest": {
+    "serverBundles": {
+      "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0": {
+        "id": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+        "file": "build/server/nodejs-eyJydW50aW1lIjoibm9kZWpzIn0/index.js",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    },
+    "routeIdToServerBundleId": {
+      "routes/($method).($requestUrl).($body)": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/GRAPHQL.($requestUrl).($body)": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/registration": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/history": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/_index": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/login": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0",
+      "routes/$": "nodejs-eyJydW50aW1lIjoibm9kZWpzIn0"
+    },
+    "routes": {
+      "root": {
+        "path": "",
+        "id": "root",
+        "file": "app/root.tsx",
+        "config": {}
+      },
+      "routes/($method).($requestUrl).($body)": {
+        "file": "app/routes/($method).($requestUrl).($body)/route.tsx",
+        "id": "routes/($method).($requestUrl).($body)",
+        "path": ":method?/:requestUrl?/:body?",
+        "parentId": "root",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/GRAPHQL.($requestUrl).($body)": {
+        "file": "app/routes/GRAPHQL.($requestUrl).($body)/route.tsx",
+        "id": "routes/GRAPHQL.($requestUrl).($body)",
+        "path": "GRAPHQL/:requestUrl?/:body?",
+        "parentId": "root",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/registration": {
+        "file": "app/routes/registration/route.tsx",
+        "id": "routes/registration",
+        "path": "registration",
+        "parentId": "root",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/history": {
+        "file": "app/routes/history/route.tsx",
+        "id": "routes/history",
+        "path": "history",
+        "parentId": "root",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/_index": {
+        "file": "app/routes/_index.tsx",
+        "id": "routes/_index",
+        "index": true,
+        "parentId": "root",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/login": {
+        "file": "app/routes/login/route.tsx",
+        "id": "routes/login",
+        "path": "login",
+        "parentId": "root",
+        "config": {
+          "runtime": "nodejs"
+        }
+      },
+      "routes/$": {
+        "file": "app/routes/$.tsx",
+        "id": "routes/$",
+        "path": "*",
+        "parentId": "root",
+        "config": {
+          "runtime": "nodejs"
+        }
+      }
+    }
+  },
+  "remixConfig": {
+    "appDirectory": "C:\\Users\\MONSTER\\Desktop\\all\\graphiql-app\\app",
+    "basename": "/",
+    "buildDirectory": "C:\\Users\\MONSTER\\Desktop\\all\\graphiql-app\\build",
+    "future": {
+      "v3_fetcherPersist": true,
+      "v3_relativeSplatPath": true,
+      "v3_throwAbortReason": true,
+      "unstable_singleFetch": false,
+      "unstable_lazyRouteDiscovery": false
+    },
+    "manifest": false,
+    "publicPath": "/",
+    "routes": {
+      "root": {
+        "path": "",
+        "id": "root",
+        "file": "root.tsx"
+      },
+      "routes/($method).($requestUrl).($body)": {
+        "file": "routes/($method).($requestUrl).($body)/route.tsx",
+        "id": "routes/($method).($requestUrl).($body)",
+        "path": ":method?/:requestUrl?/:body?",
+        "parentId": "root"
+      },
+      "routes/GRAPHQL.($requestUrl).($body)": {
+        "file": "routes/GRAPHQL.($requestUrl).($body)/route.tsx",
+        "id": "routes/GRAPHQL.($requestUrl).($body)",
+        "path": "GRAPHQL/:requestUrl?/:body?",
+        "parentId": "root"
+      },
+      "routes/registration": {
+        "file": "routes/registration/route.tsx",
+        "id": "routes/registration",
+        "path": "registration",
+        "parentId": "root"
+      },
+      "routes/history": {
+        "file": "routes/history/route.tsx",
+        "id": "routes/history",
+        "path": "history",
+        "parentId": "root"
+      },
+      "routes/_index": {
+        "file": "routes/_index.tsx",
+        "id": "routes/_index",
+        "index": true,
+        "parentId": "root"
+      },
+      "routes/login": {
+        "file": "routes/login/route.tsx",
+        "id": "routes/login",
+        "path": "login",
+        "parentId": "root"
+      },
+      "routes/$": {
+        "file": "routes/$.tsx",
+        "id": "routes/$",
+        "path": "*",
+        "parentId": "root"
+      }
+    },
+    "serverBuildFile": "index.js",
+    "serverModuleFormat": "esm",
+    "ssr": true
+  },
+  "viteConfig": {
+    "build": {
+      "assetsDir": "assets"
+    }
+  }
+}

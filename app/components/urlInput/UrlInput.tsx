@@ -5,9 +5,10 @@ import { useSchemaContext } from "../../context/SchemaContext";
 export interface UrlInputProps {
   mode: "rest" | "graphQL" | "graphQlSdl";
   extraClass?: string;
+  testId?: string;
 }
 
-const UrlInput = ({ mode, extraClass }: UrlInputProps) => {
+const UrlInput = ({ mode, extraClass, testId }: UrlInputProps) => {
   const { rest, setRest, graphQL, setGraphql } = useRequestContext();
   const { sdl, setSdl, setIsChanged } = useSchemaContext();
 
@@ -49,6 +50,7 @@ const UrlInput = ({ mode, extraClass }: UrlInputProps) => {
           const pasteData = e.clipboardData.getData("text");
           updateState(pasteData);
         }}
+        data-testid={testId}
       />
     </div>
   );

@@ -18,7 +18,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(invalidEmail)).rejects.toThrow(
-      'E-mail must be in format "example@example.com"'
+      'E-mail must be in format "example@example.com"',
     );
   });
 
@@ -28,7 +28,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(missingEmail)).rejects.toThrow(
-      "E-mail is required"
+      "E-mail is required",
     );
   });
 
@@ -38,7 +38,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(missingPassword)).rejects.toThrow(
-      "Password is required"
+      "Password is required",
     );
   });
 
@@ -49,7 +49,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(shortPassword)).rejects.toThrow(
-      "Password should be 8 charachters"
+      "Password should be 8 charachters",
     );
   });
 
@@ -60,7 +60,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(noUppercase)).rejects.toThrow(
-      "Must contain 1 uppercase"
+      "Must contain 1 uppercase",
     );
   });
 
@@ -71,7 +71,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(noLowercase)).rejects.toThrow(
-      "Must contain 1 lowercase"
+      "Must contain 1 lowercase",
     );
   });
 
@@ -82,7 +82,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(noNumber)).rejects.toThrow(
-      "Must contain 1 number"
+      "Must contain 1 number",
     );
   });
 
@@ -93,7 +93,7 @@ describe("Validation Schema", () => {
     };
 
     await expect(validationSchema.validate(noSpecialChar)).rejects.toThrow(
-      "Must contain 1 special character"
+      "Must contain 1 special character",
     );
   });
 });

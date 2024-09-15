@@ -1,6 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import Welcome from "../app/components/welcome/Welcome";
-import { IsLogedInContext } from "../app/context/loginContext";
+import {
+  IsLogedInContext,
+  IsLoginContextType,
+} from "../app/context/loginContext";
 import { MemoryRouter } from "react-router-dom";
 import { vi } from "vitest";
 
@@ -13,7 +16,7 @@ vi.mock("react-i18next", async () => {
   return {
     ...actual,
     useTranslation: vi.fn(() => ({
-      t: (key) => key,
+      t: (key: string) => key,
       i18n: { language: "en" },
     })),
   };
@@ -34,15 +37,17 @@ describe("Welcome Component", () => {
 
   it("renders welcome message and buttons when logged in", () => {
     render(
-      <IsLogedInContext.Provider value={[true]}>
+      <IsLogedInContext.Provider
+        value={[true] as unknown as IsLoginContextType}
+      >
         <MemoryRouter>
           <Welcome />
         </MemoryRouter>
-      </IsLogedInContext.Provider>
+      </IsLogedInContext.Provider>,
     );
 
     expect(
-      screen.getByText("welcome.welcomeBack test@test.com!")
+      screen.getByText("welcome.welcomeBack test@test.com!"),
     ).toBeInTheDocument();
     expect(screen.getByText("welcome.restClient")).toBeInTheDocument();
     expect(screen.getByText("welcome.graphiQlClient")).toBeInTheDocument();
@@ -51,11 +56,13 @@ describe("Welcome Component", () => {
 
   it("renders sign in and sign up buttons when not logged in", () => {
     render(
-      <IsLogedInContext.Provider value={[false]}>
+      <IsLogedInContext.Provider
+        value={[false] as unknown as IsLoginContextType}
+      >
         <MemoryRouter>
           <Welcome />
         </MemoryRouter>
-      </IsLogedInContext.Provider>
+      </IsLogedInContext.Provider>,
     );
 
     expect(screen.getByText("welcome.welcome")).toBeInTheDocument();
@@ -65,15 +72,33 @@ describe("Welcome Component", () => {
 
   it("displays team members correctly", () => {
     render(
-      <IsLogedInContext.Provider value={[true]}>
+      <IsLogedInContext.Provider
+        value={[true] as unknown as IsLoginContextType}
+      >
         <MemoryRouter>
           <Welcome />
         </MemoryRouter>
-      </IsLogedInContext.Provider>
+      </IsLogedInContext.Provider>,
     );
 
     expect(screen.getByText("welcome.maksimName")).toBeInTheDocument();
     expect(screen.getByText("welcome.egorName")).toBeInTheDocument();
     expect(screen.getByText("welcome.dmitryName")).toBeInTheDocument();
+  });
+  it("Should display swiper if window vieew is less than 768px", async () => {
+    render(
+      <IsLogedInContext.Provider
+        value={[true] as unknown as IsLoginContextType}
+      >
+        <MemoryRouter>
+          <Welcome />
+        </MemoryRouter>
+      </IsLogedInContext.Provider>,
+    );
+    window.innerWidth = 500;
+    window.innerHeight = 500;
+    fireEvent(window, new Event("resize"));
+    const swiper = screen.queryByTestId("swiper");
+    expect(swiper).toBeNull();
   });
 });

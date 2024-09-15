@@ -31,7 +31,7 @@ describe("handleRequest", () => {
         200,
         new Headers(),
         mockRemixContextWithError as any,
-        {} as any
+        {} as any,
       );
     } catch (error) {
       expect(error).toBeDefined();
@@ -55,7 +55,7 @@ describe("handleRequest", () => {
         200,
         new Headers(),
         mockRemixContextWithError as any,
-        {} as any
+        {} as any,
       );
     } catch (error) {
       expect(error).toBeDefined();

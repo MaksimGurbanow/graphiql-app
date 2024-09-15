@@ -1,9 +1,32 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import ExplorerList from "../app/components/explorerList/ExplorerList";
-import { IntrospectionObjectType, IntrospectionScalarType } from "graphql";
 import "@testing-library/jest-dom";
+import React from "react";
+import { vi } from "vitest";
 
-const mockTypes: (IntrospectionObjectType | IntrospectionScalarType)[] = [
+const mockTypes: (
+  | {
+      kind: string;
+      name: string;
+      fields: (
+        | { name: string; type: { kind: string; name: string } }
+        | {
+            name: string;
+            type: { kind: string; name: string };
+          }
+      )[];
+    }
+  | {
+      kind: string;
+      name: string;
+      fields: { name: string; type: { kind: string; name: string } }[];
+    }
+  | {
+      kind: string;
+      name: string;
+      description: string;
+    }
+)[] = [
   {
     name: "Query",
     kind: "OBJECT",
@@ -31,7 +54,7 @@ const renderWithProps = (pathSegments = [{ name: "Root", type: "Root" }]) => {
       pathSegments={pathSegments}
       setPathSegments={setPathSegments}
       types={mockTypes}
-    />
+    />,
   );
   return { setPathSegments };
 };
@@ -67,5 +90,152 @@ describe("ExplorerList Component", () => {
     const queryButton = screen.getByText(/query: Query/i);
     fireEvent.click(queryButton);
     expect(setPathSegments).toHaveBeenCalledWith(expect.any(Function));
+  });
+
+  it("updates path segments correctly when a Query button is clicked", () => {
+    const { setPathSegments } = renderWithProps();
+
+    const queryButton = screen.getByText(/query: Query/i);
+    fireEvent.click(queryButton);
+
+    expect(setPathSegments).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = setPathSegments.mock.calls[0][0];
+    const newPathSegments = updateFunction([{ name: "Root", type: "Root" }]);
+    expect(newPathSegments).toEqual([
+      { name: "Root", type: "Root" },
+      { type: "Query", name: "query" },
+    ]);
+  });
+  it("navigates correctly when clicking on a field of Mutation type", () => {
+    const { setPathSegments } = renderWithProps([
+      { name: "Root", type: "Root" },
+      { name: "mutation", type: "Mutation" },
+    ]);
+
+    const mutate1Button = screen.getByText(/mutate1: Boolean/i);
+    expect(mutate1Button).toBeInTheDocument();
+
+    fireEvent.click(mutate1Button);
+
+    expect(setPathSegments).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = setPathSegments.mock.calls[0][0];
+    const newPathSegments = updateFunction([
+      { name: "Root", type: "Root" },
+      { name: "mutation", type: "Mutation" },
+    ]);
+    expect(newPathSegments).toEqual([
+      { name: "Root", type: "Root" },
+      { name: "mutation", type: "Mutation" },
+      { name: "mutate1", type: "Boolean" },
+    ]);
+  });
+  it("handles navigation through nested object types correctly", () => {
+    const { setPathSegments } = renderWithProps([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+
+    const nestedFieldButton = screen.getByText(/field2: NestedType/i);
+    expect(nestedFieldButton).toBeInTheDocument();
+
+    fireEvent.click(nestedFieldButton);
+
+    expect(setPathSegments).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = setPathSegments.mock.calls[0][0];
+    const newPathSegments = updateFunction([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+    expect(newPathSegments).toEqual([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+      { name: "field2", type: "NestedType" },
+    ]);
+  });
+  it("handles navigation through nested object types correctly", () => {
+    const { setPathSegments } = renderWithProps([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+
+    const nestedFieldButton = screen.getByText(/field2: NestedType/i);
+    expect(nestedFieldButton).toBeInTheDocument();
+
+    fireEvent.click(nestedFieldButton);
+
+    expect(setPathSegments).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = setPathSegments.mock.calls[0][0];
+    const newPathSegments = updateFunction([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+    expect(newPathSegments).toEqual([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+      { name: "field2", type: "NestedType" },
+    ]);
+  });
+  it("handles list types correctly and navigates into nested list fields", () => {
+    const { setPathSegments } = renderWithProps([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+
+    const nestedFieldButton = screen.getByText(/field2: NestedType/i);
+    expect(nestedFieldButton).toBeInTheDocument();
+
+    fireEvent.click(nestedFieldButton);
+
+    expect(setPathSegments).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = setPathSegments.mock.calls[0][0];
+    const newPathSegments = updateFunction([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+    expect(newPathSegments).toEqual([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+      { name: "field2", type: "NestedType" },
+    ]);
+  });
+  it("navigates correctly to a nested object field when Query is selected", () => {
+    const { setPathSegments } = renderWithProps([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+
+    const field2Button = screen.getByText(/field2: NestedType/i);
+    expect(field2Button).toBeInTheDocument();
+
+    fireEvent.click(field2Button);
+
+    expect(setPathSegments).toHaveBeenCalledWith(expect.any(Function));
+
+    const updateFunction = setPathSegments.mock.calls[0][0];
+    const newPathSegments = updateFunction([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+    ]);
+    expect(newPathSegments).toEqual([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+      { name: "field2", type: "NestedType" },
+    ]);
+  });
+  it("displays scalar type description when navigating to a scalar type field", () => {
+    const { setPathSegments } = renderWithProps([
+      { name: "Root", type: "Root" },
+      { name: "query", type: "Query" },
+      { name: "field1", type: "String" },
+    ]);
+
+    expect(screen.getByText("A scalar string type")).toBeInTheDocument();
+
+    expect(setPathSegments).not.toHaveBeenCalled();
   });
 });

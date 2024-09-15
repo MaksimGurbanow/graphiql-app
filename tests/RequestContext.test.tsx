@@ -46,7 +46,7 @@ describe("RequestProvider", () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve({}),
-      })
+      }),
     );
   });
 
@@ -54,7 +54,7 @@ describe("RequestProvider", () => {
     render(
       <RequestProvider>
         <TestComponent />
-      </RequestProvider>
+      </RequestProvider>,
     );
 
     expect(screen.getByTestId("rest-url")).toHaveTextContent("");
@@ -74,7 +74,7 @@ describe("RequestProvider", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("graphQL-url")).toHaveTextContent(
-        "new-graphql-url"
+        "new-graphql-url",
       );
     });
   });
@@ -83,7 +83,7 @@ describe("RequestProvider", () => {
     render(
       <RequestProvider>
         <TestComponent />
-      </RequestProvider>
+      </RequestProvider>,
     );
 
     act(() => {

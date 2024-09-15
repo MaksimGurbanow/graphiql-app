@@ -13,6 +13,6 @@ startTransition(() => {
     document,
     <StrictMode>
       <RemixBrowser></RemixBrowser>
-    </StrictMode>
+    </StrictMode>,
   );
 });

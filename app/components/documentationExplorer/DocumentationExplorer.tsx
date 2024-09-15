@@ -66,7 +66,7 @@ const DocumentationExplorer = () => {
           <Stack className={classes.documentationFieldsBlock}>
             <Typography variant="h6" sx={{ fontSize: "16px" }}>
               {defineDocsCurrentHeadlint(
-                pathSegments.map((segment) => segment.name)
+                pathSegments.map((segment) => segment.name),
               )}
             </Typography>
           </Stack>

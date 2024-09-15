@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 import { IRow } from "../../app/types/types";
-import { stringToBase64 } from "~/utils/encodeDecodeStrings";
+import { stringToBase64 } from "../utils/encodeDecodeStrings";
 
 export interface IRequest {
   rest: {
@@ -37,6 +37,8 @@ export const RequestContext = createContext<{
   graphQL: IRequest["graphQL"];
   setRest: React.Dispatch<React.SetStateAction<IRequest["rest"]>>;
   setGraphql: React.Dispatch<React.SetStateAction<IRequest["graphQL"]>>;
+  isActive: boolean;
+  setIsActive: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   rest: {
     url: "",
@@ -56,6 +58,8 @@ export const RequestContext = createContext<{
   },
   setRest: noop,
   setGraphql: noop,
+  isActive: false,
+  setIsActive: noop,
 });
 
 export const useRequestContext = () => useContext(RequestContext);
@@ -69,28 +73,33 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
     variables: {},
   });
 
+  const [isActive, setIsActive] = useState(false);
+
   useEffect(() => {
-    window.history.replaceState(
-      null,
-      "",
-      `/GRAPHQL/${stringToBase64(graphQLState.url).replace(/\//g, "_")}${
-        graphQLState.query || Object.entries(graphQLState.variables).length > 1
-          ? `/${stringToBase64(
-              JSON.stringify({
-                query: graphQLState.query,
-                variables: graphQLState.variables,
-              })
-            )}`
-          : ""
-      }?${graphQLState.headers
-        .filter(({ key, value }) => key && value)
-        .map(
-          ({ key, value }) =>
-            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-        )
-        .join("&")}`
-    );
-  }, [graphQLState]);
+    if (isActive) {
+      window.history.replaceState(
+        null,
+        "",
+        `/GRAPHQL/${stringToBase64(graphQLState.url).replace(/\//g, "_")}${
+          graphQLState.query ||
+          Object.entries(graphQLState.variables).length > 1
+            ? `/${stringToBase64(
+                JSON.stringify({
+                  query: graphQLState.query,
+                  variables: graphQLState.variables,
+                }),
+              )}`
+            : ""
+        }?${graphQLState.headers
+          .filter(({ key, value }) => key && value)
+          .map(
+            ({ key, value }) =>
+              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+          )
+          .join("&")}`,
+      );
+    }
+  }, [graphQLState, isActive]);
 
   const [restState, setRestState] = useState<IRequest["rest"]>({
     url: "",
@@ -113,30 +122,32 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
       restState.body.replace(/{{(.*?)}}/g, (match) => {
         return `"${match}"`;
       }) || "";
-    // if (restState.url) {
-    window.history.replaceState(
-      null,
-      "",
-      `/${restState.method}/${stringToBase64(restState.url).replace(
-        /\//g,
-        "_"
-      )}${
-        formatedBody || restState.variables.length
-          ? `/${stringToBase64(
-              JSON.stringify({
-                body: formatedBody,
-                variables: restState.variables,
-              })
-            )}`
-          : ""
-      }?${params.toString()}`
-    );
-    // }
-  }, [restState]);
+    if (isActive) {
+      window.history.replaceState(
+        null,
+        "",
+        `/${restState.method}/${stringToBase64(restState.url).replace(
+          /\//g,
+          "_",
+        )}${
+          formatedBody || restState.variables.length
+            ? `/${stringToBase64(
+                JSON.stringify({
+                  body: formatedBody,
+                  variables: restState.variables,
+                }),
+              )}`
+            : ""
+        }?${params.toString()}`,
+      );
+    }
+  }, [isActive, restState]);
 
   return (
     <RequestContext.Provider
       value={{
+        setIsActive,
+        isActive,
         rest: restState,
         graphQL: graphQLState,
         setRest: setRestState,

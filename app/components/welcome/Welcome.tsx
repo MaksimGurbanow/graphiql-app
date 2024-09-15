@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import AudioPlayer from "../../components/audio-player/AudioPlayer";
 import RS_SCHOOL_LOGO from "../../assets/icons_and_logos/rs_school.svg";
 import EP_PHOTO from "../../assets/photoes/EP.jpg";
@@ -14,6 +14,7 @@ import { useNavigate } from "@remix-run/react";
 import { IsLogedInContext } from "../../context/loginContext";
 import { auth } from "../../../lib/firebase.config";
 import i18n from "../../i18n";
+import { useRequestContext } from "~/context/RequestContext";
 
 const RS_SCHOOL_LOGO_URL: string = RS_SCHOOL_LOGO as unknown as string;
 const RS_SCHOOL_URL: string = "https://rs.school/";
@@ -56,6 +57,11 @@ const Welcome = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isLogin] = useContext(IsLogedInContext);
   const user = auth.currentUser;
+  const { setIsActive } = useRequestContext();
+
+  useEffect(() => {
+    setIsActive(false);
+  }, [setIsActive]);
 
   useResizeObserver(ref, (entry) => {
     setIsMobileView(entry.contentRect.width <= 768);
@@ -70,11 +76,15 @@ const Welcome = () => {
   };
 
   return (
-    <div className={styles.aboutUsContainer} ref={ref}>
+    <div
+      className={styles.aboutUsContainer}
+      ref={ref}
+      data-testid="welcome-page"
+    >
       {isLogin && (
         <div>
           <h2 className={styles.welcomeGreetings}>{`${t(
-            "welcome.welcomeBack"
+            "welcome.welcomeBack",
           )} ${user?.email}!`}</h2>
           <div className={styles.welcomeButtonContainer}>
             <Button onClick={() => navigate("/GET")} variant="outlined">

@@ -6,3 +6,6 @@ node_modules
 .idea/
 **/*.lock
 **/*.log
+package-lock.json
+
+
