@@ -108,6 +108,7 @@ const Rest = () => {
   const {
     rest: { url, params, headers, body, method, variables },
     setRest,
+    setIsActive,
   } = useRequestContext();
   const [activeEditor, setActiveEditor] = useState<string>("headers");
   const { t } = useTranslation();
@@ -124,6 +125,11 @@ const Rest = () => {
   const navigate = useNavigate();
   const [bodyMode, setBodyMode] = useState("JSON");
   const [isLogedIn] = useContext(IsLogedInContext);
+
+  useEffect(() => {
+    setIsActive(true);
+    return () => setIsActive(false);
+  }, [setIsActive]);
 
   useEffect(() => {
     const restoredBody = data.body.replace(/"{{.*?}}"/g, (match) => {

@@ -1,9 +1,11 @@
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
 import "./App.scss";
 import "./index.scss";
@@ -56,4 +58,49 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  return (
+    <html lang="en">
+      <head>
+        <title>Oops!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body
+        style={{
+          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
+        }}
+      >
+        <h1>Application error</h1>
+        <p>
+          {" "}
+          {isRouteErrorResponse(error)
+            ? `${error.status} ${error.statusText}`
+            : error instanceof Error
+              ? error.message
+              : "Unknown Error"}
+        </p>
+        <a
+          href="/"
+          style={{
+            textDecoration: "none",
+            border: "1px solid red",
+            borderRadius: "5px",
+            color: "red",
+            padding: "5px",
+          }}
+        >
+          {" "}
+          Refresh application
+        </a>
+        <Scripts />
+      </body>
+    </html>
+  );
 }

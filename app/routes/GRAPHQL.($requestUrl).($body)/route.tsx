@@ -59,6 +59,7 @@ const GraphiQL = () => {
   const {
     graphQL: { headers, query, response, url, variables },
     setGraphql,
+    setIsActive,
   } = useRequestContext();
 
   const editors = useMemo(
@@ -74,6 +75,11 @@ const GraphiQL = () => {
   const data = useLoaderData<typeof loader>();
   const [bodyMode, setBodyMode] = useState("JSON");
   const { isLoading, schema } = useSchemaContext();
+
+  useEffect(() => {
+    setIsActive(true);
+    return () => setIsActive(false);
+  }, [setIsActive]);
 
   useEffect(() => {
     const { query, variables } = JSON.parse(

@@ -19,7 +19,6 @@ use(LanguageDetector)
   .init({
     resources,
     fallbackLng: "ru",
-    debug: true,
     detection: {
       order: ["queryString", "cookie"],
       caches: ["cookie"],

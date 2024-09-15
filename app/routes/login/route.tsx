@@ -11,7 +11,7 @@ import {
   TextField,
   useMediaQuery,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../../utils/validationSchema";
@@ -20,12 +20,15 @@ import signIn from "../../utils/signIn";
 import { Navigate, useNavigate } from "@remix-run/react";
 import { IsLogedInContext } from "../../context/loginContext";
 import { useTranslation } from "react-i18next";
+import { useRequestContext } from "~/context/RequestContext";
 interface IRegisterForm {
   email: string;
   password: string;
 }
 
 const Login = () => {
+  const { setIsActive } = useRequestContext();
+
   const {
     register,
     handleSubmit,
@@ -47,6 +50,10 @@ const Login = () => {
   ) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    setIsActive(false);
+  }, [setIsActive]);
 
   const onSubmit = (data: IRegisterForm) => {
     setLoading(true);

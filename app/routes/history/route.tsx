@@ -1,17 +1,40 @@
 import { Button } from "@mui/material";
 import { Navigate, useNavigate } from "@remix-run/react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { IsLogedInContext } from "../../context/loginContext";
 import styles from "./history.module.scss";
 import { useTranslation } from "react-i18next";
+import { useRequestContext } from "~/context/RequestContext";
 
 const History = () => {
+  const { setIsActive } = useRequestContext();
+
   const requestArr = localStorage.getItem("history")?.split(",") || [];
   const [isLogedIn] = useContext(IsLogedInContext);
   const { t } = useTranslation();
   const data = !(requestArr === null || requestArr.length === 0);
 
   const navigate = useNavigate();
+
+  const getType = (string: string) => {
+    const parsedString = string.split("/");
+    return parsedString[1];
+  };
+
+  useEffect(() => {
+    setIsActive(false);
+  }, [setIsActive]);
+
+  const getUrl = (string: string) => {
+    const parsedString = string.split("/");
+    let answer;
+    try {
+      answer = atob(parsedString[2]);
+    } catch {
+      answer = "error";
+    }
+    return answer;
+  };
 
   return (
     <main className={styles.historyContainer}>
@@ -32,16 +55,28 @@ const History = () => {
               </div>
             </div>
           )}
-          {data &&
-            requestArr.map((el: string, i: number) => (
-              <button
-                className={styles.historyLink}
-                key={i}
-                onClick={() => navigate(`${el}`)}
-              >
-                {el}
-              </button>
-            ))}
+          {requestArr.length ? (
+            <div className={styles.historyTable}>
+              <div className={styles.requestsTop}>
+                <div className={styles.tableNumber}>№</div>
+                <div className={styles.tableRequest}>Type</div>
+                <div className={styles.tableRequest}>URL</div>
+              </div>
+              {data &&
+                requestArr.map((el: string, i: number) => (
+                  <div key={i} className={styles.historyRequest}>
+                    <div className={styles.historyNumber}>{i + 1}.</div>
+                    <div className={styles.tableRequest}>{getType(el)}</div>
+                    <button
+                      className={styles.historyLink}
+                      onClick={() => navigate(`${el}`)}
+                    >
+                      {getUrl(el)}
+                    </button>
+                  </div>
+                ))}
+            </div>
+          ) : null}
         </div>
       )}
     </main>
