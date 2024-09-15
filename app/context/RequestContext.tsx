@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { IRow } from "../../app/types/types";
+import { stringToBase64 } from "~/utils/encodeDecodeStrings";
 
 export interface IRequest {
   rest: {
@@ -69,29 +70,26 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
   });
 
   useEffect(() => {
-    if (graphQLState.url) {
-      window.history.replaceState(
-        null,
-        "",
-        `/GRAPHQL/${btoa(graphQLState.url).replace(/\//g, "_")}${
-          graphQLState.query ||
-          Object.entries(graphQLState.variables).length > 1
-            ? `/${btoa(
-                JSON.stringify({
-                  query: graphQLState.query,
-                  variables: graphQLState.variables,
-                })
-              )}`
-            : ""
-        }?${graphQLState.headers
-          .filter(({ key, value }) => key && value)
-          .map(
-            ({ key, value }) =>
-              `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-          )
-          .join("&")}`
-      );
-    }
+    window.history.replaceState(
+      null,
+      "",
+      `/GRAPHQL/${stringToBase64(graphQLState.url).replace(/\//g, "_")}${
+        graphQLState.query || Object.entries(graphQLState.variables).length > 1
+          ? `/${stringToBase64(
+              JSON.stringify({
+                query: graphQLState.query,
+                variables: graphQLState.variables,
+              })
+            )}`
+          : ""
+      }?${graphQLState.headers
+        .filter(({ key, value }) => key && value)
+        .map(
+          ({ key, value }) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join("&")}`
+    );
   }, [graphQLState]);
 
   const [restState, setRestState] = useState<IRequest["rest"]>({
@@ -115,22 +113,25 @@ const RequestProvider = ({ children }: { children: ReactNode }) => {
       restState.body.replace(/{{(.*?)}}/g, (match) => {
         return `"${match}"`;
       }) || "";
-    if (restState.url) {
-      window.history.replaceState(
-        null,
-        "",
-        `/${restState.method}/${btoa(restState.url).replace(/\//g, "_")}${
-          formatedBody || restState.variables.length
-            ? `/${btoa(
-                JSON.stringify({
-                  body: formatedBody,
-                  variables: restState.variables,
-                })
-              )}`
-            : ""
-        }?${params.toString()}`
-      );
-    }
+    // if (restState.url) {
+    window.history.replaceState(
+      null,
+      "",
+      `/${restState.method}/${stringToBase64(restState.url).replace(
+        /\//g,
+        "_"
+      )}${
+        formatedBody || restState.variables.length
+          ? `/${stringToBase64(
+              JSON.stringify({
+                body: formatedBody,
+                variables: restState.variables,
+              })
+            )}`
+          : ""
+      }?${params.toString()}`
+    );
+    // }
   }, [restState]);
 
   return (
