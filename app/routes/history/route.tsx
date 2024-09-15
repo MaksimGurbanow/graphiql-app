@@ -14,37 +14,37 @@ const History = () => {
   const navigate = useNavigate();
 
   return (
-      <main className={styles.historyContainer}>
-        {!isLogedIn && <Navigate to="/" replace={true} />}
-        {isLogedIn && (
-            <div className={styles.history}>
-              <h1 className={styles.historyHeading}>{t("history.history")}</h1>
-              {!data && (
-                  <div>
-                    <p>{t("history.noRequestsMessage")}</p>
-                    <div className={styles.historyButtons}>
-                      <Button onClick={() => navigate("/GET")} variant="outlined">
-                        {t("welcome.restClient")}
-                      </Button>
-                      <Button onClick={() => navigate("/GRAPHQL")} variant="outlined">
-                        {t("welcome.graphiQlClient")}
-                      </Button>
-                    </div>
-                  </div>
-              )}
-              {data &&
-                  requestArr.map((el: string, i: number) => (
-                      <button
-                          className={styles.historyLink}
-                          key={i}
-                          onClick={() => navigate(`${el}`)}
-                      >
-                        {el}
-                      </button>
-                  ))}
+    <main className={styles.historyContainer}>
+      {!isLogedIn && <Navigate to="/" replace={true} />}
+      {isLogedIn && (
+        <div className={styles.history}>
+          <h1 className={styles.historyHeading}>{t("history.history")}</h1>
+          {!data && (
+            <div>
+              <p>{t("history.noRequestsMessage")}</p>
+              <div className={styles.historyButtons}>
+                <Button onClick={() => navigate("/GET")} variant="outlined">
+                  {t("welcome.restClient")}
+                </Button>
+                <Button onClick={() => navigate("/GRAPHQL")} variant="outlined">
+                  {t("welcome.graphiQlClient")}
+                </Button>
+              </div>
             </div>
-        )}
-      </main>
+          )}
+          {data &&
+            requestArr.map((el: string, i: number) => (
+              <button
+                className={styles.historyLink}
+                key={i}
+                onClick={() => navigate(`${el}`)}
+              >
+                {el}
+              </button>
+            ))}
+        </div>
+      )}
+    </main>
   );
 };
 

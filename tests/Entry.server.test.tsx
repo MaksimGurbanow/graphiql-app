@@ -7,10 +7,10 @@ const mockRemixContext = {
       id: "root",
       path: "/",
       element: <div>Root</div>,
-      children: []
-    }
+      children: [],
+    },
   ],
-  loaderData: {}
+  loaderData: {},
 };
 
 describe("handleRequest", () => {
@@ -22,16 +22,16 @@ describe("handleRequest", () => {
     const mockRemixContextWithError = {
       routes: undefined,
       loaderData: {},
-      manifest: {}
+      manifest: {},
     };
 
     try {
       await handleRequest(
-          mockRequest,
-          200,
-          new Headers(),
-          mockRemixContextWithError as any,
-          {} as any
+        mockRequest,
+        200,
+        new Headers(),
+        mockRemixContextWithError as any,
+        {} as any
       );
     } catch (error) {
       expect(error).toBeDefined();
@@ -46,16 +46,16 @@ describe("handleRequest", () => {
     const mockRemixContextWithError = {
       routes: undefined,
       loaderData: {},
-      manifest: {}
+      manifest: {},
     };
 
     try {
       await handleRequest(
-          mockRequest,
-          200,
-          new Headers(),
-          mockRemixContextWithError as any,
-          {} as any
+        mockRequest,
+        200,
+        new Headers(),
+        mockRemixContextWithError as any,
+        {} as any
       );
     } catch (error) {
       expect(error).toBeDefined();
