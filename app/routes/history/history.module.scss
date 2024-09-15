@@ -24,8 +24,13 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  display: flex;
   gap: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historyLink:hover {
+  text-decoration: underline;
 }
 
 .historyButtons {
@@ -34,3 +39,62 @@
   align-items: center;
   justify-content: center;
 }
+
+.historyNumber {
+  font-size: 24px;
+  min-width: 30px;
+}
+
+.historyRequest {
+  display: flex;
+  gap: 20px;
+}
+
+.tableNumber {
+  width: 30px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.requestsTop {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  gap: 20px
+}
+
+.tableRequest {
+  text-align: center;
+  // width: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  min-width: 50px;
+}
+
+.historyTable {
+  padding: 20px;
+  width: 500px;
+}
+
+@media screen and (max-width:500px) {
+  .tableRequest {
+    font-size: 14px;
+
+  }
+
+  .tableNumber {
+  font-size: 14px;
+  }
+  .historyNumber {
+    font-size: 14px;
+  }
+  
+  .historyRequest {
+    font-size: 14px;
+    max-width: 100%;
+  }
+  .historyLink {
+    font-size: 14px;
+  }
+  }

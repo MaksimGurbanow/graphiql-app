@@ -54,6 +54,10 @@ declare module "i18next" {
         response: {
           title: string;
         };
+        history: {
+          history: string;
+          noRequestsMessage: string;
+        };
       };
     };
   }
