@@ -13,6 +13,22 @@ const History = () => {
 
   const navigate = useNavigate();
 
+  const getType = (string: string) => {
+    const parsedString = string.split("/");
+    return parsedString[1];
+  };
+
+  const getUrl = (string: string) => {
+    const parsedString = string.split("/");
+    let answer;
+    try {
+      answer = atob(parsedString[2]);
+    } catch {
+      answer = "error";
+    }
+    return answer;
+  };
+
   return (
     <main className={styles.historyContainer}>
       {!isLogedIn && <Navigate to="/" replace={true} />}
@@ -32,16 +48,26 @@ const History = () => {
               </div>
             </div>
           )}
-          {data &&
-            requestArr.map((el: string, i: number) => (
-              <button
-                className={styles.historyLink}
-                key={i}
-                onClick={() => navigate(`${el}`)}
-              >
-                {el}
-              </button>
-            ))}
+          <div className={styles.historyTable}>
+            <div className={styles.requestsTop}>
+              <div className={styles.tableNumber}>№</div>
+              <div className={styles.tableRequest}>Type</div>
+              <div className={styles.tableRequest}>URL</div>
+            </div>
+            {data &&
+              requestArr.map((el: string, i: number) => (
+                <div key={i} className={styles.historyRequest}>
+                  <div className={styles.historyNumber}>{i + 1}.</div>
+                  <div className={styles.tableRequest}>{getType(el)}</div>
+                  <button
+                    className={styles.historyLink}
+                    onClick={() => navigate(`${el}`)}
+                  >
+                    {getUrl(el)}
+                  </button>
+                </div>
+              ))}
+          </div>
         </div>
       )}
     </main>
