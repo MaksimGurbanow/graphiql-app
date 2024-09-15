@@ -44,11 +44,19 @@ declare module "i18next" {
           params: string;
           headers: string;
           body: string;
+          variables: string;
+        };
+        graphiql: {
+          headers: string;
+          query: string;
+          variables: string;
+          urlLabel: string;
+          sendButton: string;
+          sdlLabel: string;
         };
         tableEditor: {
           key: string;
           value: string;
-          description: string;
           addValue: string;
         };
         response: {

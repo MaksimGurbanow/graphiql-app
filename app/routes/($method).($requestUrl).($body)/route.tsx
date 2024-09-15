@@ -17,23 +17,23 @@ import { IRow } from "../../types/types";
 import { useTranslation } from "react-i18next";
 
 export async function loader({ params, request }: LoaderFunctionArgs): Promise<
-    TypedResponse<{
-      response?: string;
-      url: string;
-      method: string;
-      error?: string;
-      body: string;
-      status?: number;
-      variables: IRow[];
-      statusText?: string;
-      headers: IRow[];
-    }>
+  TypedResponse<{
+    response?: string;
+    url: string;
+    method: string;
+    error?: string;
+    body: string;
+    status?: number;
+    variables: IRow[];
+    statusText?: string;
+    headers: IRow[];
+  }>
 > {
   const { method, requestUrl, body } = params;
   const decodedBody = atob(body || "") || "";
   const formatedURL = atob(requestUrl?.replace(/_/g, "/") || "");
   const headers = Object.fromEntries(
-      new URL(request.url).searchParams.entries()
+    new URL(request.url).searchParams.entries()
   );
   let parsedBody: { body: string; variables: IRow[] };
   try {
@@ -43,7 +43,7 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
   }
 
   const variableMap = new Map(
-      parsedBody.variables.map(({ key, value }) => [key, value])
+    parsedBody.variables.map(({ key, value }) => [key, value])
   );
 
   const formatedBody = parsedBody.body.replace(/{{(.*?)}}/g, (match, p1) => {
@@ -65,9 +65,9 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
         method,
         headers,
         body:
-            method && ["GET", "HEAD"].includes(method as string)
-                ? null
-                : formatedBody,
+          method && ["GET", "HEAD"].includes(method as string)
+            ? null
+            : formatedBody,
       });
       const { status, statusText } = response;
       const responseText = await response.text();
@@ -82,10 +82,10 @@ export async function loader({ params, request }: LoaderFunctionArgs): Promise<
       } catch (error) {
         return json({
           response: format(
-              `\
+            `\
           ${responseText}
           `,
-              " ".repeat(4)
+            " ".repeat(4)
           ),
           ...metadata,
           status,
@@ -121,117 +121,127 @@ const Rest = () => {
   const handleSearchClick = () => {
     const params = new URLSearchParams();
     headers
-        .filter(({ key, value }) => key && value)
-        .forEach(({ key, value }) => {
-          params.append(key, value);
-        });
+      .filter(({ key, value }) => key && value)
+      .forEach(({ key, value }) => {
+        params.append(key, value);
+      });
     const formatedBody =
-        body.replace(/{{(.*?)}}/g, (match) => {
-          return `"${match}"`;
-        }) || "";
+      body.replace(/{{(.*?)}}/g, (match) => {
+        return `"${match}"`;
+      }) || "";
     const sentURL = `/${method}/${btoa(url).replace(/\//g, "_")}${
-        formatedBody || variables.length
-            ? `/${btoa(
-                JSON.stringify({
-                  body: formatedBody,
-                  variables: variables,
-                })
-            )}`
-            : ""
+      formatedBody || variables.length
+        ? `/${btoa(
+            JSON.stringify({
+              body: formatedBody,
+              variables: variables,
+            })
+          )}`
+        : ""
     }?${params.toString()}`;
     navigate(sentURL);
     localStorage.setItem(
-        "history",
-        localStorage.getItem("history")?.split(",").concat(sentURL).join(",") ||
-        ""
+      "history",
+      (localStorage.getItem("history") || "")
+        .split(",")
+        .concat(sentURL)
+        .join(",")
     );
   };
 
   return (
-      <div className={classes.restPage}>
-        <div className={classes.requestBlock}>
-          <div className={classes.urlMethodWrapper}>
-            <div className={classes.urlMethod}>
-              <MethodSelector />
-              <hr className={classes.requestDivider} />
-              <UrlInput mode="rest" />
-            </div>
-            <Button
-                variant="contained"
-                sx={{ padding: "8px", flex: 1 }}
-                onClick={() => handleSearchClick()}
-            >
-              {t("rest.sendButton")}
-            </Button>
+    <div className={classes.restPage}>
+      <div className={classes.requestBlock}>
+        <div className={classes.urlMethodWrapper}>
+          <div className={classes.urlMethod}>
+            <MethodSelector />
+            <hr className={classes.requestDivider} />
+            <UrlInput mode="rest" />
           </div>
-          <SwitchEditorList
-              editors={editors.map((editor) => t(`rest.${editor.toLowerCase()}`))}
-              setActiveEditor={(v) => setActiveEditor(v)}
-              activeEditor={activeEditor}
-          />
-          {activeEditor === "Body" && (
-              <BodyEditor
-                  body={body}
-                  setBody={(body) => setRest((prev) => ({ ...prev, body }))}
-                  bodyMode={bodyMode}
-                  setBodyMode={setBodyMode}
-              />
-          )}
-          {activeEditor === "Headers" && (
-              <TableEditor
-                  rows={headers}
-                  setRows={(isLast, id, row) =>
-                      setRest((prev) => {
-                        const newHeaders = updatedRows(isLast, prev.headers, row, id);
-                        return { ...prev, headers: newHeaders };
-                      })
-                  }
-                  headerText={t("rest.headers")}
-              />
-          )}
-          {activeEditor === "Params" && (
-              <TableEditor
-                  rows={params}
-                  setRows={(isLast, id, row) =>
-                      setRest((prev) => {
-                        const newArray = updatedRows(isLast, prev.params, row, id);
-                        const filteredParams = newArray
-                            .filter(({ key, value }) => key && value)
-                            .map(({ key, value }) => `${key}=${value}`);
-                        return {
-                          ...prev,
-                          params: newArray,
-                          url: filteredParams.length
-                              ? `${prev.url.split("?")[0]}?${filteredParams.join("&")}`
-                              : prev.url,
-                        };
-                      })
-                  }
-                  headerText={t("rest.params")}
-              />
-          )}
-          {activeEditor === "Variables" && (
-              <TableEditor
-                  rows={variables}
-                  setRows={(isLast, id, row) => {
-                    setRest((prev) => {
-                      const newVariables = updatedRows(isLast, prev.headers, row, id);
-                      return { ...prev, variables: newVariables };
-                    });
-                  }}
-                  headerText={t("rest.variables")}
-              />
-          )}
+          <Button
+            variant="contained"
+            sx={{ padding: "8px", flex: 1 }}
+            onClick={() => handleSearchClick()}
+          >
+            {t("rest.sendButton")}
+          </Button>
         </div>
-        {data.response && (
-            <Response
-                data={data.response}
-                status={data.status}
-                statusText={data.statusText}
-            />
+        <SwitchEditorList
+          editors={editors.map((editor) =>
+            t(
+              `rest.${editor.toLowerCase()}` as
+                | "rest.params"
+                | "rest.headers"
+                | "rest.body"
+                | "rest.variables"
+            )
+          )}
+          setActiveEditor={(v) => setActiveEditor(v)}
+          activeEditor={activeEditor}
+        />
+        {activeEditor === "Body" && (
+          <BodyEditor
+            body={body}
+            setBody={(body) => setRest((prev) => ({ ...prev, body }))}
+            bodyMode={bodyMode}
+            setBodyMode={setBodyMode}
+          />
         )}
-        {data.error && <ErrorMessage message={t(data.error)} />}
+        {activeEditor === "Headers" && (
+          <TableEditor
+            rows={headers}
+            setRows={(isLast, id, row) =>
+              setRest((prev) => {
+                const newHeaders = updatedRows(isLast, prev.headers, row, id);
+                return { ...prev, headers: newHeaders };
+              })
+            }
+            headerText={t("rest.headers")}
+          />
+        )}
+        {activeEditor === "Params" && (
+          <TableEditor
+            rows={params}
+            setRows={(isLast, id, row) =>
+              setRest((prev) => {
+                const newArray = updatedRows(isLast, prev.params, row, id);
+                const filteredParams = newArray
+                  .filter(({ key, value }) => key && value)
+                  .map(({ key, value }) => `${key}=${value}`);
+                return {
+                  ...prev,
+                  params: newArray,
+                  url: filteredParams.length
+                    ? `${prev.url.split("?")[0]}?${filteredParams.join("&")}`
+                    : prev.url,
+                };
+              })
+            }
+            headerText={t("rest.params")}
+          />
+        )}
+        {activeEditor === "Variables" && (
+          <TableEditor
+            rows={variables}
+            setRows={(isLast, id, row) => {
+              setRest((prev) => {
+                const newVariables = updatedRows(isLast, prev.headers, row, id);
+                return { ...prev, variables: newVariables };
+              });
+            }}
+            headerText={t("rest.variables")}
+          />
+        )}
       </div>
+      {data.response && (
+        <Response
+          data={data.response}
+          status={data.status}
+          statusText={data.statusText}
+        />
+      )}
+      {data.error && <ErrorMessage message={data.error} />}
+    </div>
   );
 };
 
