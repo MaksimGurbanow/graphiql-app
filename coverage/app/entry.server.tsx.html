@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.35% </span>
+                <span class="strong">55.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>62/112</span>
+                <span class='fraction'>63/114</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.35% </span>
+                <span class="strong">55.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/112</span>
+                <span class='fraction'>63/114</span>
             </div>
         
             
@@ -201,7 +201,11 @@
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,6 +258,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -303,6 +309,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -363,20 +371,20 @@ export default function handleRequest(
   // This is ignored so we can keep it in the template for visibility.  Feel
   // free to delete this parameter in your app if you're not using it!
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  loadContext: AppLoadContext
+  loadContext: AppLoadContext,
 ) {
   return isbot(request.headers.get("user-agent"<span class="branch-0 cbranch-no" title="branch not covered" >) || "")</span>
     ? handleBotRequest(
         request,
         responseStatusCode,
         responseHeaders,
-        remixContext
+        remixContext,
 <span class="branch-0 cbranch-no" title="branch not covered" >      )</span>
 <span class="cstat-no" title="statement not covered" >    : handleBrowserRequest(</span>
 <span class="cstat-no" title="statement not covered" >        request,</span>
 <span class="cstat-no" title="statement not covered" >        responseStatusCode,</span>
 <span class="cstat-no" title="statement not covered" >        responseHeaders,</span>
-<span class="cstat-no" title="statement not covered" >        remixContext</span>
+<span class="cstat-no" title="statement not covered" >        remixContext,</span>
 <span class="cstat-no" title="statement not covered" >      );</span>
 }
 &nbsp;
@@ -384,13 +392,15 @@ function handleBotRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
-  remixContext: EntryContext
+  remixContext: EntryContext,
 ) {
   return new Promise((resolve, reject) =&gt; {
     let shellRendered = false;
     const { pipe, abort } = renderToPipeableStream(
       &lt;RemixServer
-        context={remixContext as import("c:/Users/MONSTER/Desktop/all/graphiql-app/node_modules/@remix-run/react/dist/entry").EntryContext}
+        context={
+          remixContext as import("c:/Users/MONSTER/Desktop/all/graphiql-app/node_modules/@remix-run/react/dist/entry").EntryContext
+        }
         url={request.url}
         abortDelay={ABORT_DELAY}
       /&gt;,
@@ -406,7 +416,7 @@ function handleBotRequest(
             new Response(stream, {
               headers: responseHeaders,
               status: responseStatusCode,
-            })
+            }),
           );
 &nbsp;
           pipe(body);
@@ -423,7 +433,7 @@ function handleBotRequest(
 <span class="cstat-no" title="statement not covered" >            console.error(error);</span>
 <span class="cstat-no" title="statement not covered" >          }</span>
         },
-      }
+      },
     );
 &nbsp;
     setTimeout(abort, ABORT_DELAY);
@@ -434,13 +444,15 @@ function handleBotRequest(
 <span class="cstat-no" title="statement not covered" >  request: Request,</span>
 <span class="cstat-no" title="statement not covered" >  responseStatusCode: number,</span>
 <span class="cstat-no" title="statement not covered" >  responseHeaders: Headers,</span>
-<span class="cstat-no" title="statement not covered" >  remixContext: EntryContext</span>
+<span class="cstat-no" title="statement not covered" >  remixContext: EntryContext,</span>
 <span class="cstat-no" title="statement not covered" >) {</span>
 <span class="cstat-no" title="statement not covered" >  return new Promise((resolve, reject) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    let shellRendered = false;</span>
 <span class="cstat-no" title="statement not covered" >    const { pipe, abort } = renderToPipeableStream(</span>
 <span class="cstat-no" title="statement not covered" >      &lt;RemixServer</span>
-<span class="cstat-no" title="statement not covered" >        context={remixContext as import("c:/Users/MONSTER/Desktop/all/graphiql-app/node_modules/@remix-run/react/dist/entry").EntryContext}</span>
+<span class="cstat-no" title="statement not covered" >        context={</span>
+<span class="cstat-no" title="statement not covered" >          remixContext as import("c:/Users/MONSTER/Desktop/all/graphiql-app/node_modules/@remix-run/react/dist/entry").EntryContext</span>
+        }
 <span class="cstat-no" title="statement not covered" >        url={request.url}</span>
 <span class="cstat-no" title="statement not covered" >        abortDelay={ABORT_DELAY}</span>
 <span class="cstat-no" title="statement not covered" >      /&gt;,</span>
@@ -455,7 +467,7 @@ function handleBotRequest(
 <span class="cstat-no" title="statement not covered" >            new Response(stream, {</span>
 <span class="cstat-no" title="statement not covered" >              headers: responseHeaders,</span>
 <span class="cstat-no" title="statement not covered" >              status: responseStatusCode,</span>
-<span class="cstat-no" title="statement not covered" >            })</span>
+<span class="cstat-no" title="statement not covered" >            }),</span>
 <span class="cstat-no" title="statement not covered" >          );</span>
 <span class="cstat-no" title="statement not covered" >          pipe(body);</span>
 <span class="cstat-no" title="statement not covered" >        },</span>
@@ -471,7 +483,7 @@ function handleBotRequest(
 <span class="cstat-no" title="statement not covered" >            console.error(error);</span>
 <span class="cstat-no" title="statement not covered" >          }</span>
 <span class="cstat-no" title="statement not covered" >        },</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >      },</span>
 <span class="cstat-no" title="statement not covered" >    );</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    setTimeout(abort, ABORT_DELAY);</span>
@@ -484,7 +496,7 @@ function handleBotRequest(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-09-15T22:45:02.710Z
+                at 2024-09-19T01:30:04.140Z
             </div>
         <script src="../prettify.js"></script>
         <script>

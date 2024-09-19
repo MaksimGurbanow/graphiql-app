@@ -21,7 +21,7 @@ import PasswordStrengthMeter from "../../components/passwordStrength/PasswordStr
 import { Navigate, useNavigate } from "@remix-run/react";
 import { IsLogedInContext } from "../../context/loginContext";
 import { useTranslation } from "react-i18next";
-import { useRequestContext } from "~/context/RequestContext";
+import { useRequestContext } from "../../context/RequestContext";
 
 interface IRegisterForm {
   email: string;

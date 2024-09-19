@@ -1,104 +1,106 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import Welcome from "../app/components/welcome/Welcome";
-import {
-  IsLogedInContext,
-  IsLoginContextType,
-} from "../app/context/loginContext";
-import { MemoryRouter } from "react-router-dom";
-import { vi } from "vitest";
+import { render, screen, fireEvent, act } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import Welcome from '../app/components/Welcome/Welcome';
+import { IsLogedInContext } from '../app/context/loginContext';
+import { MemoryRouter } from 'react-router-dom';
+import { RequestContext } from '../app/context/RequestContext';
 
-vi.mock("@react-hook/resize-observer", () => ({
-  default: vi.fn(),
+vi.mock('../app/components/audio-player/AudioPlayer', () => ({
+    __esModule: true,
+    default: ({ onPlay, onPause }: { onPlay: () => void; onPause: () => void }) => (
+        <div>
+            <button onClick={onPlay} data-testid="play-pause-button">Play</button>
+            <button onClick={onPause}>Pause</button>
+        </div>
+    ),
 }));
 
-vi.mock("react-i18next", async () => {
-  const actual = await vi.importActual("react-i18next");
-  return {
-    ...actual,
-    useTranslation: vi.fn(() => ({
-      t: (key: string) => key,
-      i18n: { language: "en" },
-    })),
-  };
-});
-
-vi.mock("firebase/auth", () => ({
-  getAuth: vi.fn().mockReturnValue({ currentUser: { email: "test@test.com" } }),
-}));
-
-describe("Welcome Component", () => {
-  beforeEach(() => {
-    global.ResizeObserver = class {
-      observe() {}
-      unobserve() {}
-      disconnect() {}
+describe('Welcome Component', () => {
+    const mockRequestContextValue = {
+        setRest: vi.fn(),
+        setGraphql: vi.fn(),
+        setIsActive: vi.fn(),
     };
-  });
 
-  it("renders welcome message and buttons when logged in", () => {
-    render(
-      <IsLogedInContext.Provider
-        value={[true] as unknown as IsLoginContextType}
-      >
-        <MemoryRouter>
-          <Welcome />
-        </MemoryRouter>
-      </IsLogedInContext.Provider>,
-    );
+    it('renders the welcome page for unauthenticated users', () => {
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[false]}>
+                    <RequestContext.Provider value={mockRequestContextValue}>
+                        <Welcome />
+                    </RequestContext.Provider>
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
 
-    expect(
-      screen.getByText("welcome.welcomeBack test@test.com!"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("welcome.restClient")).toBeInTheDocument();
-    expect(screen.getByText("welcome.graphiQlClient")).toBeInTheDocument();
-    expect(screen.getByText("welcome.history")).toBeInTheDocument();
-  });
+        expect(screen.getByText(/войти/i)).toBeInTheDocument();
+        expect(screen.getByText(/зарегистрироваться/i)).toBeInTheDocument();
+    });
 
-  it("renders sign in and sign up buttons when not logged in", () => {
-    render(
-      <IsLogedInContext.Provider
-        value={[false] as unknown as IsLoginContextType}
-      >
-        <MemoryRouter>
-          <Welcome />
-        </MemoryRouter>
-      </IsLogedInContext.Provider>,
-    );
+    it('renders the play button in the audio player', () => {
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[false]}>
+                    <RequestContext.Provider value={mockRequestContextValue}>
+                        <Welcome />
+                    </RequestContext.Provider>
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
 
-    expect(screen.getByText("welcome.welcome")).toBeInTheDocument();
-    expect(screen.getByText("form.signIn")).toBeInTheDocument();
-    expect(screen.getByText("form.signUp")).toBeInTheDocument();
-  });
+        expect(screen.getByTestId('play-pause-button')).toBeInTheDocument();
+    });
 
-  it("displays team members correctly", () => {
-    render(
-      <IsLogedInContext.Provider
-        value={[true] as unknown as IsLoginContextType}
-      >
-        <MemoryRouter>
-          <Welcome />
-        </MemoryRouter>
-      </IsLogedInContext.Provider>,
-    );
+    it('renders the team members section correctly', () => {
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[false]}>
+                    <RequestContext.Provider value={mockRequestContextValue}>
+                        <Welcome />
+                    </RequestContext.Provider>
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
 
-    expect(screen.getByText("welcome.maksimName")).toBeInTheDocument();
-    expect(screen.getByText("welcome.egorName")).toBeInTheDocument();
-    expect(screen.getByText("welcome.dmitryName")).toBeInTheDocument();
-  });
-  it("Should display swiper if window vieew is less than 768px", async () => {
-    render(
-      <IsLogedInContext.Provider
-        value={[true] as unknown as IsLoginContextType}
-      >
-        <MemoryRouter>
-          <Welcome />
-        </MemoryRouter>
-      </IsLogedInContext.Provider>,
-    );
-    window.innerWidth = 500;
-    window.innerHeight = 500;
-    fireEvent(window, new Event("resize"));
-    const swiper = screen.queryByTestId("swiper");
-    expect(swiper).toBeNull();
-  });
+        expect(screen.getByText(/Максим Гурбанов/i)).toBeInTheDocument();
+        expect(screen.getByText(/Егор Паневин/i)).toBeInTheDocument();
+        expect(screen.getByText(/Дмитрий Николаев/i)).toBeInTheDocument();
+    });
+
+    it('renders the GitHub profile buttons for team members', () => {
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[false]}>
+                    <RequestContext.Provider value={mockRequestContextValue}>
+                        <Welcome />
+                    </RequestContext.Provider>
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
+
+        const githubButtons = screen.getAllByText(/профиль на github/i);
+        expect(githubButtons.length).toBe(3);
+    });
+    it('switches between mobile and desktop view based on window width', () => {
+        Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 500 });
+
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[false]}>
+                    <RequestContext.Provider value={mockRequestContextValue}>
+                        <Welcome />
+                    </RequestContext.Provider>
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
+
+        expect(screen.getByTestId('swipper')).toBeInTheDocument();
+
+        act(() => {
+            Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1024 });
+            window.dispatchEvent(new Event('resize'));
+        });
+
+        expect(screen.getByTestId('swipper')).toBeInTheDocument();
+    });
 });

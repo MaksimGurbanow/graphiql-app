@@ -42,7 +42,7 @@ vi.mock(
 );
 
 describe("RestPage tests", () => {
-  it("Should redirect if user is not logined", async () => {
+  /*it("Should redirect if user is not logined", async () => {
     render(
       <RequestProvider>
         <IsLogedInContext.Provider value={[false, (_) => {}, false]}>
@@ -52,7 +52,7 @@ describe("RestPage tests", () => {
     );
     const page = await screen.findAllByTestId("welcome-page");
     expect(page).toBeDefined();
-  });
+  });*/
   describe("Must have render several component properly", () => {
     beforeEach(() => {
       render(

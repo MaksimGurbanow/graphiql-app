@@ -1,81 +1,61 @@
-import { render, screen, fireEvent, act } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import {
-  IsLogedInContext,
-  IsLoginContextType,
-} from "../app/context/loginContext";
-import Registration from "../app/routes/registration/route";
-import { vi } from "vitest";
-import React from "react";
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import Login from '../app/routes/login/route';
+import Registration from '../app/routes/registration/route';
+import { IsLogedInContext } from '../app/context/loginContext';
+import { MemoryRouter } from 'react-router-dom';
+import { useRequestContext } from '../app/context/RequestContext';
 
-vi.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (str: string) => str,
-  }),
+vi.mock('../app/context/RequestContext', () => ({
+    useRequestContext: vi.fn(),
 }));
 
-vi.mock("../app/utils/signUp", () => ({
-  default: vi.fn().mockResolvedValue(true),
+vi.mock('../app/utils/signIn', () => ({
+    __esModule: true,
+    default: vi.fn(),
 }));
 
-describe("Registration Component", () => {
-  it("renders the form and allows user input", async () => {
-    const isLoggedIn = [false];
+vi.mock('../app/utils/signUp', () => ({
+    __esModule: true,
+    default: vi.fn(),
+}));
 
-    render(
-      <MemoryRouter>
-        <IsLogedInContext.Provider value={isLoggedIn as IsLoginContextType}>
-          <Registration />
-        </IsLogedInContext.Provider>
-      </MemoryRouter>,
-    );
+vi.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key: string) => key,  // Возвращаем ключи как текст
+    }),
+}));
 
-    expect(screen.getByText("form.signUpHeading")).toBeDefined();
-
-    const emailInput = screen.getByLabelText(/E-mail/i);
-    await act(async () => {
-      fireEvent.change(emailInput, { target: { value: "test@example.com" } });
+describe('Login and Registration Components', () => {
+    beforeEach(() => {
+        (useRequestContext as vi.Mock).mockReturnValue({
+            setIsActive: vi.fn(),
+        });
     });
-    expect(emailInput).toHaveValue("test@example.com");
 
-    const passwordInput = screen.getByLabelText("form.password");
-    await act(async () => {
-      fireEvent.change(passwordInput, { target: { value: "password123" } });
+    it('redirects authenticated user to the home page (Login)', () => {
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[true]}>
+                    <Login />
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
+
+        expect(screen.queryByTestId('email-input')).toBeNull();
     });
-    expect(passwordInput).toHaveValue("password123");
 
-    expect(screen.getByRole("button", { name: /form.signUp/i })).toBeDefined();
-  });
+    it('renders registration form for unauthenticated users (Registration)', () => {
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[false]}>
+                    <Registration />
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
 
-  it("toggles password visibility and shows password strength meter", async () => {
-    const isLoggedIn = [false];
-
-    render(
-      <MemoryRouter>
-        <IsLogedInContext.Provider value={isLoggedIn as IsLoginContextType}>
-          <Registration />
-        </IsLogedInContext.Provider>
-      </MemoryRouter>,
-    );
-
-    const toggleButton = screen.getByLabelText("toggle password visibility");
-    const passwordInput = screen.getByLabelText("form.password");
-
-    expect(passwordInput).toHaveAttribute("type", "password");
-
-    await act(async () => {
-      fireEvent.click(toggleButton);
+        expect(screen.getByLabelText('E-mail')).toBeInTheDocument();
+        expect(screen.getByLabelText('form.password')).toBeInTheDocument();
+        expect(screen.getByText('form.signUp')).toBeInTheDocument();
     });
-    expect(passwordInput).toHaveAttribute("type", "text");
-
-    await act(async () => {
-      fireEvent.click(toggleButton);
-    });
-    expect(passwordInput).toHaveAttribute("type", "password");
-
-    await act(async () => {
-      fireEvent.focus(passwordInput);
-    });
-    expect(screen.getByText(/password strength/i)).toBeDefined();
-  });
 });

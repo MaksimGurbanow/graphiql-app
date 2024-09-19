@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import { IsLogedInContext } from "../../context/loginContext";
 import styles from "./history.module.scss";
 import { useTranslation } from "react-i18next";
-import { useRequestContext } from "~/context/RequestContext";
+import { useRequestContext } from "../../context/RequestContext";
 
 const History = () => {
   const { setIsActive } = useRequestContext();

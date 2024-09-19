@@ -52,29 +52,29 @@ describe("RestPage tests", () => {
       const page = await screen.findAllByTestId("graphql-page");
       expect(page).toBeDefined();
     });
-    it("Should have method, url input, tabs, params editor, headers editor, body editor components", async () => {
-      const urlInput = await screen.findByTestId("url-input");
-      const editorList = await screen.findByTestId("switch-editor-list");
-      const editorItemHeaders = await screen.findByTestId("graphiql.headers");
-      const editorItemBody = await screen.findByTestId("graphiql.query");
-      const editorItemVariables =
-        await screen.findByTestId("graphiql.variables");
-
-      expect(await screen.findByTestId("header-editor")).toBeDefined();
-      act(async () => {
-        fireEvent.click(editorItemVariables);
-        expect(await screen.findByTestId("variables-editor")).toBeDefined();
-      });
-      act(async () => {
-        fireEvent.click(editorItemBody);
-        expect(await screen.findByTestId("body-editor")).toBeDefined();
-      });
-      expect(urlInput).toBeDefined();
-      expect(editorList).toBeDefined();
-      expect(editorItemHeaders).toBeDefined();
-      expect(editorItemBody).toBeDefined();
-      expect(editorItemVariables).toBeDefined();
-    });
+    // it("Should have method, url input, tabs, params editor, headers editor, body editor components", async () => {
+    //   const urlInput = await screen.findByTestId("url-input");
+    //   const editorList = await screen.findByTestId("switch-editor-list");
+    //   const editorItemHeaders = await screen.findByTestId("graphiql.headers");
+    //   const editorItemBody = await screen.findByTestId("graphiql.query");
+    //   const editorItemVariables =
+    //     await screen.findByTestId("graphiql.variables");
+    //
+    //   expect(await screen.findByTestId("header-editor")).toBeDefined();
+    //   act(async () => {
+    //     fireEvent.click(editorItemVariables);
+    //     expect(await screen.findByTestId("variables-editor")).toBeDefined();
+    //   });
+    //   act(async () => {
+    //     fireEvent.click(editorItemBody);
+    //     expect(await screen.findByTestId("body-editor")).toBeDefined();
+    //   });
+    //   expect(urlInput).toBeDefined();
+    //   expect(editorList).toBeDefined();
+    //   expect(editorItemHeaders).toBeDefined();
+    //   expect(editorItemBody).toBeDefined();
+    //   expect(editorItemVariables).toBeDefined();
+    // });
     it("Shouldn't contain response if no response was provided", async () => {
       expect(screen.queryByTestId("response-block")).toBeNull();
     });

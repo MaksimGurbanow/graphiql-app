@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import "./notFound/notFound.scss";
 import { useNavigate } from "@remix-run/react";
-import { useRequestContext } from "~/context/RequestContext";
+import { useRequestContext } from "../../app/context/RequestContext";
 
 export default function NotFoundPage() {
   const navigate = useNavigate();

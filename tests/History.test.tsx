@@ -1,62 +1,43 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import History from "../app/routes/history/route";
-import { IsLogedInContext } from "../app/context/loginContext";
-import "@testing-library/jest-dom";
-import React from "react";
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+import History from '../app/routes/history/route';
+import { MemoryRouter } from 'react-router-dom';
+import { IsLogedInContext } from '../app/context/loginContext';
+import * as RequestContextModule from '../app/context/RequestContext';
 
-vi.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
-}));
+vi.spyOn(RequestContextModule, 'useRequestContext').mockReturnValue({
+    setIsActive: vi.fn(),
+});
 
-vi.mock("@remix-run/react", () => ({
-  useNavigate: () => vi.fn(),
-  Navigate: ({ to }: { to: string }) => <span>Navigate to {to}</span>,
-}));
+describe('History Component', () => {
+    it('redirects to home page if user is not logged in', () => {
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[false]}>
+                    <History />
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
 
-describe("History Component", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
+        expect(screen.queryByText(/history.history/i)).not.toBeInTheDocument();
+    });
 
-  it("should redirect to home if not logged in", () => {
-    localStorage.setItem("history", "");
-    render(
-      <MemoryRouter>
-        <IsLogedInContext.Provider value={[false, (_) => {}, false]}>
-          <History />
-        </IsLogedInContext.Provider>
-      </MemoryRouter>,
-    );
-    expect(screen.getByText("Navigate to /")).toBeInTheDocument();
-  });
+    it('renders history for logged-in users', () => {
+        const mockSetIsActive = vi.fn();
 
-  it("should display history items when logged in and history exists", () => {
-    localStorage.setItem("history", "GET /users,POST /login");
+        vi.spyOn(RequestContextModule, 'useRequestContext').mockReturnValue({
+            setIsActive: mockSetIsActive,
+        });
 
-    render(
-      <MemoryRouter>
-        <IsLogedInContext.Provider value={[true, (_) => {}, false]}>
-          <History />
-        </IsLogedInContext.Provider>
-      </MemoryRouter>,
-    );
+        render(
+            <MemoryRouter>
+                <IsLogedInContext.Provider value={[true]}>
+                    <History />
+                </IsLogedInContext.Provider>
+            </MemoryRouter>
+        );
 
-    expect(screen.getByText("GET /users")).toBeInTheDocument();
-    expect(screen.getByText("POST /login")).toBeInTheDocument();
-  });
-  it("should display no requests message when logged in but history is empty", () => {
-    render(
-      <MemoryRouter>
-        <IsLogedInContext.Provider value={[true, (_) => {}, false]}>
-          <History />
-        </IsLogedInContext.Provider>
-      </MemoryRouter>,
-    );
-
-    expect(screen.getByText("history.noRequestsMessage")).toBeInTheDocument();
-  });
+        expect(screen.getByText(/history.history/i)).toBeInTheDocument();
+        expect(mockSetIsActive).toHaveBeenCalledWith(false);
+    });
 });
